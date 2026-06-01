@@ -3,15 +3,15 @@ import { useState } from 'react'
 const exploreCards = [
   {
     title: 'Truth',
-    text: 'Life lessons, books, perspective, and the courage to see things clearly.',
+    text: 'Honest reflection, beloved books, and the courage to see life clearly.',
   },
   {
     title: 'Love',
-    text: 'Connection, relationships, loneliness, kindness, and the beauty of a life lived with heart.',
+    text: 'Connection, kindness, courage, and wisdom for the heart.',
   },
   {
     title: 'Money',
-    text: 'Practical financial wisdom, lessons learned, and confidence for the future.',
+    text: 'Practical guidance, learned confidence, and steadier choices.',
   },
 ]
 
@@ -31,7 +31,7 @@ function App() {
           <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
           <span>
             <strong>TruthLoveMoney.com</strong>
-            <small>The Lyon Den with Marguerite Lyon</small>
+            <small>Stories • Wisdom • Life Lessons</small>
           </span>
         </a>
         <nav className="site-nav" aria-label="Primary navigation">
@@ -50,9 +50,9 @@ function App() {
           <p className="truth-line">Truth • Love • Money</p>
           <p className="tagline">Never Stop Learning</p>
           <p className="hero-intro">
-            Life keeps teaching us. At seventy-six, Marguerite is still learning,
-            still reading, still asking questions, and still building a life filled
-            with purpose, love, and wisdom.
+            A warm, reflective home for stories, wisdom, and life lessons from
+            The Lyon Den. Pull up a chair for thoughtful conversations about
+            books, relationships, practical money wisdom, and the art of staying curious.
           </p>
           <div className="hero-actions" aria-label="Primary actions">
             <a className="button button-primary" href="#preview">
@@ -66,8 +66,8 @@ function App() {
 
         <figure className="hero-media">
           <img
-            src="/assets/hero-main.png"
-            alt="Marguerite Lyon sitting beside a peaceful creek with books, flowers, and The Lyon Den welcome message"
+            src="/assets/hero.png"
+            alt="The Lyon Den hero artwork with a creek, books, flowers, and the Truth Love Money brand message"
           />
         </figure>
       </section>
@@ -88,7 +88,7 @@ function App() {
           <span className="card-mark" aria-hidden="true">V</span>
           <div>
             <h2>The Story Vault</h2>
-            <p>A growing collection of stories, memories, and ideas that become future videos.</p>
+            <p>Stories, memories, favorite quotes, and ideas that become future videos.</p>
           </div>
         </article>
       </section>
@@ -97,16 +97,16 @@ function App() {
         <article className="about-card">
           <div className="about-portrait">
             <img
-              src="/assets/avatar-realistic.jpg"
-              alt="Realistic illustrated portrait of Marguerite Lyon with silver hair and glasses"
+              src="/assets/portrait.png"
+              alt="Illustrated portrait of Marguerite with silver hair, glasses, and a warm scarf"
             />
           </div>
           <div className="about-copy">
             <p className="eyebrow">About Marguerite</p>
             <h2 id="about-title">Warm wisdom for the chapters we are still writing.</h2>
             <p>
-              Marguerite Lyon shares lessons from literature, life, love, personal growth,
-              and financial wisdom gathered over decades of experience.
+              Marguerite shares lessons from literature, life, love, personal growth,
+              and financial wisdom gathered through lived experience.
             </p>
             <p>
               Her voice is reflective rather than guru-like: a gentle invitation to keep
@@ -115,8 +115,8 @@ function App() {
           </div>
           <img
             className="about-banner"
-            src="/assets/facebook-banner.jpg"
-            alt="The Lyon Den creek banner with Marguerite, books, flowers, and the Truth Love Money brand"
+            src="/assets/banner.png"
+            alt="The Lyon Den channel banner with creekside books, flowers, and the Truth Love Money brand"
           />
         </article>
       </section>
@@ -141,8 +141,8 @@ function App() {
 
       <section className="vault" id="vault" aria-labelledby="vault-title">
         <img
-          src="/assets/facebook-banner.jpg"
-          alt="The Lyon Den banner art with Marguerite, a creek, books, flowers, and handwritten story notes"
+          src="/assets/banner.png"
+          alt="The Lyon Den banner artwork with a creek, books, flowers, and handwritten story notes"
         />
         <div className="vault-card">
           <p className="eyebrow">Featured Archive</p>
@@ -163,7 +163,7 @@ function App() {
           <blockquote id="quote-title">
             "We don't stop learning because we grow old; we grow old because we stop learning."
           </blockquote>
-          <figcaption>Marguerite Lyon</figcaption>
+          <figcaption>Marguerite</figcaption>
         </figure>
       </section>
 
@@ -171,17 +171,17 @@ function App() {
         <div className="preview-copy">
           <p className="eyebrow">Coming Soon</p>
           <h2 id="preview-title">
-            At seventy-six years old, I've learned that life never stops teaching us.
+            Life never stops teaching us when we stay open to the lesson.
           </h2>
           <p>
-            The first preview introduces Marguerite's voice, The Lyon Den, and the heart
-            behind Truth, Love &amp; Money.
+            The first preview introduces The Lyon Den, the heart behind Truth Love Money,
+            and the quiet promise to keep learning together.
           </p>
         </div>
         <article className="preview-card" aria-label="First preview feature card">
           <img
-            src="/assets/avatar-realistic.jpg"
-            alt="Marguerite Lyon illustrated profile image for the first Lyon Den preview"
+            src="/assets/portrait.png"
+            alt="Illustrated portrait of Marguerite for the first Lyon Den preview"
           />
           <div>
             <span>First Preview</span>
@@ -223,11 +223,31 @@ function App() {
         </form>
       </section>
 
+      <section className="final-cta section-shell" aria-labelledby="final-cta-title">
+        <div className="final-cta-image">
+          <img
+            src="/assets/cta.png"
+            alt="Warm Lyon Den call-to-action artwork with books, flowers, creekside light, and the Truth Love Money brand"
+          />
+        </div>
+        <div className="final-cta-copy">
+          <p className="eyebrow">The Story Circle</p>
+          <h2 id="final-cta-title">Bring your question to the den.</h2>
+          <p>
+            Share a question, a story idea, or a theme you would love to hear explored
+            through Truth Love Money.
+          </p>
+          <a className="button button-primary" href="#join">
+            Share a Question or Story Idea
+          </a>
+        </div>
+      </section>
+
       <footer className="footer">
         <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
         <div>
           <p>TruthLoveMoney.com</p>
-          <p>The Lyon Den with Marguerite Lyon</p>
+          <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
         </div>
       </footer>

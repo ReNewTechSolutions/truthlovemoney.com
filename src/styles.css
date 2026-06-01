@@ -164,11 +164,11 @@ textarea {
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(20rem, 0.68fr) minmax(32rem, 1.32fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(19rem, 0.62fr) minmax(34rem, 1.38fr);
+  gap: clamp(1.5rem, 3.8vw, 4rem);
   align-items: center;
-  min-height: min(760px, calc(100vh - 6rem));
-  padding-block: clamp(1.4rem, 4vw, 3.75rem) clamp(1.2rem, 3vw, 2.5rem);
+  min-height: min(740px, calc(100vh - 5.75rem));
+  padding-block: clamp(1.25rem, 3.5vw, 3.25rem) clamp(1.4rem, 3vw, 2.75rem);
 }
 
 .hero-copy {
@@ -250,7 +250,7 @@ p {
 }
 
 .hero-intro {
-  max-width: 37rem;
+  max-width: 35rem;
   margin-bottom: 1.7rem;
   color: #263e3c;
   font-size: clamp(1rem, 1.25vw, 1.15rem);
@@ -354,7 +354,7 @@ p {
 }
 
 .about {
-  padding-block: clamp(4.5rem, 9vw, 8rem);
+  padding-block: clamp(5rem, 9vw, 8rem);
 }
 
 .about-card {
@@ -381,7 +381,7 @@ p {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 24%;
 }
 
 .about-copy {
@@ -391,10 +391,11 @@ p {
 .about-banner {
   grid-column: 1 / -1;
   width: 100%;
-  max-height: 18rem;
+  max-height: 22rem;
   border-radius: 0.85rem;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+  background: linear-gradient(135deg, rgba(255, 253, 248, 0.88), rgba(216, 231, 228, 0.5));
 }
 
 .eyebrow {
@@ -454,7 +455,7 @@ p {
 
 .vault {
   position: relative;
-  min-height: clamp(34rem, 62vw, 48rem);
+  min-height: clamp(34rem, 58vw, 46rem);
   display: grid;
   align-items: end;
   overflow: hidden;
@@ -497,7 +498,7 @@ p {
 }
 
 .quote-section {
-  padding-block: clamp(4.5rem, 9vw, 8rem);
+  padding-block: clamp(5rem, 9vw, 8rem);
 }
 
 .quote-card {
@@ -556,7 +557,7 @@ figcaption {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 24%;
 }
 
 .preview-card div {
@@ -586,6 +587,38 @@ figcaption {
 
 .join {
   border-block: 1px solid rgba(13, 67, 80, 0.1);
+}
+
+.final-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.65fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+}
+
+.final-cta-image {
+  overflow: hidden;
+  border: 1px solid rgba(191, 141, 50, 0.26);
+  border-radius: 1.15rem;
+  background: linear-gradient(135deg, rgba(255, 253, 248, 0.88), rgba(216, 231, 228, 0.5));
+  box-shadow: var(--shadow);
+}
+
+.final-cta-image img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  object-position: center;
+}
+
+.final-cta-copy {
+  border: 1px solid rgba(13, 67, 80, 0.12);
+  border-radius: 1rem;
+  padding: clamp(1.4rem, 4vw, 2.5rem);
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.9), rgba(240, 229, 208, 0.58));
+  box-shadow: 0 22px 62px rgba(8, 47, 59, 0.1);
 }
 
 .signup-form {
@@ -654,6 +687,7 @@ a:focus-visible {
   padding: 0.22rem;
   background: rgba(255, 253, 248, 0.92);
   object-fit: contain;
+  object-position: center;
   mix-blend-mode: multiply;
 }
 
@@ -702,7 +736,8 @@ a:focus-visible {
   .hero,
   .about-card,
   .preview,
-  .join {
+  .join,
+  .final-cta {
     grid-template-columns: 1fr;
   }
 
@@ -719,7 +754,7 @@ a:focus-visible {
   }
 
   .hero-copy {
-    max-width: 42rem;
+    max-width: 43rem;
     margin-inline: auto;
   }
 
@@ -732,12 +767,26 @@ a:focus-visible {
   }
 
   .hero-intro {
-    max-width: 36rem;
+    max-width: 38rem;
     margin-inline: auto;
   }
 
   .hero-actions {
     justify-content: center;
+  }
+
+  .hero-media {
+    width: min(100%, 780px);
+    margin-inline: auto;
+  }
+
+  .hero-media img {
+    aspect-ratio: 3 / 2;
+  }
+
+  .final-cta-copy {
+    order: -1;
+    text-align: center;
   }
 
   .quick-explore {
@@ -782,7 +831,7 @@ a:focus-visible {
   }
 
   .brand small {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
   }
 
   h1 {
@@ -804,6 +853,7 @@ a:focus-visible {
 
   .hero-intro {
     font-size: 0.98rem;
+    line-height: 1.62;
   }
 
   .hero-actions,
@@ -835,7 +885,7 @@ a:focus-visible {
   }
 
   .about-banner {
-    max-height: 12rem;
+    max-height: 14rem;
   }
 
   .vault {
