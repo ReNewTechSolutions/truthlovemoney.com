@@ -39,6 +39,7 @@ function App() {
           <a href="#explore">Explore</a>
           <a href="#vault">Story Vault</a>
           <a href="#join">Join</a>
+          <a className="nav-cta" href="#preview">Watch Preview</a>
         </nav>
       </header>
 
@@ -48,22 +49,48 @@ function App() {
           <h1 id="hero-title">The Lyon Den</h1>
           <p className="truth-line">Truth • Love • Money</p>
           <p className="tagline">Never Stop Learning</p>
+          <p className="hero-intro">
+            Life keeps teaching us. At seventy-six, Marguerite is still learning,
+            still reading, still asking questions, and still building a life filled
+            with purpose, love, and wisdom.
+          </p>
           <div className="hero-actions" aria-label="Primary actions">
             <a className="button button-primary" href="#preview">
-              Watch First Preview
+              Watch the First Preview
             </a>
             <a className="button button-secondary" href="#join">
-              Join The Story Circle
+              Join the Story Circle
             </a>
           </div>
         </div>
 
         <figure className="hero-media">
           <img
-            src="/assets/banner-main.jpg"
-            alt="The Lyon Den banner showing Marguerite beside a peaceful creek with books, flowers, and warm sunlight"
+            src="/assets/hero-main.png"
+            alt="Marguerite Lyon sitting beside a peaceful creek with books, flowers, and The Lyon Den welcome message"
           />
         </figure>
+      </section>
+
+      <section className="quick-explore section-shell" aria-label="Truth Love Money overview">
+        {exploreCards.map((card) => (
+          <article className="quick-card" key={card.title}>
+            <span className="card-mark" aria-hidden="true">
+              {card.title.slice(0, 1)}
+            </span>
+            <div>
+              <h2>{card.title}</h2>
+              <p>{card.text}</p>
+            </div>
+          </article>
+        ))}
+        <article className="quick-card vault-teaser">
+          <span className="card-mark" aria-hidden="true">V</span>
+          <div>
+            <h2>The Story Vault</h2>
+            <p>A growing collection of stories, memories, and ideas that become future videos.</p>
+          </div>
+        </article>
       </section>
 
       <section className="about section-shell" id="about" aria-labelledby="about-title">
@@ -89,7 +116,7 @@ function App() {
           <img
             className="about-banner"
             src="/assets/facebook-banner.jpg"
-            alt="The Lyon Den creek banner with books, flowers, and the Truth Love Money brand"
+            alt="The Lyon Den creek banner with Marguerite, books, flowers, and the Truth Love Money brand"
           />
         </article>
       </section>
@@ -115,7 +142,7 @@ function App() {
       <section className="vault" id="vault" aria-labelledby="vault-title">
         <img
           src="/assets/facebook-banner.jpg"
-          alt="The Lyon Den banner art with Marguerite, a creek, books, and handwritten story notes"
+          alt="The Lyon Den banner art with Marguerite, a creek, books, flowers, and handwritten story notes"
         />
         <div className="vault-card">
           <p className="eyebrow">Featured Archive</p>
@@ -154,7 +181,7 @@ function App() {
         <article className="preview-card" aria-label="First preview feature card">
           <img
             src="/assets/avatar-realistic.jpg"
-            alt="Marguerite Lyon avatar for the first Lyon Den preview"
+            alt="Marguerite Lyon illustrated profile image for the first Lyon Den preview"
           />
           <div>
             <span>First Preview</span>
