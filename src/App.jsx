@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { isSupabaseConfigured, supabase } from './lib/supabaseClient'
 
 const exploreCards = [
   {
@@ -21,7 +22,49 @@ const reflectionCards = [
   'Reflections for personal growth and quiet courage.',
 ]
 
+const entryTypes = [
+  { label: 'Story or Memory', value: 'story_memory', icon: '📝' },
+  { label: 'Book Recommendation', value: 'book_recommendation', icon: '📚' },
+  { label: 'Poetry', value: 'poetry', icon: '✍️' },
+  { label: 'Random Thought', value: 'random_thought', icon: '💭' },
+  { label: 'Relationship Lesson', value: 'relationship_lesson', icon: '❤️' },
+  { label: 'Money Lesson', value: 'money_lesson', icon: '💰' },
+  { label: 'Future Video Idea', value: 'future_video_idea', icon: '🎥' },
+  { label: 'Reminder For Felicia', value: 'reminder_for_felicia', icon: '⭐' },
+]
+
+const statusLabels = {
+  new: 'New',
+  used: 'Used',
+  planned: 'Planned',
+  published: 'Published',
+}
+
+function getTypeLabel(value) {
+  return entryTypes.find((entry) => entry.value === value)?.label || value
+}
+
 function App() {
+  const [path, setPath] = useState(window.location.pathname)
+
+  useEffect(() => {
+    const handleNavigation = () => setPath(window.location.pathname)
+    window.addEventListener('popstate', handleNavigation)
+    return () => window.removeEventListener('popstate', handleNavigation)
+  }, [])
+
+  if (path === '/vault') {
+    return <VaultApp admin={false} />
+  }
+
+  if (path === '/vault-admin') {
+    return <VaultApp admin />
+  }
+
+  return <HomePage />
+}
+
+function HomePage() {
   const [submitted, setSubmitted] = useState(false)
 
   function handleSubmit(event) {
@@ -63,8 +106,8 @@ function App() {
             <a className="button button-primary" href="#join">
               Join the Story Circle
             </a>
-            <a className="button button-secondary" href="#vault">
-              Visit the Story Vault
+            <a className="button button-secondary" href="/vault">
+              Open the Story Vault
             </a>
           </div>
         </div>
@@ -183,8 +226,8 @@ function App() {
             The Story Vault gathers memories, favorite books, quotes, poetry, reflections,
             and questions that become future Truth Love Money episodes.
           </p>
-          <a className="button button-primary" href="#join">
-            Share a Question or Story Idea
+          <a className="button button-primary" href="/vault">
+            Open the Private Vault
           </a>
         </div>
       </section>
@@ -251,6 +294,395 @@ function App() {
         </div>
       </footer>
     </main>
+  )
+}
+
+function VaultApp({ admin }) {
+  const [session, setSession] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false)
+      return undefined
+    }
+
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session)
+      setLoading(false)
+    })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  if (!isSupabaseConfigured) {
+    return <VaultConfigNotice />
+  }
+
+  if (loading) {
+    return <VaultShell><p className="vault-loading">Opening the Story Vault...</p></VaultShell>
+  }
+
+  if (!session) {
+    return <VaultLogin />
+  }
+
+  return admin ? <VaultAdmin /> : <VaultSubmissionPortal />
+}
+
+function VaultShell({ children }) {
+  return (
+    <main className="vault-shell">
+      <header className="vault-header">
+        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
+          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
+          <span>
+            <strong>Story Vault</strong>
+            <small>The Lyon Den • Private Journal</small>
+          </span>
+        </a>
+        <a className="vault-home-link" href="/">Home</a>
+      </header>
+      {children}
+    </main>
+  )
+}
+
+function VaultConfigNotice() {
+  return (
+    <VaultShell>
+      <section className="vault-panel narrow-panel">
+        <p className="eyebrow">Setup Needed</p>
+        <h1>Connect Supabase to open the Story Vault.</h1>
+        <p>
+          Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the deployment
+          environment. The table SQL is included in `supabase/schema.sql`.
+        </p>
+      </section>
+    </VaultShell>
+  )
+}
+
+function VaultLogin() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [message, setMessage] = useState('')
+  const [busy, setBusy] = useState(false)
+
+  async function handleLogin(event) {
+    event.preventDefault()
+    setBusy(true)
+    setMessage('')
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+    setBusy(false)
+    if (error) {
+      setMessage('Please check the email and password, then try again.')
+    }
+  }
+
+  return (
+    <VaultShell>
+      <section className="vault-panel login-panel" aria-labelledby="vault-login-title">
+        <p className="eyebrow">Private Login</p>
+        <h1 id="vault-login-title">Welcome to the Story Vault</h1>
+        <p>Sign in to add stories, poems, lessons, reminders, and future video ideas.</p>
+        <form className="vault-form" onSubmit={handleLogin}>
+          <label>
+            Email
+            <input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              autoComplete="email"
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              autoComplete="current-password"
+              required
+            />
+          </label>
+          <button className="button button-primary large-action" type="submit" disabled={busy}>
+            {busy ? 'Opening...' : 'Open the Vault'}
+          </button>
+          {message && <p className="form-message error-message">{message}</p>}
+        </form>
+      </section>
+    </VaultShell>
+  )
+}
+
+function VaultSubmissionPortal() {
+  const [selectedType, setSelectedType] = useState(null)
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [message, setMessage] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [draftSavedAt, setDraftSavedAt] = useState('')
+
+  const draftKey = selectedType ? `tlm-vault-draft-${selectedType.value}` : null
+
+  useEffect(() => {
+    if (!draftKey) return
+    const savedDraft = window.localStorage.getItem(draftKey)
+    if (!savedDraft) {
+      setTitle('')
+      setContent('')
+      return
+    }
+
+    try {
+      const parsed = JSON.parse(savedDraft)
+      setTitle(parsed.title || '')
+      setContent(parsed.content || '')
+    } catch {
+      window.localStorage.removeItem(draftKey)
+    }
+  }, [draftKey])
+
+  useEffect(() => {
+    if (!draftKey) return undefined
+
+    const saveDraft = () => {
+      window.localStorage.setItem(draftKey, JSON.stringify({ title, content }))
+      setDraftSavedAt(new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }))
+    }
+
+    const interval = window.setInterval(saveDraft, 30000)
+    return () => window.clearInterval(interval)
+  }, [content, draftKey, title])
+
+  function chooseType(entryType) {
+    setMessage('')
+    setSelectedType(entryType)
+  }
+
+  function clearForm() {
+    setTitle('')
+    setContent('')
+    setMessage('')
+    if (draftKey) window.localStorage.removeItem(draftKey)
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    if (!selectedType) return
+
+    setBusy(true)
+    setMessage('')
+
+    const { error } = await supabase.from('vault_entries').insert({
+      entry_type: selectedType.value,
+      title,
+      content,
+    })
+
+    setBusy(false)
+    if (error) {
+      setMessage('Something did not save. Please try again.')
+      return
+    }
+
+    if (draftKey) window.localStorage.removeItem(draftKey)
+    setTitle('')
+    setContent('')
+    setSelectedType(null)
+    setMessage('Your story has been saved to the Story Vault.')
+  }
+
+  return (
+    <VaultShell>
+      <section className="vault-welcome" aria-labelledby="vault-title">
+        <p className="eyebrow">Welcome Back, Marguerite</p>
+        <h1 id="vault-title">What would you like to add today?</h1>
+        {message && <p className="form-message success-message">{message}</p>}
+      </section>
+
+      {!selectedType && (
+        <section className="entry-type-grid" aria-label="Story Vault entry types">
+          {entryTypes.map((entryType) => (
+            <button
+              className="entry-type-card"
+              type="button"
+              key={entryType.value}
+              onClick={() => chooseType(entryType)}
+            >
+              <span aria-hidden="true">{entryType.icon}</span>
+              {entryType.label}
+            </button>
+          ))}
+        </section>
+      )}
+
+      {selectedType && (
+        <section className="vault-panel" aria-labelledby="entry-form-title">
+          <button className="back-button" type="button" onClick={() => setSelectedType(null)}>
+            Back to choices
+          </button>
+          <p className="eyebrow">{selectedType.icon} {selectedType.label}</p>
+          <h2 id="entry-form-title">Add this to the Story Vault</h2>
+          <form className="vault-form" onSubmit={handleSubmit}>
+            <label>
+              Title
+              <input
+                type="text"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                required
+              />
+            </label>
+            <label>
+              Details
+              <textarea
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
+                rows="8"
+                required
+              />
+            </label>
+            <div className="upload-placeholders" aria-label="Future enhancements">
+              <span>Voice note upload coming later</span>
+              <span>Photo upload coming later</span>
+            </div>
+            {draftSavedAt && <p className="draft-note">Draft auto-saved at {draftSavedAt}</p>}
+            {message && <p className="form-message error-message">{message}</p>}
+            <div className="form-actions">
+              <button className="button button-secondary" type="button" onClick={clearForm}>
+                Clear
+              </button>
+              <button className="button button-primary large-action" type="submit" disabled={busy}>
+                {busy ? 'Saving...' : 'Save to the Story Vault'}
+              </button>
+            </div>
+          </form>
+        </section>
+      )}
+    </VaultShell>
+  )
+}
+
+function VaultAdmin() {
+  const [entries, setEntries] = useState([])
+  const [entryType, setEntryType] = useState('all')
+  const [date, setDate] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    loadEntries()
+  }, [])
+
+  async function loadEntries() {
+    setLoading(true)
+    const { data, error } = await supabase
+      .from('vault_entries')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    setLoading(false)
+    if (error) {
+      setMessage('Could not load the Story Vault entries.')
+      return
+    }
+    setEntries(data || [])
+  }
+
+  async function updateStatus(id, status) {
+    setMessage('')
+    const { error } = await supabase.from('vault_entries').update({ status }).eq('id', id)
+
+    if (error) {
+      setMessage('That status did not update. Please try again.')
+      return
+    }
+
+    setEntries((currentEntries) =>
+      currentEntries.map((entry) => (entry.id === id ? { ...entry, status } : entry)),
+    )
+  }
+
+  const filteredEntries = useMemo(() => {
+    return entries.filter((entry) => {
+      const matchesType = entryType === 'all' || entry.entry_type === entryType
+      const matchesDate = !date || entry.created_at.slice(0, 10) === date
+      return matchesType && matchesDate
+    })
+  }, [date, entries, entryType])
+
+  return (
+    <VaultShell>
+      <section className="vault-welcome" aria-labelledby="admin-title">
+        <p className="eyebrow">Story Vault Admin</p>
+        <h1 id="admin-title">Review the latest submissions.</h1>
+      </section>
+
+      <section className="admin-filters" aria-label="Filter vault entries">
+        <label>
+          Entry type
+          <select value={entryType} onChange={(event) => setEntryType(event.target.value)}>
+            <option value="all">All types</option>
+            {entryTypes.map((type) => (
+              <option value={type.value} key={type.value}>
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Date
+          <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
+        </label>
+        <button className="button button-secondary" type="button" onClick={loadEntries}>
+          Refresh
+        </button>
+      </section>
+
+      {message && <p className="form-message error-message">{message}</p>}
+      {loading && <p className="vault-loading">Loading entries...</p>}
+
+      <section className="entry-list" aria-label="Vault submissions">
+        {!loading && filteredEntries.length === 0 && (
+          <article className="vault-entry-card">
+            <p>No entries match those filters yet.</p>
+          </article>
+        )}
+        {filteredEntries.map((entry) => (
+          <article className="vault-entry-card" key={entry.id}>
+            <div className="entry-meta">
+              <span>{getTypeLabel(entry.entry_type)}</span>
+              <span>{new Date(entry.created_at).toLocaleDateString()}</span>
+              <span>{statusLabels[entry.status] || entry.status}</span>
+            </div>
+            <h2>{entry.title}</h2>
+            <p>{entry.content}</p>
+            <div className="status-actions">
+              <button type="button" onClick={() => updateStatus(entry.id, 'used')}>
+                Mark as Used
+              </button>
+              <button type="button" onClick={() => updateStatus(entry.id, 'planned')}>
+                Mark as Planned
+              </button>
+              <button type="button" onClick={() => updateStatus(entry.id, 'published')}>
+                Mark as Published
+              </button>
+            </div>
+          </article>
+        ))}
+      </section>
+    </VaultShell>
   )
 }
 
