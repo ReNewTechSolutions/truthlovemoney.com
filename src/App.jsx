@@ -40,6 +40,22 @@ const statusLabels = {
   published: 'Published',
 }
 
+const vaultUserEmail = 'cmargu@yahoo.com'
+const adminEmail = 'frj816@gmail.com'
+const allowedEmails = [vaultUserEmail, adminEmail]
+
+function normalizeEmail(email = '') {
+  return email.trim().toLowerCase()
+}
+
+function isAllowedEmail(email) {
+  return allowedEmails.includes(normalizeEmail(email))
+}
+
+function isAdminEmail(email) {
+  return normalizeEmail(email) === adminEmail
+}
+
 function getTypeLabel(value) {
   return entryTypes.find((entry) => entry.value === value)?.label || value
 }
@@ -90,7 +106,6 @@ function HomePage() {
           <a href="#explore">Explore</a>
           <a href="#lessons">Lessons</a>
           <a href="#vault">Story Vault</a>
-          <a href="/vault-admin">Admin</a>
           <a className="nav-cta" href="/vault">Enter Vault</a>
         </nav>
       </header>
@@ -233,9 +248,6 @@ function HomePage() {
             <a className="button button-primary" href="/vault">
               Enter Story Vault
             </a>
-            <a className="button button-secondary" href="/vault-admin">
-              Open Vault Admin
-            </a>
           </div>
         </div>
       </section>
@@ -337,17 +349,44 @@ function VaultApp({ admin }) {
   }
 
   if (loading) {
-    return <VaultShell><p className="vault-loading">Opening the Story Vault...</p></VaultShell>
+    return (
+      <VaultShell>
+        <p className="vault-loading">Opening the Story Vault...</p>
+      </VaultShell>
+    )
   }
 
   if (!session) {
-    return <VaultLogin />
+    return <VaultLogin admin={admin} />
   }
 
-  return admin ? <VaultAdmin /> : <VaultSubmissionPortal />
+  const userEmail = normalizeEmail(session.user?.email)
+
+  if (!isAllowedEmail(userEmail)) {
+    return (
+      <RestrictedVaultMessage
+        session={session}
+        message="This private vault is currently reserved for Marguerite."
+      />
+    )
+  }
+
+  if (admin && !isAdminEmail(userEmail)) {
+    return <RestrictedVaultMessage session={session} message="This area is reserved for Felicia." />
+  }
+
+  return admin ? <VaultAdmin session={session} /> : <VaultSubmissionPortal session={session} />
 }
 
-function VaultShell({ children }) {
+function VaultShell({ children, session }) {
+  const showAdminLink = isAdminEmail(session?.user?.email)
+
+  async function handleSignOut() {
+    if (!supabase) return
+    await supabase.auth.signOut()
+    window.location.href = '/vault'
+  }
+
   return (
     <main className="vault-shell">
       <header className="vault-header">
@@ -358,7 +397,19 @@ function VaultShell({ children }) {
             <small>The Lyon Den • Private Journal</small>
           </span>
         </a>
-        <a className="vault-home-link" href="/">Home</a>
+        <div className="vault-header-actions">
+          <a className="vault-home-link" href="/">Home</a>
+          {showAdminLink && (
+            <a className="vault-home-link" href="/vault-admin">
+              Admin
+            </a>
+          )}
+          {session && (
+            <button className="vault-home-link sign-out-button" type="button" onClick={handleSignOut}>
+              Sign Out
+            </button>
+          )}
+        </div>
       </header>
       {children}
     </main>
@@ -381,31 +432,61 @@ function VaultConfigNotice() {
   )
 }
 
-function VaultLogin() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+function RestrictedVaultMessage({ message, session }) {
+  return (
+    <VaultShell session={session}>
+      <section className="vault-panel narrow-panel restricted-panel" aria-labelledby="restricted-title">
+        <p className="eyebrow">Private Area</p>
+        <h1 id="restricted-title">{message}</h1>
+      </section>
+    </VaultShell>
+  )
+}
+
+function VaultLogin({ admin }) {
+  const [email, setEmail] = useState(admin ? adminEmail : vaultUserEmail)
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
 
   async function handleLogin(event) {
     event.preventDefault()
+    const cleanEmail = normalizeEmail(email)
+
+    if (!isAllowedEmail(cleanEmail)) {
+      setMessage('This private vault is currently reserved for Marguerite.')
+      return
+    }
+
     setBusy(true)
     setMessage('')
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const redirectPath = admin ? '/vault-admin' : '/vault'
+    const { error } = await supabase.auth.signInWithOtp({
+      email: cleanEmail,
+      options: {
+        emailRedirectTo: `${window.location.origin}${redirectPath}`,
+      },
+    })
 
     setBusy(false)
     if (error) {
-      setMessage('Please check the email and password, then try again.')
+      setMessage('The secure login link did not send. Please try again in a moment.')
+      return
     }
+
+    setMessage(
+      'Check your email for the secure login link. It may take a minute. If you don’t see it, check spam or junk.',
+    )
   }
 
   return (
     <VaultShell>
       <section className="vault-panel login-panel" aria-labelledby="vault-login-title">
         <p className="eyebrow">Private Login</p>
-        <h1 id="vault-login-title">Welcome to the Story Vault</h1>
-        <p>Sign in to add stories, poems, lessons, reminders, and future video ideas.</p>
+        <h1 id="vault-login-title">
+          {admin ? 'Story Vault Admin Login' : 'Welcome to The Lyon Den Story Vault'}
+        </h1>
+        <p>Enter your email and we’ll send you a secure login link.</p>
         <form className="vault-form" onSubmit={handleLogin}>
           <label>
             Email
@@ -417,27 +498,26 @@ function VaultLogin() {
               required
             />
           </label>
-          <label>
-            Password
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              autoComplete="current-password"
-              required
-            />
-          </label>
           <button className="button button-primary large-action" type="submit" disabled={busy}>
-            {busy ? 'Opening...' : 'Open the Vault'}
+            {busy ? 'Sending...' : 'Send My Login Link'}
           </button>
-          {message && <p className="form-message error-message">{message}</p>}
+          {message && (
+            <p
+              className={`form-message ${
+                message.startsWith('Check your email') ? 'success-message' : 'error-message'
+              }`}
+              role="status"
+            >
+              {message}
+            </p>
+          )}
         </form>
       </section>
     </VaultShell>
   )
 }
 
-function VaultSubmissionPortal() {
+function VaultSubmissionPortal({ session }) {
   const [selectedType, setSelectedType] = useState(null)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -500,6 +580,7 @@ function VaultSubmissionPortal() {
       entry_type: selectedType.value,
       title,
       content,
+      status: 'new',
     })
 
     setBusy(false)
@@ -516,7 +597,7 @@ function VaultSubmissionPortal() {
   }
 
   return (
-    <VaultShell>
+    <VaultShell session={session}>
       <section className="vault-welcome" aria-labelledby="vault-title">
         <p className="eyebrow">Welcome Back, Marguerite</p>
         <h1 id="vault-title">What would you like to add today?</h1>
@@ -586,12 +667,14 @@ function VaultSubmissionPortal() {
   )
 }
 
-function VaultAdmin() {
+function VaultAdmin({ session }) {
   const [entries, setEntries] = useState([])
   const [entryType, setEntryType] = useState('all')
+  const [status, setStatus] = useState('all')
   const [date, setDate] = useState('')
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
+  const [selectedEntry, setSelectedEntry] = useState(null)
 
   useEffect(() => {
     loadEntries()
@@ -624,18 +707,20 @@ function VaultAdmin() {
     setEntries((currentEntries) =>
       currentEntries.map((entry) => (entry.id === id ? { ...entry, status } : entry)),
     )
+    setSelectedEntry((entry) => (entry?.id === id ? { ...entry, status } : entry))
   }
 
   const filteredEntries = useMemo(() => {
     return entries.filter((entry) => {
       const matchesType = entryType === 'all' || entry.entry_type === entryType
+      const matchesStatus = status === 'all' || entry.status === status
       const matchesDate = !date || entry.created_at.slice(0, 10) === date
-      return matchesType && matchesDate
+      return matchesType && matchesStatus && matchesDate
     })
-  }, [date, entries, entryType])
+  }, [date, entries, entryType, status])
 
   return (
-    <VaultShell>
+    <VaultShell session={session}>
       <section className="vault-welcome" aria-labelledby="admin-title">
         <p className="eyebrow">Story Vault Admin</p>
         <h1 id="admin-title">Review the latest submissions.</h1>
@@ -654,6 +739,17 @@ function VaultAdmin() {
           </select>
         </label>
         <label>
+          Status
+          <select value={status} onChange={(event) => setStatus(event.target.value)}>
+            <option value="all">All statuses</option>
+            {Object.entries(statusLabels).map(([value, label]) => (
+              <option value={value} key={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
           Date
           <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
         </label>
@@ -664,6 +760,32 @@ function VaultAdmin() {
 
       {message && <p className="form-message error-message">{message}</p>}
       {loading && <p className="vault-loading">Loading entries...</p>}
+
+      {selectedEntry && (
+        <section className="vault-panel admin-detail-card" aria-labelledby="entry-detail-title">
+          <button className="back-button" type="button" onClick={() => setSelectedEntry(null)}>
+            Close entry
+          </button>
+          <div className="entry-meta">
+            <span>{getTypeLabel(selectedEntry.entry_type)}</span>
+            <span>{new Date(selectedEntry.created_at).toLocaleDateString()}</span>
+            <span>{statusLabels[selectedEntry.status] || selectedEntry.status}</span>
+          </div>
+          <h2 id="entry-detail-title">{selectedEntry.title}</h2>
+          <p>{selectedEntry.content}</p>
+          <div className="status-actions">
+            <button type="button" onClick={() => updateStatus(selectedEntry.id, 'planned')}>
+              Mark as Planned
+            </button>
+            <button type="button" onClick={() => updateStatus(selectedEntry.id, 'used')}>
+              Mark as Used
+            </button>
+            <button type="button" onClick={() => updateStatus(selectedEntry.id, 'published')}>
+              Mark as Published
+            </button>
+          </div>
+        </section>
+      )}
 
       <section className="entry-list" aria-label="Vault submissions">
         {!loading && filteredEntries.length === 0 && (
@@ -680,12 +802,15 @@ function VaultAdmin() {
             </div>
             <h2>{entry.title}</h2>
             <p>{entry.content}</p>
+            <button className="read-entry-button" type="button" onClick={() => setSelectedEntry(entry)}>
+              Read Full Entry
+            </button>
             <div className="status-actions">
-              <button type="button" onClick={() => updateStatus(entry.id, 'used')}>
-                Mark as Used
-              </button>
               <button type="button" onClick={() => updateStatus(entry.id, 'planned')}>
                 Mark as Planned
+              </button>
+              <button type="button" onClick={() => updateStatus(entry.id, 'used')}>
+                Mark as Used
               </button>
               <button type="button" onClick={() => updateStatus(entry.id, 'published')}>
                 Mark as Published

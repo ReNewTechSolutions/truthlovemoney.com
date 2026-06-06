@@ -578,6 +578,23 @@ a:focus-visible {
   font-weight: 850;
 }
 
+.vault-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
+}
+
+.sign-out-button,
+.read-entry-button {
+  cursor: pointer;
+}
+
+.sign-out-button {
+  color: var(--brown);
+}
+
 .vault-welcome,
 .vault-panel,
 .entry-type-grid,
@@ -613,6 +630,11 @@ a:focus-visible {
 .narrow-panel,
 .login-panel {
   max-width: 42rem;
+}
+
+.restricted-panel h1 {
+  max-width: 14ch;
+  font-size: clamp(2.15rem, 9vw, 4rem);
 }
 
 .login-panel {
@@ -769,6 +791,26 @@ a:focus-visible {
   font-size: clamp(1.65rem, 7vw, 2.35rem);
 }
 
+.vault-entry-card > p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.admin-detail-card {
+  margin-top: 1.5rem;
+}
+
+.admin-detail-card h2 {
+  font-size: clamp(2rem, 8vw, 3rem);
+}
+
+.admin-detail-card p {
+  color: #334845;
+  white-space: pre-wrap;
+}
+
 .entry-meta {
   display: flex;
   flex-wrap: wrap;
@@ -782,6 +824,16 @@ a:focus-visible {
   background: rgba(216, 231, 228, 0.6);
   color: var(--creek-deep);
   font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.read-entry-button {
+  min-height: 3rem;
+  border: 1px solid rgba(13, 67, 80, 0.18);
+  border-radius: 999px;
+  padding-inline: 1rem;
+  background: rgba(216, 231, 228, 0.52);
+  color: var(--creek-deep);
   font-weight: 850;
 }
 
@@ -979,7 +1031,7 @@ a:focus-visible {
   }
 
   .admin-filters {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto;
   }
 
   .status-actions {
