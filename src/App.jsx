@@ -53,11 +53,13 @@ function App() {
     return () => window.removeEventListener('popstate', handleNavigation)
   }, [])
 
-  if (path === '/vault') {
+  const normalizedPath = path.replace(/\/+$/, '') || '/'
+
+  if (normalizedPath === '/vault') {
     return <VaultApp admin={false} />
   }
 
-  if (path === '/vault-admin') {
+  if (normalizedPath === '/vault-admin') {
     return <VaultApp admin />
   }
 
@@ -88,7 +90,8 @@ function HomePage() {
           <a href="#explore">Explore</a>
           <a href="#lessons">Lessons</a>
           <a href="#vault">Story Vault</a>
-          <a className="nav-cta" href="#join">Join</a>
+          <a href="/vault-admin">Admin</a>
+          <a className="nav-cta" href="/vault">Enter Vault</a>
         </nav>
       </header>
 
@@ -107,7 +110,7 @@ function HomePage() {
               Join the Story Circle
             </a>
             <a className="button button-secondary" href="/vault">
-              Open the Story Vault
+              Enter Story Vault
             </a>
           </div>
         </div>
@@ -226,9 +229,14 @@ function HomePage() {
             The Story Vault gathers memories, favorite books, quotes, poetry, reflections,
             and questions that become future Truth Love Money episodes.
           </p>
-          <a className="button button-primary" href="/vault">
-            Open the Private Vault
-          </a>
+          <div className="vault-actions">
+            <a className="button button-primary" href="/vault">
+              Enter Story Vault
+            </a>
+            <a className="button button-secondary" href="/vault-admin">
+              Open Vault Admin
+            </a>
+          </div>
         </div>
       </section>
 
@@ -281,6 +289,9 @@ function HomePage() {
           </p>
           <a className="button button-primary" href="#join">
             Share a Question or Story Idea
+          </a>
+          <a className="text-link vault-admin-link" href="/vault">
+            Enter Story Vault
           </a>
         </div>
       </section>
@@ -362,7 +373,8 @@ function VaultConfigNotice() {
         <h1>Connect Supabase to open the Story Vault.</h1>
         <p>
           Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the deployment
-          environment. The table SQL is included in `supabase/schema.sql`.
+          environment. Those are the exact Vercel variable names this site reads.
+          The table SQL is included in `supabase/schema.sql`.
         </p>
       </section>
     </VaultShell>

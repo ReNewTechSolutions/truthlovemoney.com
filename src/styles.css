@@ -460,6 +460,12 @@ p {
   color: #3e514e;
 }
 
+.vault-actions {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.1rem;
+}
+
 .join {
   border-block: 1px solid rgba(13, 67, 80, 0.1);
 }
@@ -509,6 +515,10 @@ a:focus-visible {
 
 .final-cta-copy {
   text-align: center;
+}
+
+.vault-admin-link {
+  margin-top: 1rem;
 }
 
 .footer {
@@ -853,6 +863,11 @@ a:focus-visible {
   .admin-filters,
   .status-actions {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vault-actions {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .admin-filters {
