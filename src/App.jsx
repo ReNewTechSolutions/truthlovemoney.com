@@ -40,9 +40,9 @@ const statusLabels = {
   published: 'Published',
 }
 
-const vaultUserEmail = 'cmargu@yahoo.com'
-const adminEmail = 'frj816@gmail.com'
-const allowedEmails = [vaultUserEmail, adminEmail]
+const VAULT_USER_EMAIL = 'cmargu@yahoo.com'
+const ADMIN_EMAIL = 'frj816@gmail.com'
+const allowedEmails = [VAULT_USER_EMAIL, ADMIN_EMAIL]
 const vaultNextStorageKey = 'tlm-story-vault-next'
 
 function normalizeEmail(email = '') {
@@ -54,15 +54,23 @@ function isAllowedEmail(email) {
 }
 
 function isAdminEmail(email) {
-  return normalizeEmail(email) === adminEmail
+  return normalizeEmail(email) === ADMIN_EMAIL
 }
 
 function isVaultUserEmail(email) {
-  return normalizeEmail(email) === vaultUserEmail
+  return normalizeEmail(email) === VAULT_USER_EMAIL
 }
 
 function canRequestMagicLink(email, admin) {
-  return admin ? isAdminEmail(email) : isVaultUserEmail(email)
+  return admin ? isAdminEmail(email) : isAllowedEmail(email)
+}
+
+function getLoginBlockMessage(email, admin) {
+  if (admin && isVaultUserEmail(email)) {
+    return 'This area is reserved for Felicia.'
+  }
+
+  return 'This private vault is currently reserved for Marguerite.'
 }
 
 function getSafeNextPath(nextPath, fallbackPath = '/vault') {
@@ -607,7 +615,7 @@ function RestrictedVaultMessage({ message, session }) {
 }
 
 function VaultLogin({ admin }) {
-  const [email, setEmail] = useState(admin ? adminEmail : vaultUserEmail)
+  const [email, setEmail] = useState(admin ? ADMIN_EMAIL : VAULT_USER_EMAIL)
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -616,9 +624,7 @@ function VaultLogin({ admin }) {
     const cleanEmail = normalizeEmail(email)
 
     if (!canRequestMagicLink(cleanEmail, admin)) {
-      setMessage(
-        admin ? 'This area is reserved for Felicia.' : 'This private vault is currently reserved for Marguerite.',
-      )
+      setMessage(getLoginBlockMessage(cleanEmail, admin))
       return
     }
 
