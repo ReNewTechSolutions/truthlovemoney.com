@@ -81,7 +81,7 @@ function getLoginErrorMessage(error) {
     /rate limit|too many|security purposes|wait|after/i.test(message)
 
   if (isRateLimited) {
-    return 'A login link was already sent. Please wait a minute, then try again.'
+    return 'A login link was already sent. Please wait a minute, then use the newest email link.'
   }
 
   return message
@@ -135,12 +135,6 @@ function clearIntendedVaultPath() {
     window.localStorage.removeItem(vaultNextStorageKey)
   } catch {
     // Storage may be unavailable.
-  }
-}
-
-function logAuthDebug(...args) {
-  if (import.meta.env.DEV) {
-    console.info('[Story Vault auth]', ...args)
   }
 }
 
@@ -528,74 +522,106 @@ function VaultConfigNotice() {
 function AuthCallback() {
   const [message, setMessage] = useState('Opening your Story Vault...')
   const [error, setError] = useState('')
+  const [debug, setDebug] = useState({
+    hasCode: 'checking',
+    nextPath: '/vault',
+    exchange: 'not started',
+    sessionExists: 'checking',
+  })
 
   useEffect(() => {
-    async function waitForSession() {
-      for (let attempt = 0; attempt < 5; attempt += 1) {
-        const { data, error: sessionError } = await supabase.auth.getSession()
-        if (sessionError) throw sessionError
-        if (data.session) return data.session
-        await new Promise((resolve) => window.setTimeout(resolve, 150))
-      }
-
-      return null
-    }
-
     async function handleCallback() {
       if (!isSupabaseConfigured) {
         setError('Connect Supabase to finish opening the Story Vault.')
+        setDebug((currentDebug) => ({
+          ...currentDebug,
+          exchange: 'skipped',
+          sessionExists: 'no',
+        }))
         return
       }
 
       const { currentUrl, hashParams } = getAuthRedirectDetails()
-      const requestedNext =
-        currentUrl.searchParams.get('next') || hashParams.get('next') || readIntendedVaultPath()
+      const requestedNext = currentUrl.searchParams.get('next')
       const nextPath = getSafeNextPath(requestedNext)
       const authError =
         currentUrl.searchParams.get('error_description') ||
         hashParams.get('error_description') ||
         currentUrl.searchParams.get('error') ||
         hashParams.get('error')
+      const code = currentUrl.searchParams.get('code')
 
-      try {
-        if (authError) {
-          throw new Error(authError)
+      setDebug({
+        hasCode: code ? 'yes' : 'no',
+        nextPath,
+        exchange: code ? 'pending' : 'not needed',
+        sessionExists: 'checking',
+      })
+
+      if (authError) {
+        setDebug((currentDebug) => ({
+          ...currentDebug,
+          exchange: 'failed',
+          sessionExists: 'no',
+        }))
+        setError(authError)
+        return
+      }
+
+      if (code) {
+        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
+
+        if (exchangeError) {
+          setDebug((currentDebug) => ({
+            ...currentDebug,
+            exchange: 'failed',
+            sessionExists: 'no',
+          }))
+          setError('That login link may have expired. Please request a new one.')
+          return
         }
 
-        const code = currentUrl.searchParams.get('code')
-        let activeSession = null
+        setDebug((currentDebug) => ({
+          ...currentDebug,
+          exchange: 'success',
+        }))
+      }
 
-        logAuthDebug('callback started', {
-          hasCode: Boolean(code),
-          requestedNext,
-          nextPath,
-        })
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
 
-        if (code) {
-          const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
+      if (sessionError) {
+        setDebug((currentDebug) => ({
+          ...currentDebug,
+          sessionExists: 'no',
+        }))
+        setError(sessionError.message)
+        return
+      }
 
-          if (exchangeError) {
-            activeSession = await waitForSession()
-            if (!activeSession) throw exchangeError
-          } else {
-            activeSession = data.session
-          }
-        } else {
-          activeSession = await waitForSession()
-        }
+      setDebug((currentDebug) => ({
+        ...currentDebug,
+        sessionExists: session ? 'yes' : 'no',
+      }))
 
-        if (!activeSession) {
-          throw new Error('No active Story Vault session found.')
-        }
-
+      if (session) {
         setMessage('You are signed in. Taking you to the Story Vault...')
         clearIntendedVaultPath()
-        window.history.replaceState({}, document.title, nextPath)
-        window.location.replace(nextPath)
-      } catch {
-        window.history.replaceState({}, document.title, '/auth/callback')
-        setError('That login link may have expired. Please request a new one.')
+        window.location.replace(nextPath || '/vault')
+        return
       }
+
+      const storedNext = readIntendedVaultPath()
+      if (!requestedNext && storedNext) {
+        setDebug((currentDebug) => ({
+          ...currentDebug,
+          nextPath: getSafeNextPath(storedNext),
+        }))
+      }
+
+      setMessage('No Story Vault session was found yet. Please use the newest email link.')
     }
 
     handleCallback()
@@ -607,6 +633,24 @@ function AuthCallback() {
         <p className="eyebrow">Secure Login</p>
         <h1 id="callback-title">Story Vault Login</h1>
         <p>{error || message}</p>
+        <dl className="callback-debug" aria-label="Story Vault login debug">
+          <div>
+            <dt>Has code?</dt>
+            <dd>{debug.hasCode}</dd>
+          </div>
+          <div>
+            <dt>Next path</dt>
+            <dd>{debug.nextPath}</dd>
+          </div>
+          <div>
+            <dt>Exchange</dt>
+            <dd>{debug.exchange}</dd>
+          </div>
+          <div>
+            <dt>Session exists?</dt>
+            <dd>{debug.sessionExists}</dd>
+          </div>
+        </dl>
         {error && (
           <a className="button button-primary large-action" href="/vault">
             Request a New Login Link
@@ -656,7 +700,11 @@ function VaultLogin({ admin }) {
 
     setBusy(false)
     if (error) {
-      console.error('Story Vault magic link error:', error)
+      console.error('Story Vault magic link error:', {
+        message: error.message,
+        name: error.name,
+        status: error.status || error.statusCode,
+      })
       setMessage(getLoginErrorMessage(error))
       return
     }
