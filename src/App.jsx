@@ -73,6 +73,20 @@ function getLoginBlockMessage(email, admin) {
   return 'This private vault is currently reserved for Marguerite.'
 }
 
+function getLoginErrorMessage(error) {
+  const message = error?.message || 'Supabase did not provide an error message.'
+  const status = error?.status || error?.statusCode
+  const isRateLimited =
+    status === 429 ||
+    /rate limit|too many|security purposes|wait|after/i.test(message)
+
+  if (isRateLimited) {
+    return 'A login link was already sent. Please wait a minute, then try again.'
+  }
+
+  return message
+}
+
 function getSafeNextPath(nextPath, fallbackPath = '/vault') {
   if (nextPath === '/') return '/'
   if (nextPath === '/vault-admin') return '/vault-admin'
@@ -642,7 +656,8 @@ function VaultLogin({ admin }) {
 
     setBusy(false)
     if (error) {
-      setMessage('The secure login link did not send. Please try again in a moment.')
+      console.error('Story Vault magic link error:', error)
+      setMessage(getLoginErrorMessage(error))
       return
     }
 
