@@ -43,6 +43,7 @@ const statusLabels = {
 const vaultUserEmail = 'cmargu@yahoo.com'
 const adminEmail = 'frj816@gmail.com'
 const allowedEmails = [vaultUserEmail, adminEmail]
+const vaultNextStorageKey = 'tlm-story-vault-next'
 
 function normalizeEmail(email = '') {
   return email.trim().toLowerCase()
@@ -56,8 +57,69 @@ function isAdminEmail(email) {
   return normalizeEmail(email) === adminEmail
 }
 
-function getSafeNextPath(nextPath) {
-  return nextPath === '/vault-admin' ? '/vault-admin' : '/vault'
+function isVaultUserEmail(email) {
+  return normalizeEmail(email) === vaultUserEmail
+}
+
+function canRequestMagicLink(email, admin) {
+  return admin ? isAdminEmail(email) : isVaultUserEmail(email)
+}
+
+function getSafeNextPath(nextPath, fallbackPath = '/vault') {
+  if (nextPath === '/') return '/'
+  if (nextPath === '/vault-admin') return '/vault-admin'
+  if (nextPath === '/vault') return '/vault'
+  if (fallbackPath === '/') return '/'
+  return fallbackPath === '/vault-admin' ? '/vault-admin' : '/vault'
+}
+
+function getAuthRedirectDetails() {
+  const currentUrl = new URL(window.location.href)
+  const hashParams = new URLSearchParams(currentUrl.hash.replace(/^#/, ''))
+
+  return {
+    currentUrl,
+    hashParams,
+    hasAuthParams: Boolean(
+      currentUrl.searchParams.get('code') ||
+        currentUrl.searchParams.get('error') ||
+        currentUrl.searchParams.get('error_description') ||
+        hashParams.get('access_token') ||
+        hashParams.get('refresh_token') ||
+        hashParams.get('error') ||
+        hashParams.get('error_description'),
+    ),
+  }
+}
+
+function saveIntendedVaultPath(path) {
+  try {
+    window.localStorage.setItem(vaultNextStorageKey, path)
+  } catch {
+    // Private browsing or storage limits should not block login.
+  }
+}
+
+function readIntendedVaultPath() {
+  try {
+    return window.localStorage.getItem(vaultNextStorageKey)
+  } catch {
+    return null
+  }
+}
+
+function clearIntendedVaultPath() {
+  try {
+    window.localStorage.removeItem(vaultNextStorageKey)
+  } catch {
+    // Storage may be unavailable.
+  }
+}
+
+function logAuthDebug(...args) {
+  if (import.meta.env.DEV) {
+    console.info('[Story Vault auth]', ...args)
+  }
 }
 
 function getTypeLabel(value) {
@@ -66,6 +128,7 @@ function getTypeLabel(value) {
 
 function App() {
   const [path, setPath] = useState(window.location.pathname)
+  const { hasAuthParams } = getAuthRedirectDetails()
 
   useEffect(() => {
     const handleNavigation = () => setPath(window.location.pathname)
@@ -83,7 +146,7 @@ function App() {
     return <VaultApp admin />
   }
 
-  if (normalizedPath === '/auth/callback') {
+  if (normalizedPath === '/auth/callback' || hasAuthParams) {
     return <AuthCallback />
   }
 
@@ -445,15 +508,27 @@ function AuthCallback() {
   const [error, setError] = useState('')
 
   useEffect(() => {
+    async function waitForSession() {
+      for (let attempt = 0; attempt < 5; attempt += 1) {
+        const { data, error: sessionError } = await supabase.auth.getSession()
+        if (sessionError) throw sessionError
+        if (data.session) return data.session
+        await new Promise((resolve) => window.setTimeout(resolve, 150))
+      }
+
+      return null
+    }
+
     async function handleCallback() {
       if (!isSupabaseConfigured) {
         setError('Connect Supabase to finish opening the Story Vault.')
         return
       }
 
-      const currentUrl = new URL(window.location.href)
-      const hashParams = new URLSearchParams(currentUrl.hash.replace(/^#/, ''))
-      const nextPath = getSafeNextPath(currentUrl.searchParams.get('next'))
+      const { currentUrl, hashParams } = getAuthRedirectDetails()
+      const requestedNext =
+        currentUrl.searchParams.get('next') || hashParams.get('next') || readIntendedVaultPath()
+      const nextPath = getSafeNextPath(requestedNext)
       const authError =
         currentUrl.searchParams.get('error_description') ||
         hashParams.get('error_description') ||
@@ -468,20 +543,23 @@ function AuthCallback() {
         const code = currentUrl.searchParams.get('code')
         let activeSession = null
 
+        logAuthDebug('callback started', {
+          hasCode: Boolean(code),
+          requestedNext,
+          nextPath,
+        })
+
         if (code) {
           const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
 
           if (exchangeError) {
-            const { data: existingSession } = await supabase.auth.getSession()
-            activeSession = existingSession.session
+            activeSession = await waitForSession()
             if (!activeSession) throw exchangeError
           } else {
             activeSession = data.session
           }
         } else {
-          const { data, error: sessionError } = await supabase.auth.getSession()
-          if (sessionError) throw sessionError
-          activeSession = data.session
+          activeSession = await waitForSession()
         }
 
         if (!activeSession) {
@@ -489,8 +567,9 @@ function AuthCallback() {
         }
 
         setMessage('You are signed in. Taking you to the Story Vault...')
+        clearIntendedVaultPath()
         window.history.replaceState({}, document.title, nextPath)
-        window.dispatchEvent(new PopStateEvent('popstate'))
+        window.location.replace(nextPath)
       } catch {
         window.history.replaceState({}, document.title, '/auth/callback')
         setError('That login link may have expired. Please request a new one.')
@@ -536,8 +615,10 @@ function VaultLogin({ admin }) {
     event.preventDefault()
     const cleanEmail = normalizeEmail(email)
 
-    if (!isAllowedEmail(cleanEmail)) {
-      setMessage('This private vault is currently reserved for Marguerite.')
+    if (!canRequestMagicLink(cleanEmail, admin)) {
+      setMessage(
+        admin ? 'This area is reserved for Felicia.' : 'This private vault is currently reserved for Marguerite.',
+      )
       return
     }
 
@@ -545,6 +626,7 @@ function VaultLogin({ admin }) {
     setMessage('')
 
     const redirectPath = admin ? '/vault-admin' : '/vault'
+    saveIntendedVaultPath(redirectPath)
     const { error } = await supabase.auth.signInWithOtp({
       email: cleanEmail,
       options: {
