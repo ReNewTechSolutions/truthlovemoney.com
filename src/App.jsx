@@ -56,6 +56,10 @@ function isAdminEmail(email) {
   return normalizeEmail(email) === adminEmail
 }
 
+function getSafeNextPath(nextPath) {
+  return nextPath === '/vault-admin' ? '/vault-admin' : '/vault'
+}
+
 function getTypeLabel(value) {
   return entryTypes.find((entry) => entry.value === value)?.label || value
 }
@@ -77,6 +81,10 @@ function App() {
 
   if (normalizedPath === '/vault-admin') {
     return <VaultApp admin />
+  }
+
+  if (normalizedPath === '/auth/callback') {
+    return <AuthCallback />
   }
 
   return <HomePage />
@@ -432,6 +440,82 @@ function VaultConfigNotice() {
   )
 }
 
+function AuthCallback() {
+  const [message, setMessage] = useState('Opening your Story Vault...')
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    async function handleCallback() {
+      if (!isSupabaseConfigured) {
+        setError('Connect Supabase to finish opening the Story Vault.')
+        return
+      }
+
+      const currentUrl = new URL(window.location.href)
+      const hashParams = new URLSearchParams(currentUrl.hash.replace(/^#/, ''))
+      const nextPath = getSafeNextPath(currentUrl.searchParams.get('next'))
+      const authError =
+        currentUrl.searchParams.get('error_description') ||
+        hashParams.get('error_description') ||
+        currentUrl.searchParams.get('error') ||
+        hashParams.get('error')
+
+      try {
+        if (authError) {
+          throw new Error(authError)
+        }
+
+        const code = currentUrl.searchParams.get('code')
+        let activeSession = null
+
+        if (code) {
+          const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
+
+          if (exchangeError) {
+            const { data: existingSession } = await supabase.auth.getSession()
+            activeSession = existingSession.session
+            if (!activeSession) throw exchangeError
+          } else {
+            activeSession = data.session
+          }
+        } else {
+          const { data, error: sessionError } = await supabase.auth.getSession()
+          if (sessionError) throw sessionError
+          activeSession = data.session
+        }
+
+        if (!activeSession) {
+          throw new Error('No active Story Vault session found.')
+        }
+
+        setMessage('You are signed in. Taking you to the Story Vault...')
+        window.history.replaceState({}, document.title, nextPath)
+        window.dispatchEvent(new PopStateEvent('popstate'))
+      } catch {
+        window.history.replaceState({}, document.title, '/auth/callback')
+        setError('That login link may have expired. Please request a new one.')
+      }
+    }
+
+    handleCallback()
+  }, [])
+
+  return (
+    <VaultShell>
+      <section className="vault-panel narrow-panel login-panel" aria-labelledby="callback-title">
+        <p className="eyebrow">Secure Login</p>
+        <h1 id="callback-title">Story Vault Login</h1>
+        <p>{error || message}</p>
+        {error && (
+          <a className="button button-primary large-action" href="/vault">
+            Request a New Login Link
+          </a>
+        )}
+      </section>
+    </VaultShell>
+  )
+}
+
 function RestrictedVaultMessage({ message, session }) {
   return (
     <VaultShell session={session}>
@@ -464,7 +548,7 @@ function VaultLogin({ admin }) {
     const { error } = await supabase.auth.signInWithOtp({
       email: cleanEmail,
       options: {
-        emailRedirectTo: `${window.location.origin}${redirectPath}`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${redirectPath}`,
       },
     })
 
