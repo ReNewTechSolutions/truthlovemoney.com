@@ -87,6 +87,10 @@ function getLoginErrorMessage(error) {
   return message
 }
 
+function getReadableError(error, fallback = 'Something went wrong.') {
+  return error?.message || error?.error_description || fallback
+}
+
 function getSafeNextPath(nextPath, fallbackPath = '/vault') {
   if (nextPath === '/') return '/'
   if (nextPath === '/vault-admin') return '/vault-admin'
@@ -106,10 +110,13 @@ function getAuthRedirectDetails() {
       currentUrl.searchParams.get('code') ||
         currentUrl.searchParams.get('error') ||
         currentUrl.searchParams.get('error_description') ||
+        currentUrl.searchParams.get('error_code') ||
         hashParams.get('access_token') ||
         hashParams.get('refresh_token') ||
+        hashParams.get('token_hash') ||
         hashParams.get('error') ||
-        hashParams.get('error_description'),
+        hashParams.get('error_description') ||
+        hashParams.get('error_code'),
     ),
   }
 }
@@ -522,49 +529,73 @@ function VaultConfigNotice() {
 function AuthCallback() {
   const [message, setMessage] = useState('Opening your Story Vault...')
   const [error, setError] = useState('')
+  const [showDebug, setShowDebug] = useState(false)
   const [debug, setDebug] = useState({
+    currentPath: '/auth/callback',
     hasCode: 'checking',
+    hasHashTokens: 'checking',
     nextPath: '/vault',
     exchange: 'not started',
     sessionExists: 'checking',
+    supabaseError: 'none',
   })
 
   useEffect(() => {
     async function handleCallback() {
-      if (!isSupabaseConfigured) {
-        setError('Connect Supabase to finish opening the Story Vault.')
+      const markFailure = (updates, errorMessage) => {
         setDebug((currentDebug) => ({
           ...currentDebug,
-          exchange: 'skipped',
-          sessionExists: 'no',
+          ...updates,
+          supabaseError: errorMessage || 'none',
         }))
+        setShowDebug(true)
+        setError(errorMessage || 'That login link may have expired. Please request a new one.')
+      }
+
+      if (!isSupabaseConfigured) {
+        markFailure(
+          {
+            currentPath: window.location.pathname,
+            exchange: 'skipped',
+            sessionExists: 'no',
+          },
+          'Connect Supabase to finish opening the Story Vault.',
+        )
         return
       }
 
       const { currentUrl, hashParams } = getAuthRedirectDetails()
       const requestedNext = currentUrl.searchParams.get('next')
       const nextPath = getSafeNextPath(requestedNext)
+      const accessToken = hashParams.get('access_token')
+      const refreshToken = hashParams.get('refresh_token')
       const authError =
         currentUrl.searchParams.get('error_description') ||
         hashParams.get('error_description') ||
+        currentUrl.searchParams.get('error_code') ||
+        hashParams.get('error_code') ||
         currentUrl.searchParams.get('error') ||
         hashParams.get('error')
       const code = currentUrl.searchParams.get('code')
 
       setDebug({
+        currentPath: window.location.pathname,
         hasCode: code ? 'yes' : 'no',
+        hasHashTokens: accessToken && refreshToken ? 'yes' : 'no',
         nextPath,
         exchange: code ? 'pending' : 'not needed',
         sessionExists: 'checking',
+        supabaseError: 'none',
       })
 
       if (authError) {
-        setDebug((currentDebug) => ({
-          ...currentDebug,
-          exchange: 'failed',
-          sessionExists: 'no',
-        }))
-        setError(authError)
+        markFailure(
+          {
+            exchange: 'failed',
+            sessionExists: 'no',
+          },
+          authError,
+        )
         return
       }
 
@@ -572,18 +603,40 @@ function AuthCallback() {
         const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
 
         if (exchangeError) {
-          setDebug((currentDebug) => ({
-            ...currentDebug,
-            exchange: 'failed',
-            sessionExists: 'no',
-          }))
-          setError('That login link may have expired. Please request a new one.')
+          markFailure(
+            {
+              exchange: 'failed',
+              sessionExists: 'no',
+            },
+            getReadableError(exchangeError, 'That login link may have expired. Please request a new one.'),
+          )
           return
         }
 
         setDebug((currentDebug) => ({
           ...currentDebug,
           exchange: 'success',
+        }))
+      } else if (accessToken && refreshToken) {
+        const { error: setSessionError } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        })
+
+        if (setSessionError) {
+          markFailure(
+            {
+              exchange: 'hash session failed',
+              sessionExists: 'no',
+            },
+            getReadableError(setSessionError, 'That login link may have expired. Please request a new one.'),
+          )
+          return
+        }
+
+        setDebug((currentDebug) => ({
+          ...currentDebug,
+          exchange: 'hash session success',
         }))
       }
 
@@ -593,11 +646,12 @@ function AuthCallback() {
       } = await supabase.auth.getSession()
 
       if (sessionError) {
-        setDebug((currentDebug) => ({
-          ...currentDebug,
-          sessionExists: 'no',
-        }))
-        setError(sessionError.message)
+        markFailure(
+          {
+            sessionExists: 'no',
+          },
+          getReadableError(sessionError, 'Could not read the Story Vault session.'),
+        )
         return
       }
 
@@ -621,7 +675,13 @@ function AuthCallback() {
         }))
       }
 
-      setMessage('No Story Vault session was found yet. Please use the newest email link.')
+      markFailure(
+        {
+          exchange: code ? 'success' : accessToken && refreshToken ? 'hash session success' : 'not started',
+          sessionExists: 'no',
+        },
+        'No Story Vault session was found yet. Please use the newest email link.',
+      )
     }
 
     handleCallback()
@@ -633,24 +693,34 @@ function AuthCallback() {
         <p className="eyebrow">Secure Login</p>
         <h1 id="callback-title">Story Vault Login</h1>
         <p>{error || message}</p>
-        <dl className="callback-debug" aria-label="Story Vault login debug">
-          <div>
-            <dt>Has code?</dt>
-            <dd>{debug.hasCode}</dd>
-          </div>
-          <div>
-            <dt>Next path</dt>
-            <dd>{debug.nextPath}</dd>
-          </div>
-          <div>
-            <dt>Exchange</dt>
-            <dd>{debug.exchange}</dd>
-          </div>
-          <div>
-            <dt>Session exists?</dt>
-            <dd>{debug.sessionExists}</dd>
-          </div>
-        </dl>
+        {showDebug && (
+          <dl className="callback-debug" aria-label="Story Vault login debug">
+            <div>
+              <dt>Current path</dt>
+              <dd>{debug.currentPath}</dd>
+            </div>
+            <div>
+              <dt>Has code?</dt>
+              <dd>{debug.hasCode}</dd>
+            </div>
+            <div>
+              <dt>Has hash tokens?</dt>
+              <dd>{debug.hasHashTokens}</dd>
+            </div>
+            <div>
+              <dt>Next route</dt>
+              <dd>{debug.nextPath}</dd>
+            </div>
+            <div>
+              <dt>Session found?</dt>
+              <dd>{debug.sessionExists}</dd>
+            </div>
+            <div>
+              <dt>Supabase error</dt>
+              <dd>{debug.supabaseError}</dd>
+            </div>
+          </dl>
+        )}
         {error && (
           <a className="button button-primary large-action" href="/vault">
             Request a New Login Link
@@ -820,7 +890,12 @@ function VaultSubmissionPortal({ session }) {
 
     setBusy(false)
     if (error) {
-      setMessage('Something did not save. Please try again.')
+      console.error('Story Vault save error:', {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+      })
+      setMessage(`Something did not save: ${getReadableError(error, 'Please try again.')}`)
       return
     }
 
@@ -909,6 +984,9 @@ function VaultAdmin({ session }) {
   const [date, setDate] = useState('')
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
+  const [connectionMessage, setConnectionMessage] = useState('')
+  const [connectionOk, setConnectionOk] = useState(false)
+  const [connectionBusy, setConnectionBusy] = useState(false)
   const [selectedEntry, setSelectedEntry] = useState(null)
 
   useEffect(() => {
@@ -924,10 +1002,37 @@ function VaultAdmin({ session }) {
 
     setLoading(false)
     if (error) {
-      setMessage('Could not load the Story Vault entries.')
+      console.error('Story Vault admin read error:', {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+      })
+      setMessage(`Could not load the Story Vault entries: ${getReadableError(error)}`)
       return
     }
     setEntries(data || [])
+  }
+
+  async function testSupabaseConnection() {
+    setConnectionBusy(true)
+    setConnectionMessage('')
+    setConnectionOk(false)
+
+    const { error } = await supabase.from('vault_entries').select('id').limit(1)
+
+    setConnectionBusy(false)
+    if (error) {
+      console.error('Story Vault connection test error:', {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+      })
+      setConnectionMessage(`Supabase connection failed: ${getReadableError(error)}`)
+      return
+    }
+
+    setConnectionOk(true)
+    setConnectionMessage('Supabase connection works. Vault entries are readable.')
   }
 
   async function updateStatus(id, status) {
@@ -935,7 +1040,12 @@ function VaultAdmin({ session }) {
     const { error } = await supabase.from('vault_entries').update({ status }).eq('id', id)
 
     if (error) {
-      setMessage('That status did not update. Please try again.')
+      console.error('Story Vault status update error:', {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+      })
+      setMessage(`That status did not update: ${getReadableError(error)}`)
       return
     }
 
@@ -991,9 +1101,22 @@ function VaultAdmin({ session }) {
         <button className="button button-secondary" type="button" onClick={loadEntries}>
           Refresh
         </button>
+        <button
+          className="button button-secondary"
+          type="button"
+          onClick={testSupabaseConnection}
+          disabled={connectionBusy}
+        >
+          {connectionBusy ? 'Testing...' : 'Test Supabase Connection'}
+        </button>
       </section>
 
       {message && <p className="form-message error-message">{message}</p>}
+      {connectionMessage && (
+        <p className={`form-message ${connectionOk ? 'success-message' : 'error-message'}`}>
+          {connectionMessage}
+        </p>
+      )}
       {loading && <p className="vault-loading">Loading entries...</p>}
 
       {selectedEntry && (
