@@ -43,6 +43,28 @@ const firstBlogPost = {
   ],
 }
 
+const latestVideo = {
+  title: 'Every Chapter Has Something to Teach Us',
+  subtitle: 'A first look at The Lyon Den',
+  text: 'A quiet welcome to the stories, books, poems, and life lessons that will shape Truth Love Money.',
+  url: '#latest-video',
+}
+
+const bookshelfItems = [
+  {
+    title: 'Literature',
+    text: 'Books that open a window, ask better questions, and leave a sentence glowing long after the page is closed.',
+  },
+  {
+    title: 'Memoir',
+    text: 'Remembered chapters, family stories, turning points, and the wisdom that comes from looking back with tenderness.',
+  },
+  {
+    title: 'Life Lessons',
+    text: 'Practical reflections on truth, love, money, courage, and the choices that help a life become more whole.',
+  },
+]
+
 const entryTypes = [
   { label: 'Story or Memory', value: 'story_memory', icon: '📝' },
   { label: 'Book Recommendation', value: 'book_recommendation', icon: '📚' },
@@ -226,31 +248,32 @@ function HomePage() {
         </a>
         <a className="mobile-blog-link" href="/blog">Blog</a>
         <nav className="site-nav" aria-label="Primary navigation">
+          <a href="#featured">Featured</a>
+          <a href="#latest-video">Video</a>
+          <a href="#bookshelf">Books</a>
+          <a href="#poetry">Poetry</a>
           <a href="#about">About</a>
-          <a href="#explore">Explore</a>
-          <a href="#lessons">Lessons</a>
           <a href="/blog">Blog</a>
-          <a href="#vault">The Seed Garden</a>
-          <a className="nav-cta" href="/vault">Enter Garden</a>
+          <a className="nav-cta" href="#join">Subscribe</a>
         </nav>
       </header>
 
       <section className="hero section-shell" aria-labelledby="hero-title">
         <div className="hero-copy">
-          <p className="script-line">Welcome to</p>
+          <p className="script-line">A modern literary home for</p>
           <h1 id="hero-title">The Lyon Den</h1>
           <p className="truth-line">Truth • Love • Money</p>
           <p className="tagline">Never Stop Learning</p>
           <p className="hero-intro">
-            A warm, literary home where today&apos;s ideas are planted, gathered, and gently
-            grown into stories, poems, videos, and life lessons.
+            Read reflective essays, discover meaningful books, watch gentle video chapters,
+            and linger with poetry, memoir, and life lessons for the heart.
           </p>
           <div className="hero-actions" aria-label="Primary actions">
-            <a className="button button-primary" href="#join">
-              Join the Story Circle
+            <a className="button button-primary" href={firstBlogPost.path}>
+              Read Featured Article
             </a>
-            <a className="button button-secondary" href="/vault">
-              Enter The Seed Garden
+            <a className="button button-secondary" href="#latest-video">
+              Watch Latest Chapter
             </a>
           </div>
         </div>
@@ -263,8 +286,132 @@ function HomePage() {
         </figure>
       </section>
 
+      <section className="publication-lead section-shell" id="featured" aria-labelledby="publication-title">
+        <article className="featured-article-card">
+          <p className="eyebrow">Featured Article</p>
+          <h2 id="publication-title">{firstBlogPost.title}</h2>
+          <p className="blog-subtitle">{firstBlogPost.subtitle}</p>
+          <p>
+            Marguerite opens The Lyon Den with a first written chapter on stories, lessons,
+            memory, and the quiet wisdom that can grow from a shared life.
+          </p>
+          <a className="button button-secondary" href={firstBlogPost.path}>
+            Read the Article
+          </a>
+        </article>
+
+        <article className="latest-chapter-card">
+          <p className="eyebrow">Latest Chapter</p>
+          <h2>{latestVideo.title}</h2>
+          <p>{latestVideo.text}</p>
+          <a className="button button-primary" href={latestVideo.url}>
+            Watch the Newest Video
+          </a>
+        </article>
+      </section>
+
+      <section className="video-feature section-shell" id="latest-video" aria-labelledby="video-title">
+        <div className="video-copy">
+          <p className="eyebrow">Latest Video</p>
+          <h2 id="video-title">{latestVideo.title}</h2>
+          <p className="blog-subtitle">{latestVideo.subtitle}</p>
+          <p>{latestVideo.text}</p>
+          <a className="button button-primary" href="#join">
+            Get New Chapters by Email
+          </a>
+        </div>
+        <figure className="video-frame">
+          <img
+            src="/assets/banner.png"
+            alt="The Lyon Den creekside banner artwork used as the latest video preview"
+          />
+          <figcaption>Latest YouTube chapter preview</figcaption>
+        </figure>
+      </section>
+
+      <section className="bookshelf section-shell" id="bookshelf" aria-labelledby="bookshelf-title">
+        <div className="section-heading">
+          <p className="eyebrow">Bookshelf</p>
+          <h2 id="bookshelf-title">Books, memoirs, and lessons worth keeping close.</h2>
+          <p>
+            The Lyon Den reads life through books and books through life: favorite passages,
+            remembered chapters, and practical wisdom for ordinary days.
+          </p>
+        </div>
+        <div className="bookshelf-grid">
+          {bookshelfItems.map((item) => (
+            <article className="book-card" key={item.title}>
+              <span aria-hidden="true">Chapter</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="poetry section-shell" id="poetry" aria-labelledby="poetry-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">Poetry &amp; Reflections</p>
+          <h2 id="poetry-title">A softer room for meaning, memory, and wonder.</h2>
+          <p>
+            Some lessons arrive as stories. Some arrive as poems. Some arrive as one quiet
+            sentence that keeps tapping on the heart.
+          </p>
+        </div>
+        <div className="reflection-grid">
+          {reflectionCards.map((text) => (
+            <article className="reflection-card" key={text}>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="latest-stories section-shell" id="latest-stories" aria-labelledby="latest-stories-title">
+        <div className="section-heading">
+          <p className="eyebrow">Latest Stories</p>
+          <h2 id="latest-stories-title">Truth, love, and money through a story-shaped lens.</h2>
+          <p>
+            Essays, video chapters, and reflections gather here as the publication grows.
+          </p>
+        </div>
+        <div className="story-grid">
+          <article className="story-card story-card-featured">
+            <p className="eyebrow">Latest Blog</p>
+            <h3>{firstBlogPost.title}</h3>
+            <p>{firstBlogPost.subtitle}</p>
+            <a className="text-link" href={firstBlogPost.path}>Read now</a>
+          </article>
+          {exploreCards.map((card) => (
+            <article className="story-card" key={card.title}>
+              <p className="eyebrow">{card.title}</p>
+              <h3>{card.title} Notes</h3>
+              <p>{card.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell media-section reverse publication-image-band" aria-labelledby="lessons-title">
+        <div className="media-image">
+          <img
+            src="/assets/lifelessons.png"
+            alt="Life Lessons visual with books, creekside warmth, and reflective storytelling imagery"
+          />
+        </div>
+        <div className="media-copy">
+          <p className="eyebrow">Featured Story</p>
+          <h2 id="lessons-title">Literature, memories, and lessons worth carrying.</h2>
+          <p>
+            This gallery introduces the recurring themes behind The Lyon Den: favorite
+            passages, turning points, practical insight, and the wisdom found in everyday life.
+          </p>
+          <a className="text-link" href="#join">Suggest a life lesson topic</a>
+        </div>
+      </section>
+
       <section className="about section-shell media-section" id="about" aria-labelledby="about-title">
-        <div className="media-image portrait-frame">
+        <div className="media-image">
           <img
             src="/assets/portrait.png"
             alt="Illustrated portrait of Marguerite with silver hair, glasses, and a warm scarf"
@@ -285,122 +432,13 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="explore section-shell" id="explore" aria-labelledby="explore-title">
-        <div className="section-heading">
-          <p className="eyebrow">What We Explore</p>
-          <h2 id="explore-title">Truth, love, and money through a story-shaped lens.</h2>
-        </div>
-        <div className="card-grid">
-          {exploreCards.map((card) => (
-            <article className="wisdom-card" key={card.title}>
-              <span className="card-mark" aria-hidden="true">
-                {card.title.slice(0, 1)}
-              </span>
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="featured-blog section-shell" aria-labelledby="featured-blog-title">
-        <article className="featured-blog-card">
-          <div>
-            <p className="eyebrow">First Written Chapter</p>
-            <h2 id="featured-blog-title">{firstBlogPost.title}</h2>
-            <p className="blog-subtitle">{firstBlogPost.subtitle}</p>
-          </div>
-          <p>
-            A reflective welcome from Marguerite on why The Lyon Den exists, and why every
-            life holds chapters worth remembering.
-          </p>
-          <a className="button button-secondary" href={firstBlogPost.path}>
-            Read the First Chapter
-          </a>
-        </article>
-      </section>
-
-      <section className="section-shell media-section reverse" id="lessons" aria-labelledby="lessons-title">
-        <div className="media-image">
-          <img
-            src="/assets/lifelessons.png"
-            alt="Life Lessons visual with books, creekside warmth, and reflective storytelling imagery"
-          />
-        </div>
-        <div className="media-copy">
-          <p className="eyebrow">Life Lessons Gallery</p>
-          <h2 id="lessons-title">Literature, memories, and lessons worth carrying.</h2>
-          <p>
-            This gallery introduces the recurring themes behind The Lyon Den: favorite
-            passages, turning points, practical insight, and the wisdom found in everyday life.
-          </p>
-          <a className="text-link" href="#join">Suggest a life lesson topic</a>
-        </div>
-      </section>
-
-      <section className="section-shell media-section" aria-labelledby="teaching-title">
-        <div className="media-image">
-          <img
-            src="/assets/lessonsthatlast.png"
-            alt="Lessons That Last artwork with a warm literary teaching and speaking theme"
-          />
-        </div>
-        <div className="media-copy">
-          <p className="eyebrow">Teaching &amp; Speaking</p>
-          <h2 id="teaching-title">Lessons that last beyond the moment.</h2>
-          <p>
-            Future talks, short teachings, and community sessions can grow from The Seed
-            Garden: literature circles, memoir prompts, personal growth themes, and practical
-            wisdom for the heart and home.
-          </p>
-        </div>
-      </section>
-
-      <section className="poetry section-shell" aria-labelledby="poetry-title">
-        <div className="section-heading centered">
-          <p className="eyebrow">Poetry &amp; Reflections</p>
-          <h2 id="poetry-title">A softer room for meaning, memory, and wonder.</h2>
-          <p>
-            Some lessons arrive as stories. Some arrive as poems. Some arrive as one quiet
-            sentence that keeps tapping on the heart.
-          </p>
-        </div>
-        <div className="reflection-grid">
-          {reflectionCards.map((text) => (
-            <article className="reflection-card" key={text}>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="vault" id="vault" aria-labelledby="vault-title">
-        <img
-          src="/assets/banner.png"
-          alt="The Lyon Den banner artwork with creekside books, flowers, and handwritten story notes"
-        />
-        <div className="vault-card">
-          <p className="eyebrow">The Seed Garden</p>
-          <h2 id="vault-title">Every story begins as a seed.</h2>
-          <p>
-            A place where thoughts are gently collected before they bloom into stories,
-            blog posts, poems, videos, and future chapters.
-          </p>
-          <div className="vault-actions">
-            <a className="button button-primary" href="/vault">
-              Plant Today&apos;s Ideas
-            </a>
-          </div>
-        </div>
-      </section>
-
       <section className="join section-shell" id="join" aria-labelledby="join-title">
         <div className="join-copy">
-          <p className="eyebrow">Join the Story Circle</p>
-          <h2 id="join-title">Receive future notes, previews, and invitations.</h2>
+          <p className="eyebrow">Subscribe</p>
+          <h2 id="join-title">Join the Story Circle.</h2>
           <p>
-            Send a question, a reflection, a poem prompt, or a theme you would love to see
-            explored through The Lyon Den.
+            Receive new essays, video chapters, reading notes, poetry, and invitations from
+            The Lyon Den.
           </p>
         </div>
         <form className="signup-form" onSubmit={handleSubmit}>
@@ -444,9 +482,6 @@ function HomePage() {
           <a className="button button-primary" href="#join">
             Share a Question or Story Idea
           </a>
-          <a className="text-link vault-admin-link" href="/vault">
-            Enter The Seed Garden
-          </a>
         </div>
       </section>
 
@@ -456,6 +491,7 @@ function HomePage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Stories • Wisdom • Life Lessons</p>
+          <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
     </main>
@@ -476,7 +512,7 @@ function BlogPostPage() {
         <nav className="site-nav" aria-label="Blog navigation">
           <a href="/">Home</a>
           <a href="/blog">Blog</a>
-          <a href="/vault">The Seed Garden</a>
+          <a href="/#join">Subscribe</a>
         </nav>
       </header>
 
@@ -511,8 +547,8 @@ function BlogPostPage() {
             videos, and lessons.
           </p>
         </div>
-        <a className="button button-primary" href="/vault">
-          Enter The Seed Garden
+        <a className="button button-primary" href="/#join">
+          Join the Story Circle
         </a>
       </section>
 
@@ -522,6 +558,7 @@ function BlogPostPage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
+          <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
     </main>
