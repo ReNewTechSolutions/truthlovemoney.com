@@ -22,6 +22,27 @@ const reflectionCards = [
   'Reflections for personal growth and quiet courage.',
 ]
 
+const firstBlogPost = {
+  title: 'Every Story Has Something to Teach Us',
+  subtitle: 'Why I Created The Lyon Den',
+  author: 'Marguerite Lyon',
+  path: '/blog/every-story-has-something-to-teach-us',
+  paragraphs: [
+    'Throughout my life, I’ve been fortunate to learn from wonderful teachers, remarkable books, family, friendships, mistakes, and experiences I never could have predicted.',
+    'Eventually, I realized something simple and important:',
+    'Every story has something to teach us.',
+    'Some lessons come through joy. Some come through heartbreak. Some come quietly through books, conversations, memories, music, nature, or ordinary days that become meaningful only after time has passed.',
+    'The Lyon Den was created as a place to preserve those lessons and share them with anyone who might need them.',
+    'Here, we explore truth, love, money, literature, poetry, personal growth, and lifelong learning. Not because we have all the answers, but because staying curious keeps us growing.',
+    'My hope is that The Lyon Den becomes a warm place for reflection — a place where stories become lessons, books become conversations, and wisdom is shared one chapter at a time.',
+    'Every life holds chapters worth remembering.',
+    'Every experience can become a seed of wisdom.',
+    'And every story, if shared with love, has the power to encourage someone else.',
+    'Welcome to The Lyon Den.',
+    'Never stop learning.',
+  ],
+}
+
 const entryTypes = [
   { label: 'Story or Memory', value: 'story_memory', icon: '📝' },
   { label: 'Book Recommendation', value: 'book_recommendation', icon: '📚' },
@@ -177,6 +198,10 @@ function App() {
     return <AuthCallback />
   }
 
+  if (normalizedPath === '/blog' || normalizedPath === firstBlogPost.path) {
+    return <BlogPostPage />
+  }
+
   return <HomePage />
 }
 
@@ -199,10 +224,12 @@ function HomePage() {
             <small>Stories • Wisdom • Life Lessons</small>
           </span>
         </a>
+        <a className="mobile-blog-link" href="/blog">Blog</a>
         <nav className="site-nav" aria-label="Primary navigation">
           <a href="#about">About</a>
           <a href="#explore">Explore</a>
           <a href="#lessons">Lessons</a>
+          <a href="/blog">Blog</a>
           <a href="#vault">The Seed Garden</a>
           <a className="nav-cta" href="/vault">Enter Garden</a>
         </nav>
@@ -274,6 +301,23 @@ function HomePage() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="featured-blog section-shell" aria-labelledby="featured-blog-title">
+        <article className="featured-blog-card">
+          <div>
+            <p className="eyebrow">First Written Chapter</p>
+            <h2 id="featured-blog-title">{firstBlogPost.title}</h2>
+            <p className="blog-subtitle">{firstBlogPost.subtitle}</p>
+          </div>
+          <p>
+            A reflective welcome from Marguerite on why The Lyon Den exists, and why every
+            life holds chapters worth remembering.
+          </p>
+          <a className="button button-secondary" href={firstBlogPost.path}>
+            Read the First Chapter
+          </a>
+        </article>
       </section>
 
       <section className="section-shell media-section reverse" id="lessons" aria-labelledby="lessons-title">
@@ -412,6 +456,72 @@ function HomePage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Stories • Wisdom • Life Lessons</p>
+        </div>
+      </footer>
+    </main>
+  )
+}
+
+function BlogPostPage() {
+  return (
+    <main className="site-shell blog-shell">
+      <header className="site-header blog-header" aria-label="TruthLoveMoney.com blog header">
+        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
+          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
+          <span>
+            <strong>TruthLoveMoney.com</strong>
+            <small>The Lyon Den Journal</small>
+          </span>
+        </a>
+        <nav className="site-nav" aria-label="Blog navigation">
+          <a href="/">Home</a>
+          <a href="/blog">Blog</a>
+          <a href="/vault">The Seed Garden</a>
+        </nav>
+      </header>
+
+      <article className="blog-article section-shell" aria-labelledby="blog-title">
+        <a className="text-link back-home-link" href="/">
+          Back to The Lyon Den
+        </a>
+        <header className="blog-article-header">
+          <p className="eyebrow">The Lyon Den Journal</p>
+          <h1 id="blog-title">{firstBlogPost.title}</h1>
+          <p className="blog-subtitle">{firstBlogPost.subtitle}</p>
+          <p className="blog-byline">By {firstBlogPost.author}</p>
+        </header>
+
+        <div className="blog-body">
+          {firstBlogPost.paragraphs.map((paragraph) =>
+            paragraph === 'Every story has something to teach us.' ? (
+              <blockquote key={paragraph}>{paragraph}</blockquote>
+            ) : (
+              <p key={paragraph}>{paragraph}</p>
+            ),
+          )}
+        </div>
+      </article>
+
+      <section className="blog-next section-shell" aria-labelledby="blog-next-title">
+        <div>
+          <p className="eyebrow">Keep Growing</p>
+          <h2 id="blog-next-title">Plant a thought for a future chapter.</h2>
+          <p>
+            The Seed Garden is where ideas begin before they bloom into stories, poems,
+            videos, and lessons.
+          </p>
+        </div>
+        <a className="button button-primary" href="/vault">
+          Enter The Seed Garden
+        </a>
+      </section>
+
+      <footer className="footer">
+        <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
+        <div>
+          <p>TruthLoveMoney.com</p>
+          <p>The Lyon Den • Hosted by Marguerite</p>
+          <p>Never Stop Learning</p>
         </div>
       </footer>
     </main>
