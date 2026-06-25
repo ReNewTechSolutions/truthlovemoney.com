@@ -22,6 +22,12 @@ const reflectionCards = [
   'Reflections for personal growth and quiet courage.',
 ]
 
+const youtubeChannelUrl = 'https://www.youtube.com/@TheLyonDen-Marguerite'
+const youtubeLinkProps = {
+  target: '_blank',
+  rel: 'noopener noreferrer',
+}
+
 const firstBlogPost = {
   title: 'Every Story Has Something to Teach Us',
   subtitle: 'Why I Created The Lyon Den',
@@ -47,7 +53,7 @@ const latestVideo = {
   title: 'Every Chapter Has Something to Teach Us',
   subtitle: 'A first look at The Lyon Den',
   text: 'A quiet welcome to the stories, books, poems, and life lessons that will shape Truth Love Money.',
-  url: '#latest-video',
+  url: youtubeChannelUrl,
 }
 
 const bookshelfItems = [
@@ -196,6 +202,10 @@ function getTypeLabel(value) {
   return entryTypes.find((entry) => entry.value === value)?.label || value
 }
 
+function YouTubeIcon() {
+  return <span className="youtube-icon" aria-hidden="true">▶</span>
+}
+
 function App() {
   const [path, setPath] = useState(window.location.pathname)
   const { hasAuthParams } = getAuthRedirectDetails()
@@ -246,15 +256,25 @@ function HomePage() {
             <small>Stories • Wisdom • Life Lessons</small>
           </span>
         </a>
-        <a className="mobile-blog-link" href="/blog">Blog</a>
+        <a
+          className="mobile-youtube-link"
+          href={youtubeChannelUrl}
+          aria-label="Open The Lyon Den YouTube channel"
+          {...youtubeLinkProps}
+        >
+          <YouTubeIcon />
+        </a>
         <nav className="site-nav" aria-label="Primary navigation">
           <a href="#featured">Featured</a>
-          <a href="#latest-video">Video</a>
+          <a href="#latest-video">Latest Video</a>
           <a href="#bookshelf">Books</a>
           <a href="#poetry">Poetry</a>
           <a href="#about">About</a>
           <a href="/blog">Blog</a>
-          <a className="nav-cta" href="#join">Subscribe</a>
+          <a className="youtube-nav-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
+            <YouTubeIcon />
+          </a>
+          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
         </nav>
       </header>
 
@@ -272,8 +292,8 @@ function HomePage() {
             <a className="button button-primary" href={firstBlogPost.path}>
               Read Featured Article
             </a>
-            <a className="button button-secondary" href="#latest-video">
-              Watch Latest Chapter
+            <a className="button button-secondary" href={youtubeChannelUrl} {...youtubeLinkProps}>
+              Watch on YouTube
             </a>
           </div>
         </div>
@@ -300,14 +320,17 @@ function HomePage() {
           </a>
         </article>
 
-        <article className="latest-chapter-card">
+        <a
+          className="latest-chapter-card"
+          href={youtubeChannelUrl}
+          aria-label="Watch the latest Lyon Den video on YouTube"
+          {...youtubeLinkProps}
+        >
           <p className="eyebrow">Latest Chapter</p>
           <h2>{latestVideo.title}</h2>
           <p>{latestVideo.text}</p>
-          <a className="button button-primary" href={latestVideo.url}>
-            Watch the Newest Video
-          </a>
-        </article>
+          <span className="button button-primary">Watch on YouTube</span>
+        </a>
       </section>
 
       <section className="video-feature section-shell" id="latest-video" aria-labelledby="video-title">
@@ -316,17 +339,28 @@ function HomePage() {
           <h2 id="video-title">{latestVideo.title}</h2>
           <p className="blog-subtitle">{latestVideo.subtitle}</p>
           <p>{latestVideo.text}</p>
-          <a className="button button-primary" href="#join">
-            Get New Chapters by Email
-          </a>
+          <p className="youtube-note">New chapters are published regularly.</p>
+          <div className="video-actions">
+            <a className="button button-primary" href={youtubeChannelUrl} {...youtubeLinkProps}>
+              Watch on YouTube
+            </a>
+            <a className="button button-secondary" href={youtubeChannelUrl} {...youtubeLinkProps}>
+              Subscribe
+            </a>
+          </div>
         </div>
-        <figure className="video-frame">
+        <a
+          className="video-frame"
+          href={youtubeChannelUrl}
+          aria-label="Open The Lyon Den YouTube channel"
+          {...youtubeLinkProps}
+        >
           <img
             src="/assets/banner.png"
             alt="The Lyon Den creekside banner artwork used as the latest video preview"
           />
-          <figcaption>Latest YouTube chapter preview</figcaption>
-        </figure>
+          <span className="video-caption">Latest YouTube chapter preview</span>
+        </a>
       </section>
 
       <section className="bookshelf section-shell" id="bookshelf" aria-labelledby="bookshelf-title">
@@ -491,6 +525,10 @@ function HomePage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Stories • Wisdom • Life Lessons</p>
+          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
+            <YouTubeIcon />
+            YouTube
+          </a>
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
@@ -512,7 +550,8 @@ function BlogPostPage() {
         <nav className="site-nav" aria-label="Blog navigation">
           <a href="/">Home</a>
           <a href="/blog">Blog</a>
-          <a href="/#join">Subscribe</a>
+          <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
+          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
         </nav>
       </header>
 
@@ -547,8 +586,8 @@ function BlogPostPage() {
             videos, and lessons.
           </p>
         </div>
-        <a className="button button-primary" href="/#join">
-          Join the Story Circle
+        <a className="button button-primary" href={youtubeChannelUrl} {...youtubeLinkProps}>
+          Watch on YouTube
         </a>
       </section>
 
@@ -558,6 +597,10 @@ function BlogPostPage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
+          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
+            <YouTubeIcon />
+            YouTube
+          </a>
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
