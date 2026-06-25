@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { isSupabaseConfigured, supabase } from './lib/supabaseClient'
+import { isSupabaseConfigured, supabase, supabaseConfig } from './lib/supabaseClient'
 
 const exploreCards = [
   {
@@ -82,6 +82,10 @@ function getLoginErrorMessage(error) {
 
   if (isRateLimited) {
     return 'A login link was already sent. Please wait a minute, then use the newest email link.'
+  }
+
+  if (/failed to fetch|networkerror|load failed/i.test(message)) {
+    return `The site could not reach Supabase (${supabaseConfig.host || 'missing Supabase URL'}). In Vercel, VITE_SUPABASE_URL should be https://eyirlvsqrusyngrvswsw.supabase.co. Browser message: ${message}`
   }
 
   return message
@@ -521,6 +525,11 @@ function VaultConfigNotice() {
           environment. Those are the exact Vercel variable names this site reads.
           The table SQL is included in `supabase/schema.sql`.
         </p>
+        <p>
+          Current config check: URL {supabaseConfig.hasUrl ? 'present' : 'missing'},
+          key {supabaseConfig.hasAnonKey ? 'present' : 'missing'}, URL format{' '}
+          {supabaseConfig.urlIsValid ? 'valid' : 'invalid'}.
+        </p>
       </section>
     </VaultShell>
   )
@@ -761,12 +770,20 @@ function VaultLogin({ admin }) {
 
     const redirectPath = admin ? '/vault-admin' : '/vault'
     saveIntendedVaultPath(redirectPath)
-    const { error } = await supabase.auth.signInWithOtp({
-      email: cleanEmail,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=${redirectPath}`,
-      },
-    })
+    let error = null
+
+    try {
+      const response = await supabase.auth.signInWithOtp({
+        email: cleanEmail,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=${redirectPath}`,
+        },
+      })
+
+      error = response.error
+    } catch (requestError) {
+      error = requestError
+    }
 
     setBusy(false)
     if (error) {
