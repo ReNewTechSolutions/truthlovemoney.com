@@ -34,10 +34,10 @@ const entryTypes = [
 ]
 
 const statusLabels = {
-  new: 'New',
-  used: 'Used',
-  planned: 'Planned',
-  published: 'Published',
+  new: 'Newly Planted',
+  used: 'Harvested',
+  planned: 'Growing',
+  published: 'Bloomed',
 }
 
 const VAULT_USER_EMAIL = 'cmargu@yahoo.com'
@@ -70,7 +70,7 @@ function getLoginBlockMessage(email, admin) {
     return 'This area is reserved for Felicia.'
   }
 
-  return 'This private vault is currently reserved for Marguerite.'
+  return 'This private garden is currently reserved for Marguerite.'
 }
 
 function getLoginErrorMessage(error) {
@@ -81,7 +81,7 @@ function getLoginErrorMessage(error) {
     /rate limit|too many|security purposes|wait|after/i.test(message)
 
   if (isRateLimited) {
-    return 'A login link was already sent. Please wait a minute, then use the newest email link.'
+    return 'A garden gate link was already sent. Please wait a minute, then use the newest email.'
   }
 
   if (/failed to fetch|networkerror|load failed/i.test(message)) {
@@ -203,8 +203,8 @@ function HomePage() {
           <a href="#about">About</a>
           <a href="#explore">Explore</a>
           <a href="#lessons">Lessons</a>
-          <a href="#vault">Story Vault</a>
-          <a className="nav-cta" href="/vault">Enter Vault</a>
+          <a href="#vault">The Seed Garden</a>
+          <a className="nav-cta" href="/vault">Enter Garden</a>
         </nav>
       </header>
 
@@ -215,15 +215,15 @@ function HomePage() {
           <p className="truth-line">Truth • Love • Money</p>
           <p className="tagline">Never Stop Learning</p>
           <p className="hero-intro">
-            A warm, literary home for stories, wisdom, poetry, memoirs, and life lessons
-            that help us keep learning with courage and grace.
+            A warm, literary home where today&apos;s ideas are planted, gathered, and gently
+            grown into stories, poems, videos, and life lessons.
           </p>
           <div className="hero-actions" aria-label="Primary actions">
             <a className="button button-primary" href="#join">
               Join the Story Circle
             </a>
             <a className="button button-secondary" href="/vault">
-              Enter Story Vault
+              Enter The Seed Garden
             </a>
           </div>
         </div>
@@ -305,8 +305,8 @@ function HomePage() {
           <p className="eyebrow">Teaching &amp; Speaking</p>
           <h2 id="teaching-title">Lessons that last beyond the moment.</h2>
           <p>
-            Future talks, short teachings, and community sessions can grow from the Story
-            Vault: literature circles, memoir prompts, personal growth themes, and practical
+            Future talks, short teachings, and community sessions can grow from The Seed
+            Garden: literature circles, memoir prompts, personal growth themes, and practical
             wisdom for the heart and home.
           </p>
         </div>
@@ -336,15 +336,15 @@ function HomePage() {
           alt="The Lyon Den banner artwork with creekside books, flowers, and handwritten story notes"
         />
         <div className="vault-card">
-          <p className="eyebrow">Story Vault</p>
-          <h2 id="vault-title">A living archive for future videos.</h2>
+          <p className="eyebrow">The Seed Garden</p>
+          <h2 id="vault-title">Every story begins as a seed.</h2>
           <p>
-            The Story Vault gathers memories, favorite books, quotes, poetry, reflections,
-            and questions that become future Truth Love Money episodes.
+            A place where thoughts are gently collected before they bloom into stories,
+            blog posts, poems, videos, and future chapters.
           </p>
           <div className="vault-actions">
             <a className="button button-primary" href="/vault">
-              Enter Story Vault
+              Plant Today&apos;s Ideas
             </a>
           </div>
         </div>
@@ -401,7 +401,7 @@ function HomePage() {
             Share a Question or Story Idea
           </a>
           <a className="text-link vault-admin-link" href="/vault">
-            Enter Story Vault
+            Enter The Seed Garden
           </a>
         </div>
       </section>
@@ -449,7 +449,7 @@ function VaultApp({ admin }) {
   if (loading) {
     return (
       <VaultShell>
-        <p className="vault-loading">Opening the Story Vault...</p>
+        <p className="vault-loading">Opening The Seed Garden...</p>
       </VaultShell>
     )
   }
@@ -464,7 +464,7 @@ function VaultApp({ admin }) {
     return (
       <RestrictedVaultMessage
         session={session}
-        message="This private vault is currently reserved for Marguerite."
+        message="This private garden is currently reserved for Marguerite."
       />
     )
   }
@@ -491,8 +491,8 @@ function VaultShell({ children, session }) {
         <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
           <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
           <span>
-            <strong>Story Vault</strong>
-            <small>The Lyon Den • Private Journal</small>
+            <strong>The Seed Garden</strong>
+            <small>The Lyon Den • Private Journal of Ideas</small>
           </span>
         </a>
         <div className="vault-header-actions">
@@ -519,9 +519,9 @@ function VaultConfigNotice() {
     <VaultShell>
       <section className="vault-panel narrow-panel">
         <p className="eyebrow">Setup Needed</p>
-        <h1>Connect Supabase to open the Story Vault.</h1>
+        <h1>Connect Supabase to open The Seed Garden.</h1>
         <p>
-          Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the deployment
+          Place `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the deployment
           environment. Those are the exact Vercel variable names this site reads.
           The table SQL is included in `supabase/schema.sql`.
         </p>
@@ -536,7 +536,7 @@ function VaultConfigNotice() {
 }
 
 function AuthCallback() {
-  const [message, setMessage] = useState('Opening your Story Vault...')
+  const [message, setMessage] = useState('Opening The Seed Garden...')
   const [error, setError] = useState('')
   const [showDebug, setShowDebug] = useState(false)
   const [debug, setDebug] = useState({
@@ -568,7 +568,7 @@ function AuthCallback() {
             exchange: 'skipped',
             sessionExists: 'no',
           },
-          'Connect Supabase to finish opening the Story Vault.',
+          'Connect Supabase to finish opening The Seed Garden.',
         )
         return
       }
@@ -659,7 +659,7 @@ function AuthCallback() {
           {
             sessionExists: 'no',
           },
-          getReadableError(sessionError, 'Could not read the Story Vault session.'),
+          getReadableError(sessionError, 'Could not read The Seed Garden session.'),
         )
         return
       }
@@ -670,7 +670,7 @@ function AuthCallback() {
       }))
 
       if (session) {
-        setMessage('You are signed in. Taking you to the Story Vault...')
+        setMessage('You are signed in. Taking you to The Seed Garden...')
         clearIntendedVaultPath()
         window.location.replace(nextPath || '/vault')
         return
@@ -689,7 +689,7 @@ function AuthCallback() {
           exchange: code ? 'success' : accessToken && refreshToken ? 'hash session success' : 'not started',
           sessionExists: 'no',
         },
-        'No Story Vault session was found yet. Please use the newest email link.',
+        'No Seed Garden session was found yet. Please use the newest email link.',
       )
     }
 
@@ -700,10 +700,10 @@ function AuthCallback() {
     <VaultShell>
       <section className="vault-panel narrow-panel login-panel" aria-labelledby="callback-title">
         <p className="eyebrow">Secure Login</p>
-        <h1 id="callback-title">Story Vault Login</h1>
+        <h1 id="callback-title">Seed Garden Login</h1>
         <p>{error || message}</p>
         {showDebug && (
-          <dl className="callback-debug" aria-label="Story Vault login debug">
+          <dl className="callback-debug" aria-label="Seed Garden login debug">
             <div>
               <dt>Current path</dt>
               <dd>{debug.currentPath}</dd>
@@ -732,7 +732,7 @@ function AuthCallback() {
         )}
         {error && (
           <a className="button button-primary large-action" href="/vault">
-            Request a New Login Link
+            Request a New Garden Link
           </a>
         )}
       </section>
@@ -787,7 +787,7 @@ function VaultLogin({ admin }) {
 
     setBusy(false)
     if (error) {
-      console.error('Story Vault magic link error:', {
+      console.error('Seed Garden magic link error:', {
         message: error.message,
         name: error.name,
         status: error.status || error.statusCode,
@@ -797,18 +797,18 @@ function VaultLogin({ admin }) {
     }
 
     setMessage(
-      'Check your email for the secure login link. It may take a minute. If you don’t see it, check spam or junk.',
+      'Check your email for the secure garden gate link. It may take a minute. If you don’t see it, check spam or junk.',
     )
   }
 
   return (
     <VaultShell>
       <section className="vault-panel login-panel" aria-labelledby="vault-login-title">
-        <p className="eyebrow">Private Login</p>
+        <p className="eyebrow">Private Garden</p>
         <h1 id="vault-login-title">
-          {admin ? 'Story Vault Admin Login' : 'Welcome to The Lyon Den Story Vault'}
+          {admin ? 'Seed Garden Studio Login' : 'Welcome to The Lyon Den Seed Garden'}
         </h1>
-        <p>Enter your email and we’ll send you a secure login link.</p>
+        <p>Enter your email and we’ll send you a secure garden gate link.</p>
         <form className="vault-form" onSubmit={handleLogin}>
           <label>
             Email
@@ -821,7 +821,7 @@ function VaultLogin({ admin }) {
             />
           </label>
           <button className="button button-primary large-action" type="submit" disabled={busy}>
-            {busy ? 'Sending...' : 'Send My Login Link'}
+            {busy ? 'Sending...' : 'Send My Garden Link'}
           </button>
           {message && (
             <p
@@ -907,12 +907,12 @@ function VaultSubmissionPortal({ session }) {
 
     setBusy(false)
     if (error) {
-      console.error('Story Vault save error:', {
+      console.error('Seed Garden save error:', {
         message: error.message,
         code: error.code,
         details: error.details,
       })
-      setMessage(`Something did not save: ${getReadableError(error, 'Please try again.')}`)
+      setMessage(`This seed did not save: ${getReadableError(error, 'Please try again.')}`)
       return
     }
 
@@ -920,19 +920,19 @@ function VaultSubmissionPortal({ session }) {
     setTitle('')
     setContent('')
     setSelectedType(null)
-    setMessage('Your story has been saved to the Story Vault.')
+    setMessage('Your seed has been planted. We’ll help it grow into something beautiful.')
   }
 
   return (
     <VaultShell session={session}>
       <section className="vault-welcome" aria-labelledby="vault-title">
         <p className="eyebrow">Welcome Back, Marguerite</p>
-        <h1 id="vault-title">What would you like to add today?</h1>
+        <h1 id="vault-title">What would you like to plant today?</h1>
         {message && <p className="form-message success-message">{message}</p>}
       </section>
 
       {!selectedType && (
-        <section className="entry-type-grid" aria-label="Story Vault entry types">
+        <section className="entry-type-grid" aria-label="Seed Garden seed types">
           {entryTypes.map((entryType) => (
             <button
               className="entry-type-card"
@@ -950,13 +950,13 @@ function VaultSubmissionPortal({ session }) {
       {selectedType && (
         <section className="vault-panel" aria-labelledby="entry-form-title">
           <button className="back-button" type="button" onClick={() => setSelectedType(null)}>
-            Back to choices
+            Back to seed choices
           </button>
           <p className="eyebrow">{selectedType.icon} {selectedType.label}</p>
-          <h2 id="entry-form-title">Add this to the Story Vault</h2>
+          <h2 id="entry-form-title">Plant this seed</h2>
           <form className="vault-form" onSubmit={handleSubmit}>
             <label>
-              Title
+              Seed title
               <input
                 type="text"
                 value={title}
@@ -965,7 +965,7 @@ function VaultSubmissionPortal({ session }) {
               />
             </label>
             <label>
-              Details
+              Seed notes
               <textarea
                 value={content}
                 onChange={(event) => setContent(event.target.value)}
@@ -977,14 +977,14 @@ function VaultSubmissionPortal({ session }) {
               <span>Voice note upload coming later</span>
               <span>Photo upload coming later</span>
             </div>
-            {draftSavedAt && <p className="draft-note">Draft auto-saved at {draftSavedAt}</p>}
+            {draftSavedAt && <p className="draft-note">Seed draft saved at {draftSavedAt}</p>}
             {message && <p className="form-message error-message">{message}</p>}
             <div className="form-actions">
               <button className="button button-secondary" type="button" onClick={clearForm}>
-                Clear
+                Clear Seed
               </button>
               <button className="button button-primary large-action" type="submit" disabled={busy}>
-                {busy ? 'Saving...' : 'Save to the Story Vault'}
+                {busy ? 'Saving seed...' : 'Save Seed'}
               </button>
             </div>
           </form>
@@ -1019,12 +1019,12 @@ function VaultAdmin({ session }) {
 
     setLoading(false)
     if (error) {
-      console.error('Story Vault admin read error:', {
+      console.error('Seed Garden admin read error:', {
         message: error.message,
         code: error.code,
         details: error.details,
       })
-      setMessage(`Could not load the Story Vault entries: ${getReadableError(error)}`)
+      setMessage(`Could not gather today’s seeds: ${getReadableError(error)}`)
       return
     }
     setEntries(data || [])
@@ -1039,17 +1039,17 @@ function VaultAdmin({ session }) {
 
     setConnectionBusy(false)
     if (error) {
-      console.error('Story Vault connection test error:', {
+      console.error('Seed Garden connection test error:', {
         message: error.message,
         code: error.code,
         details: error.details,
       })
-      setConnectionMessage(`Supabase connection failed: ${getReadableError(error)}`)
+      setConnectionMessage(`The garden connection needs attention: ${getReadableError(error)}`)
       return
     }
 
     setConnectionOk(true)
-    setConnectionMessage('Supabase connection works. Vault entries are readable.')
+    setConnectionMessage('The garden connection is working. Seeds are readable.')
   }
 
   async function updateStatus(id, status) {
@@ -1057,12 +1057,12 @@ function VaultAdmin({ session }) {
     const { error } = await supabase.from('vault_entries').update({ status }).eq('id', id)
 
     if (error) {
-      console.error('Story Vault status update error:', {
+      console.error('Seed Garden growth stage update error:', {
         message: error.message,
         code: error.code,
         details: error.details,
       })
-      setMessage(`That status did not update: ${getReadableError(error)}`)
+      setMessage(`That growth stage did not update: ${getReadableError(error)}`)
       return
     }
 
@@ -1084,13 +1084,13 @@ function VaultAdmin({ session }) {
   return (
     <VaultShell session={session}>
       <section className="vault-welcome" aria-labelledby="admin-title">
-        <p className="eyebrow">Story Vault Admin</p>
-        <h1 id="admin-title">Review the latest submissions.</h1>
+        <p className="eyebrow">Seed Garden Studio</p>
+        <h1 id="admin-title">Review Today’s Seeds</h1>
       </section>
 
-      <section className="admin-filters" aria-label="Filter vault entries">
+      <section className="admin-filters" aria-label="Filter Seed Garden seeds">
         <label>
-          Entry type
+          Seed type
           <select value={entryType} onChange={(event) => setEntryType(event.target.value)}>
             <option value="all">All types</option>
             {entryTypes.map((type) => (
@@ -1101,9 +1101,9 @@ function VaultAdmin({ session }) {
           </select>
         </label>
         <label>
-          Status
+          Growth stage
           <select value={status} onChange={(event) => setStatus(event.target.value)}>
-            <option value="all">All statuses</option>
+            <option value="all">All growth stages</option>
             {Object.entries(statusLabels).map(([value, label]) => (
               <option value={value} key={value}>
                 {label}
@@ -1116,7 +1116,7 @@ function VaultAdmin({ session }) {
           <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
         </label>
         <button className="button button-secondary" type="button" onClick={loadEntries}>
-          Refresh
+          Refresh Garden
         </button>
         <button
           className="button button-secondary"
@@ -1124,7 +1124,7 @@ function VaultAdmin({ session }) {
           onClick={testSupabaseConnection}
           disabled={connectionBusy}
         >
-          {connectionBusy ? 'Testing...' : 'Test Supabase Connection'}
+          {connectionBusy ? 'Checking...' : 'Check Garden Connection'}
         </button>
       </section>
 
@@ -1134,61 +1134,61 @@ function VaultAdmin({ session }) {
           {connectionMessage}
         </p>
       )}
-      {loading && <p className="vault-loading">Loading entries...</p>}
+      {loading && <p className="vault-loading">Gathering seeds...</p>}
 
       {selectedEntry && (
         <section className="vault-panel admin-detail-card" aria-labelledby="entry-detail-title">
           <button className="back-button" type="button" onClick={() => setSelectedEntry(null)}>
-            Close entry
+            Close seed
           </button>
           <div className="entry-meta">
-            <span>{getTypeLabel(selectedEntry.entry_type)}</span>
-            <span>{new Date(selectedEntry.created_at).toLocaleDateString()}</span>
-            <span>{statusLabels[selectedEntry.status] || selectedEntry.status}</span>
+            <span><b>Seed Type</b>{getTypeLabel(selectedEntry.entry_type)}</span>
+            <span><b>Date Planted</b>{new Date(selectedEntry.created_at).toLocaleDateString()}</span>
+            <span><b>Growth Stage</b>{statusLabels[selectedEntry.status] || selectedEntry.status}</span>
           </div>
           <h2 id="entry-detail-title">{selectedEntry.title}</h2>
           <p>{selectedEntry.content}</p>
           <div className="status-actions">
             <button type="button" onClick={() => updateStatus(selectedEntry.id, 'planned')}>
-              Mark as Planned
+              Mark as Growing
             </button>
             <button type="button" onClick={() => updateStatus(selectedEntry.id, 'used')}>
-              Mark as Used
+              Mark as Harvested
             </button>
             <button type="button" onClick={() => updateStatus(selectedEntry.id, 'published')}>
-              Mark as Published
+              Mark as Bloomed
             </button>
           </div>
         </section>
       )}
 
-      <section className="entry-list" aria-label="Vault submissions">
+      <section className="entry-list" aria-label="Seed Garden seeds">
         {!loading && filteredEntries.length === 0 && (
           <article className="vault-entry-card">
-            <p>No entries match those filters yet.</p>
+            <p>The garden is quiet today.<br />New ideas will bloom here soon.</p>
           </article>
         )}
         {filteredEntries.map((entry) => (
           <article className="vault-entry-card" key={entry.id}>
             <div className="entry-meta">
-              <span>{getTypeLabel(entry.entry_type)}</span>
-              <span>{new Date(entry.created_at).toLocaleDateString()}</span>
-              <span>{statusLabels[entry.status] || entry.status}</span>
+              <span><b>Seed Type</b>{getTypeLabel(entry.entry_type)}</span>
+              <span><b>Date Planted</b>{new Date(entry.created_at).toLocaleDateString()}</span>
+              <span><b>Growth Stage</b>{statusLabels[entry.status] || entry.status}</span>
             </div>
             <h2>{entry.title}</h2>
             <p>{entry.content}</p>
             <button className="read-entry-button" type="button" onClick={() => setSelectedEntry(entry)}>
-              Read Full Entry
+              Read Full Seed
             </button>
             <div className="status-actions">
               <button type="button" onClick={() => updateStatus(entry.id, 'planned')}>
-                Mark as Planned
+                Mark as Growing
               </button>
               <button type="button" onClick={() => updateStatus(entry.id, 'used')}>
-                Mark as Used
+                Mark as Harvested
               </button>
               <button type="button" onClick={() => updateStatus(entry.id, 'published')}>
-                Mark as Published
+                Mark as Bloomed
               </button>
             </div>
           </article>

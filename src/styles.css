@@ -861,6 +861,14 @@ a:focus-visible {
   font-weight: 850;
 }
 
+.entry-meta b {
+  margin-right: 0.35rem;
+  color: var(--sage-deep);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .read-entry-button {
   min-height: 3rem;
   border: 1px solid rgba(13, 67, 80, 0.18);
