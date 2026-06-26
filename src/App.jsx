@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { isSupabaseConfigured, supabase, supabaseConfig } from './lib/supabaseClient'
 
 const exploreCards = [
@@ -49,12 +49,38 @@ const firstBlogPost = {
   ],
 }
 
-const latestVideo = {
-  title: 'Every Chapter Has Something to Teach Us',
-  subtitle: 'A first look at The Lyon Den',
-  text: 'A quiet welcome to the stories, books, poems, and life lessons that will shape Truth Love Money.',
-  url: youtubeChannelUrl,
-}
+const youtubeVideosUrl = `${youtubeChannelUrl}/videos`
+
+const latestChapters = [
+  {
+    title: 'Every Story Has Something to Teach Us',
+    publishedAt: 'June 2026',
+    description: 'A first welcome to The Lyon Den and the stories, books, and lessons that shape this literary home.',
+    thumbnail: '/assets/banner.png',
+    url: youtubeChannelUrl,
+  },
+  {
+    title: 'Truth, Love, Money, and a Life of Learning',
+    publishedAt: 'June 2026',
+    description: 'A reflective chapter on staying curious, gathering wisdom, and noticing what ordinary days can teach.',
+    thumbnail: '/assets/lifelessons.png',
+    url: youtubeChannelUrl,
+  },
+  {
+    title: 'Books That Stay With Us',
+    publishedAt: 'June 2026',
+    description: 'A gentle bookshelf conversation about literature, memory, and the passages that keep speaking.',
+    thumbnail: '/assets/lessonsthatlast.png',
+    url: youtubeChannelUrl,
+  },
+  {
+    title: 'Poetry for the Quiet Hours',
+    publishedAt: 'June 2026',
+    description: 'Short reflections for the softer moments: poetry, wonder, courage, and the heart-work of listening.',
+    thumbnail: '/assets/cta.png',
+    url: youtubeChannelUrl,
+  },
+]
 
 const bookshelfItems = [
   {
@@ -206,6 +232,145 @@ function YouTubeIcon() {
   return <span className="youtube-icon" aria-hidden="true">▶</span>
 }
 
+function useChapterVisibleCount() {
+  const getVisibleCount = () => {
+    if (typeof window === 'undefined') return 1
+    if (window.innerWidth >= 1120) return 3
+    if (window.innerWidth >= 681) return 2
+    return 1
+  }
+
+  const [visibleCount, setVisibleCount] = useState(getVisibleCount)
+
+  useEffect(() => {
+    function handleResize() {
+      setVisibleCount(getVisibleCount())
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return visibleCount
+}
+
+function LatestChaptersCarousel() {
+  const visibleCount = useChapterVisibleCount()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const carouselRef = useRef(null)
+  const maxIndex = Math.max(latestChapters.length - visibleCount, 0)
+  const safeIndex = Math.min(activeIndex, maxIndex)
+
+  useEffect(() => {
+    setActiveIndex((currentIndex) => Math.min(currentIndex, maxIndex))
+  }, [maxIndex])
+
+  useEffect(() => {
+    const carousel = carouselRef.current
+    const targetCard = carousel?.querySelectorAll('.chapter-card')[safeIndex]
+
+    if (!carousel || !targetCard) return
+
+    carousel.scrollTo({
+      left: targetCard.offsetLeft,
+      behavior: 'smooth',
+    })
+  }, [safeIndex, visibleCount])
+
+  useEffect(() => {
+    if (isPaused || maxIndex === 0) return undefined
+
+    const interval = window.setInterval(() => {
+      setActiveIndex((currentIndex) => (currentIndex >= maxIndex ? 0 : currentIndex + 1))
+    }, 6000)
+
+    return () => window.clearInterval(interval)
+  }, [isPaused, maxIndex])
+
+  function showPrevious() {
+    setActiveIndex((currentIndex) => (currentIndex <= 0 ? maxIndex : currentIndex - 1))
+  }
+
+  function showNext() {
+    setActiveIndex((currentIndex) => (currentIndex >= maxIndex ? 0 : currentIndex + 1))
+  }
+
+  return (
+    <section
+      className="latest-chapters section-shell"
+      id="latest-chapters"
+      aria-labelledby="latest-chapters-title"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
+    >
+      <div className="latest-chapters-heading">
+        <div>
+          <p className="eyebrow">Latest Chapters</p>
+          <h2 id="latest-chapters-title">Latest Chapters</h2>
+          <p>Stories, reflections, and life lessons from The Lyon Den.</p>
+        </div>
+        <a className="button button-secondary" href={youtubeVideosUrl} {...youtubeLinkProps}>
+          View All Chapters
+        </a>
+      </div>
+
+      <div
+        className="chapter-carousel"
+        aria-roledescription="carousel"
+        aria-label="Latest Lyon Den YouTube chapters"
+        ref={carouselRef}
+      >
+        <div className="chapter-track">
+          {latestChapters.map((chapter, index) => (
+            <a
+              className="chapter-card"
+              href={chapter.url}
+              key={chapter.title}
+              aria-label={`Watch ${chapter.title} on YouTube`}
+              {...youtubeLinkProps}
+            >
+              <img
+                src={chapter.thumbnail}
+                alt=""
+                loading="lazy"
+              />
+              <div className="chapter-card-body">
+                <p className="chapter-date">{chapter.publishedAt}</p>
+                <h3>{chapter.title}</h3>
+                {chapter.description && <p>{chapter.description}</p>}
+                <span className="button button-primary">Watch on YouTube</span>
+              </div>
+              <span className="sr-only">
+                Chapter {index + 1} of {latestChapters.length}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <p className="youtube-note chapter-note">New chapters are published regularly.</p>
+
+      <div className="chapter-controls" aria-label="Latest Chapters controls">
+        <button type="button" onClick={showPrevious} aria-label="Show previous chapters">
+          ←
+        </button>
+        <div className="chapter-dots" aria-hidden="true">
+          {Array.from({ length: maxIndex + 1 }, (_, index) => (
+            <span className={index === safeIndex ? 'active' : ''} key={index} />
+          ))}
+        </div>
+        <button type="button" onClick={showNext} aria-label="Show next chapters">
+          →
+        </button>
+      </div>
+    </section>
+  )
+}
+
 function App() {
   const [path, setPath] = useState(window.location.pathname)
   const { hasAuthParams } = getAuthRedirectDetails()
@@ -266,7 +431,7 @@ function HomePage() {
         </a>
         <nav className="site-nav" aria-label="Primary navigation">
           <a href="#featured">Featured</a>
-          <a href="#latest-video">Latest Video</a>
+          <a href="#latest-chapters">Latest Chapters</a>
           <a href="#bookshelf">Books</a>
           <a href="#poetry">Poetry</a>
           <a href="#about">About</a>
@@ -306,6 +471,8 @@ function HomePage() {
         </figure>
       </section>
 
+      <LatestChaptersCarousel />
+
       <section className="publication-lead section-shell" id="featured" aria-labelledby="publication-title">
         <article className="featured-article-card">
           <p className="eyebrow">Featured Article</p>
@@ -327,39 +494,9 @@ function HomePage() {
           {...youtubeLinkProps}
         >
           <p className="eyebrow">Latest Chapter</p>
-          <h2>{latestVideo.title}</h2>
-          <p>{latestVideo.text}</p>
+          <h2>{latestChapters[0].title}</h2>
+          <p>{latestChapters[0].description}</p>
           <span className="button button-primary">Watch on YouTube</span>
-        </a>
-      </section>
-
-      <section className="video-feature section-shell" id="latest-video" aria-labelledby="video-title">
-        <div className="video-copy">
-          <p className="eyebrow">Latest Video</p>
-          <h2 id="video-title">{latestVideo.title}</h2>
-          <p className="blog-subtitle">{latestVideo.subtitle}</p>
-          <p>{latestVideo.text}</p>
-          <p className="youtube-note">New chapters are published regularly.</p>
-          <div className="video-actions">
-            <a className="button button-primary" href={youtubeChannelUrl} {...youtubeLinkProps}>
-              Watch on YouTube
-            </a>
-            <a className="button button-secondary" href={youtubeChannelUrl} {...youtubeLinkProps}>
-              Subscribe
-            </a>
-          </div>
-        </div>
-        <a
-          className="video-frame"
-          href={youtubeChannelUrl}
-          aria-label="Open The Lyon Den YouTube channel"
-          {...youtubeLinkProps}
-        >
-          <img
-            src="/assets/banner.png"
-            alt="The Lyon Den creekside banner artwork used as the latest video preview"
-          />
-          <span className="video-caption">Latest YouTube chapter preview</span>
         </a>
       </section>
 
