@@ -28,11 +28,69 @@ const youtubeLinkProps = {
   rel: 'noopener noreferrer',
 }
 
-const firstBlogPost = {
+const blogPosts = [
+  {
+    title: 'The Summer That Never Left Me',
+    subtitle: 'How one poem reminded me that memories never really leave us.',
+    author: 'Marguerite Lyon',
+    category: 'Stories',
+    featured: true,
+    readingTime: '5 minutes',
+    path: '/blog/the-summer-that-never-left-me',
+    heroImage: '/assets/summer-that-never-left-me.png',
+    heroAlt: 'Golden summer creekside scene with books, flowers, warm light, and a nostalgic literary atmosphere',
+    excerpt:
+      'A reflective story about poetry, memory, summer afternoons, teaching, family, and the small objects that become chapters of a life.',
+    paragraphs: [
+      'Sometimes a poem doesn’t simply give us words.',
+      'Sometimes it quietly opens a door.',
+      'Recently I reread a favorite poem that immediately carried me back to summers I thought I had almost forgotten.',
+      'Family afternoons at the swimming pool.',
+      'The sound of laughter.',
+      'Friends.',
+      'Students.',
+      'The simple joy of sharing books and discovering new stories together.',
+      'It reminded me that memories have a remarkable way of waiting patiently until something awakens them.',
+      'A scent.',
+      'A photograph.',
+      'A favorite book.',
+      'A poem.',
+      'One of the things I loved most about teaching was watching students discover that literature isn’t simply something we read.',
+      'It’s something we experience.',
+      'Every reader brings a different life to every page.',
+      'That’s why one poem can mean something entirely different to each person who encounters it.',
+      'Perhaps that’s the true gift of literature.',
+      'It reminds us that our own stories matter.',
+      'Some of my happiest memories involve water.',
+      'Summers with family.',
+      'Later, watching my parents enjoy the swimming pool they worked so hard to build.',
+      'Moments that seemed ordinary then but have become priceless now.',
+      'One small object can hold an entire lifetime of memories.',
+      'A favorite kitchen utensil.',
+      'A treasured ring from a parent.',
+      'A book whose pages have become worn through years of reading.',
+      'These things become more than objects.',
+      'They become chapters.',
+      'The older I become, the more I realize that memories don’t fade because they’re unimportant.',
+      'The important ones simply become part of who we are.',
+      'Perhaps every story has something to teach us.',
+      'And perhaps every memory is quietly waiting for the right moment to bloom again.',
+      'Welcome to The Lyon Den.',
+      'Never stop learning.',
+    ],
+  },
+  {
   title: 'Every Story Has Something to Teach Us',
   subtitle: 'Why I Created The Lyon Den',
   author: 'Marguerite Lyon',
+  category: 'Stories',
+  featured: false,
+  readingTime: '4 minutes',
   path: '/blog/every-story-has-something-to-teach-us',
+  heroImage: '/assets/banner.png',
+  heroAlt: 'The Lyon Den creekside banner artwork with books, flowers, and handwritten story notes',
+  excerpt:
+    'The first official written chapter of The Lyon Den, welcoming readers into stories, lessons, books, and lifelong learning.',
   paragraphs: [
     'Throughout my life, I’ve been fortunate to learn from wonderful teachers, remarkable books, family, friendships, mistakes, and experiences I never could have predicted.',
     'Eventually, I realized something simple and important:',
@@ -47,6 +105,14 @@ const firstBlogPost = {
     'Welcome to The Lyon Den.',
     'Never stop learning.',
   ],
+  },
+]
+
+const featuredBlogPost = blogPosts.find((post) => post.featured) || blogPosts[0]
+const firstBlogPost = blogPosts.find((post) => post.path === '/blog/every-story-has-something-to-teach-us')
+
+function getPostByPath(path) {
+  return blogPosts.find((post) => post.path === path)
 }
 
 const youtubeVideosUrl = `${youtubeChannelUrl}/videos`
@@ -395,8 +461,10 @@ function App() {
     return <AuthCallback />
   }
 
-  if (normalizedPath === '/blog' || normalizedPath === firstBlogPost.path) {
-    return <BlogPostPage />
+  const selectedPost = getPostByPath(normalizedPath)
+
+  if (normalizedPath === '/blog' || selectedPost) {
+    return <BlogPostPage post={selectedPost || featuredBlogPost} />
   }
 
   return <HomePage />
@@ -454,7 +522,7 @@ function HomePage() {
             and linger with poetry, memoir, and life lessons for the heart.
           </p>
           <div className="hero-actions" aria-label="Primary actions">
-            <a className="button button-primary" href={firstBlogPost.path}>
+            <a className="button button-primary" href={featuredBlogPost.path}>
               Read Featured Article
             </a>
             <a className="button button-secondary" href={youtubeChannelUrl} {...youtubeLinkProps}>
@@ -476,13 +544,12 @@ function HomePage() {
       <section className="publication-lead section-shell" id="featured" aria-labelledby="publication-title">
         <article className="featured-article-card">
           <p className="eyebrow">Featured Article</p>
-          <h2 id="publication-title">{firstBlogPost.title}</h2>
-          <p className="blog-subtitle">{firstBlogPost.subtitle}</p>
+          <h2 id="publication-title">{featuredBlogPost.title}</h2>
+          <p className="blog-subtitle">{featuredBlogPost.subtitle}</p>
           <p>
-            Marguerite opens The Lyon Den with a first written chapter on stories, lessons,
-            memory, and the quiet wisdom that can grow from a shared life.
+            {featuredBlogPost.excerpt}
           </p>
-          <a className="button button-secondary" href={firstBlogPost.path}>
+          <a className="button button-secondary" href={featuredBlogPost.path}>
             Read the Article
           </a>
         </article>
@@ -549,10 +616,20 @@ function HomePage() {
         <div className="story-grid">
           <article className="story-card story-card-featured">
             <p className="eyebrow">Latest Blog</p>
-            <h3>{firstBlogPost.title}</h3>
-            <p>{firstBlogPost.subtitle}</p>
-            <a className="text-link" href={firstBlogPost.path}>Read now</a>
+            <h3>{featuredBlogPost.title}</h3>
+            <p>{featuredBlogPost.subtitle}</p>
+            <a className="text-link" href={featuredBlogPost.path}>Read now</a>
           </article>
+          {blogPosts
+            .filter((post) => post.path !== featuredBlogPost.path)
+            .map((post) => (
+              <article className="story-card" key={post.path}>
+                <p className="eyebrow">{post.category}</p>
+                <h3>{post.title}</h3>
+                <p>{post.subtitle}</p>
+                <a className="text-link" href={post.path}>Continue reading</a>
+              </article>
+            ))}
           {exploreCards.map((card) => (
             <article className="story-card" key={card.title}>
               <p className="eyebrow">{card.title}</p>
@@ -566,18 +643,17 @@ function HomePage() {
       <section className="section-shell media-section reverse publication-image-band" aria-labelledby="lessons-title">
         <div className="media-image">
           <img
-            src="/assets/lifelessons.png"
-            alt="Life Lessons visual with books, creekside warmth, and reflective storytelling imagery"
+            src={featuredBlogPost.heroImage}
+            alt={featuredBlogPost.heroAlt}
           />
         </div>
         <div className="media-copy">
           <p className="eyebrow">Featured Story</p>
-          <h2 id="lessons-title">Literature, memories, and lessons worth carrying.</h2>
+          <h2 id="lessons-title">{featuredBlogPost.title}</h2>
           <p>
-            This gallery introduces the recurring themes behind The Lyon Den: favorite
-            passages, turning points, practical insight, and the wisdom found in everyday life.
+            {featuredBlogPost.excerpt}
           </p>
-          <a className="text-link" href="#join">Suggest a life lesson topic</a>
+          <a className="text-link" href={featuredBlogPost.path}>Read the featured story</a>
         </div>
       </section>
 
@@ -673,7 +749,13 @@ function HomePage() {
   )
 }
 
-function BlogPostPage() {
+function BlogPostPage({ post }) {
+  const currentIndex = blogPosts.findIndex((blogPost) => blogPost.path === post.path)
+  const previousPost = blogPosts[currentIndex + 1] || null
+  const nextPost = blogPosts[currentIndex - 1] || null
+  const continuePost =
+    post.path === firstBlogPost.path ? featuredBlogPost : blogPosts.find((blogPost) => blogPost.path !== post.path)
+
   return (
     <main className="site-shell blog-shell">
       <header className="site-header blog-header" aria-label="TruthLoveMoney.com blog header">
@@ -697,15 +779,24 @@ function BlogPostPage() {
           Back to The Lyon Den
         </a>
         <header className="blog-article-header">
-          <p className="eyebrow">The Lyon Den Journal</p>
-          <h1 id="blog-title">{firstBlogPost.title}</h1>
-          <p className="blog-subtitle">{firstBlogPost.subtitle}</p>
-          <p className="blog-byline">By {firstBlogPost.author}</p>
+          <p className="eyebrow">{post.category}</p>
+          <h1 id="blog-title">{post.title}</h1>
+          <p className="blog-subtitle">{post.subtitle}</p>
+          <div className="blog-meta" aria-label="Article details">
+            <span>By {post.author}</span>
+            <span>{post.readingTime}</span>
+            {post.featured && <span>Featured Story</span>}
+          </div>
         </header>
 
+        <figure className="blog-hero-image">
+          <img src={post.heroImage} alt={post.heroAlt} />
+        </figure>
+
         <div className="blog-body">
-          {firstBlogPost.paragraphs.map((paragraph) =>
-            paragraph === 'Every story has something to teach us.' ? (
+          {post.paragraphs.map((paragraph) =>
+            paragraph === 'Every story has something to teach us.' ||
+            paragraph === 'Sometimes a poem doesn’t simply give us words.' ? (
               <blockquote key={paragraph}>{paragraph}</blockquote>
             ) : (
               <p key={paragraph}>{paragraph}</p>
@@ -713,6 +804,38 @@ function BlogPostPage() {
           )}
         </div>
       </article>
+
+      {continuePost && (
+        <section className="continue-reading section-shell" aria-labelledby="continue-reading-title">
+          <div>
+            <p className="eyebrow">Continue Reading</p>
+            <h2 id="continue-reading-title">{continuePost.title}</h2>
+            <p>{continuePost.subtitle}</p>
+          </div>
+          <a className="button button-secondary" href={continuePost.path}>
+            Continue Reading
+          </a>
+        </section>
+      )}
+
+      <nav className="article-nav section-shell" aria-label="Article navigation">
+        {previousPost ? (
+          <a href={previousPost.path}>
+            <span>Previous Article</span>
+            {previousPost.title}
+          </a>
+        ) : (
+          <span />
+        )}
+        {nextPost ? (
+          <a href={nextPost.path}>
+            <span>Next Article</span>
+            {nextPost.title}
+          </a>
+        ) : (
+          <span />
+        )}
+      </nav>
 
       <section className="blog-next section-shell" aria-labelledby="blog-next-title">
         <div>
