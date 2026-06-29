@@ -1168,6 +1168,16 @@ p {
   border-bottom: 1px solid rgba(191, 141, 50, 0.28);
 }
 
+.blog-print-actions {
+  display: flex;
+  margin-bottom: clamp(1.1rem, 5vw, 1.6rem);
+}
+
+.print-story-button {
+  width: 100%;
+  cursor: pointer;
+}
+
 .blog-article-header h1 {
   max-width: 10ch;
   margin-bottom: 1rem;
@@ -1233,6 +1243,24 @@ p {
   color: var(--creek-deep);
   font-size: clamp(1.7rem, 8vw, 2.55rem);
   line-height: 1.25;
+}
+
+.blog-bottom-print {
+  display: flex;
+  margin-top: clamp(1.8rem, 7vw, 2.8rem);
+}
+
+.print-story-link {
+  border: 0;
+  border-bottom: 1px solid rgba(191, 141, 50, 0.62);
+  padding: 0 0 0.12rem;
+  background: transparent;
+  color: var(--creek);
+  cursor: pointer;
+}
+
+.print-article-footer {
+  display: none;
 }
 
 .continue-reading,
@@ -1828,6 +1856,180 @@ a:focus-visible {
   }
 }
 
+@media print {
+  @page {
+    margin: 0.65in;
+  }
+
+  :root {
+    --ink: #111111;
+    --muted: #333333;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html,
+  body {
+    min-width: 0;
+    color: #111111 !important;
+    background: #ffffff !important;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  a {
+    color: #111111 !important;
+    text-decoration: none;
+  }
+
+  .site-shell,
+  .blog-shell,
+  .blog-article,
+  .section-shell {
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .site-shell::before,
+  .site-shell::after,
+  .blog-header,
+  .site-header,
+  .site-nav,
+  .back-home-link,
+  .blog-print-actions,
+  .blog-bottom-print,
+  .button,
+  .text-link,
+  .blog-hero-image,
+  .continue-reading,
+  .article-nav,
+  .blog-next,
+  .footer,
+  .footer-youtube-link,
+  .creator-login-link,
+  .latest-chapters,
+  .video-feature,
+  .hero,
+  .final-cta,
+  .vault,
+  .editorial-cover {
+    display: none !important;
+  }
+
+  .blog-article::before {
+    content: 'TruthLoveMoney.com  •  The Lyon Den';
+    display: block;
+    margin-bottom: 0.35in;
+    border-bottom: 1px solid #111111;
+    padding-bottom: 0.12in;
+    color: #111111;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .blog-article-header {
+    margin: 0 0 0.25in;
+    border-bottom: 1px solid #999999;
+    padding: 0 0 0.2in;
+  }
+
+  .blog-article-header .eyebrow {
+    margin-bottom: 0.12in;
+    color: #333333 !important;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 10pt;
+    letter-spacing: 0.12em;
+  }
+
+  .blog-article-header h1 {
+    max-width: none;
+    margin: 0 0 0.12in;
+    color: #111111 !important;
+    font-size: 28pt;
+    line-height: 1.08;
+  }
+
+  .blog-subtitle {
+    margin: 0 0 0.14in;
+    color: #222222 !important;
+    font-size: 15pt;
+    line-height: 1.35;
+  }
+
+  .blog-meta {
+    display: block;
+    margin-top: 0.12in;
+  }
+
+  .blog-meta span {
+    display: inline;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: #222222 !important;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 10.5pt;
+    font-weight: 400;
+  }
+
+  .blog-meta span + span::before {
+    content: ' • ';
+  }
+
+  .blog-body {
+    padding-top: 0;
+  }
+
+  .blog-body p,
+  .blog-body blockquote {
+    color: #111111 !important;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.55;
+  }
+
+  .blog-body p {
+    margin: 0 0 0.13in;
+    break-inside: avoid;
+  }
+
+  .blog-body blockquote {
+    margin: 0.22in 0;
+    border-left: 2px solid #333333;
+    padding: 0.02in 0 0.02in 0.16in;
+    font-size: 16pt;
+    line-height: 1.28;
+    page-break-inside: avoid;
+  }
+
+  .print-article-footer {
+    display: block;
+    margin-top: 0.35in;
+    border-top: 1px solid #999999;
+    padding-top: 0.15in;
+    color: #111111;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 10pt;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .print-article-footer p {
+    margin: 0 0 0.04in;
+  }
+}
+
 @media (min-width: 681px) {
   .section-shell,
   .site-header,
@@ -1851,6 +2053,10 @@ a:focus-visible {
   .hero-actions {
     display: flex;
     justify-content: center;
+  }
+
+  .print-story-button {
+    width: auto;
   }
 
   .card-grid,

@@ -878,6 +878,9 @@ function BlogPostPage({ post }) {
   const nextPost = blogPosts[currentIndex - 1] || null
   const continuePost =
     post.path === firstBlogPost.path ? featuredBlogPost : blogPosts.find((blogPost) => blogPost.path !== post.path)
+  const handlePrint = () => {
+    window.print()
+  }
 
   return (
     <main className="site-shell blog-shell">
@@ -902,11 +905,22 @@ function BlogPostPage({ post }) {
           Back to The Lyon Den
         </a>
         <header className="blog-article-header">
+          <div className="blog-print-actions">
+            <button
+              className="button button-secondary print-story-button"
+              type="button"
+              onClick={handlePrint}
+              aria-label={`Print ${post.title}`}
+            >
+              Print This Story
+            </button>
+          </div>
           <p className="eyebrow">{post.category}</p>
           <h1 id="blog-title">{post.title}</h1>
           <p className="blog-subtitle">{post.subtitle}</p>
           <div className="blog-meta" aria-label="Article details">
             <span>By {post.author}</span>
+            {(post.date || post.publishedAt) && <span>{post.date || post.publishedAt}</span>}
             <span>{post.readingTime}</span>
             {post.featured && <span>Featured Story</span>}
           </div>
@@ -926,6 +940,22 @@ function BlogPostPage({ post }) {
             ),
           )}
         </div>
+
+        <div className="blog-bottom-print">
+          <button
+            className="text-link print-story-link"
+            type="button"
+            onClick={handlePrint}
+            aria-label={`Print or save ${post.title}`}
+          >
+            Print or Save This Story
+          </button>
+        </div>
+
+        <footer className="print-article-footer" aria-label="Printed article footer">
+          <p>The Lyon Den — Truth • Love • Money — Never Stop Learning</p>
+          <p>truthlovemoney.com</p>
+        </footer>
       </article>
 
       {continuePost && (
