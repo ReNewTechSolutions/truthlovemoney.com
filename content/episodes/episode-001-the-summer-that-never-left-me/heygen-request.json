@@ -1,0 +1,29 @@
+{
+  "title": "The Summer That Never Left Me",
+  "caption": false,
+  "output_format": "webm",
+  "dimension": {
+    "width": 1920,
+    "height": 1080
+  },
+  "video_inputs": [
+    {
+      "character": {
+        "type": "avatar",
+        "avatar_id": "610a6411cf0e4d58925b9cb7c122b973",
+        "avatar_style": "normal"
+      },
+      "voice": {
+        "type": "text",
+        "voice_id": "{{HEYGEN_VOICE_ID}}",
+        "input_text": "{{SCRIPT_TEXT}}",
+        "speed": 0.92,
+        "emotion": "Friendly"
+      },
+      "background": {
+        "type": "color",
+        "value": "#fbf6ea"
+      }
+    }
+  ]
+}

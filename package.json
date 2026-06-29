@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "generate:episode1": "node scripts/generate-episode1-heygen.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

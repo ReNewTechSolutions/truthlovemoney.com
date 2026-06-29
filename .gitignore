@@ -5,3 +5,5 @@ dist/
 .env.local
 *.log
 supabase/.temp/
+content/episodes/**/heygen-request.prepared.json
+content/episodes/**/heygen-result.json
