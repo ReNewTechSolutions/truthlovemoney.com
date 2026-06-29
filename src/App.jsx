@@ -28,6 +28,60 @@ const youtubeLinkProps = {
   rel: 'noopener noreferrer',
 }
 
+const coverLibrary = {
+  'broadway-dreams': {
+    titleLines: ['BROADWAY', 'DREAMS'],
+    subtitle: 'Sometimes life gives us a different stage.',
+    theme: 'theater',
+    motif: 'sheet music • spotlight • golden curtain',
+    alt: 'Editorial cover for Broadway Dreams with a golden theater curtain, sheet music, and a warm spotlight',
+  },
+  'every-story-video': {
+    titleLines: ['EVERY STORY', 'HAS SOMETHING', 'TO TEACH US'],
+    theme: 'creek',
+    motif: 'journal • lantern • creek pages',
+    alt: 'Editorial cover for Every Story Has Something to Teach Us with an open journal, lantern, creek, and floating pages',
+  },
+  'summer-memory': {
+    titleLines: ['THE SUMMER', 'THAT NEVER', 'LEFT ME'],
+    theme: 'summer',
+    motif: 'poetry book • water light • flowers',
+    alt: 'Editorial cover for The Summer That Never Left Me with pool water, summer light, a poetry book, and flowers',
+  },
+  'every-story-blog': {
+    titleLines: ['EVERY STORY', 'HAS SOMETHING', 'TO TEACH US'],
+    theme: 'window',
+    motif: 'old books • warm window • creek view',
+    alt: 'Editorial cover for Every Story Has Something to Teach Us with a journal, old books, warm window light, and a creek view',
+  },
+  'love-changes': {
+    titleLines: ['LOVE', 'CHANGES'],
+    subtitle: 'But it never stops teaching us.',
+    theme: 'love',
+    motif: 'two chairs • sunset creek • books',
+    alt: 'Editorial cover for Love Changes with two chairs beside a creek at sunset and books nearby',
+  },
+  'one-bite-at-a-time': {
+    titleLines: ['ONE BITE', 'AT A TIME'],
+    theme: 'path',
+    motif: 'storybook path • lanterns • mountains',
+    alt: 'Editorial cover for One Bite at a Time with a storybook path, lanterns, distant mountains, and a gentle elephant motif',
+  },
+  'book-that-changed-me': {
+    titleLines: ['THE BOOK', 'THAT CHANGED', 'ME'],
+    theme: 'glow-book',
+    motif: 'antique books • gold light • discovery',
+    alt: 'Editorial cover for The Book That Changed Me with antique books and one glowing book in warm gold light',
+  },
+  'seed-garden': {
+    titleLines: ['THE SEED', 'GARDEN'],
+    subtitle: 'Where ideas begin to bloom.',
+    theme: 'garden',
+    motif: 'open journal • seedling • botanical border',
+    alt: 'Editorial cover for The Seed Garden with an open journal, a seedling, botanical borders, and warm sunlight',
+  },
+}
+
 const blogPosts = [
   {
     title: 'The Summer That Never Left Me',
@@ -37,8 +91,7 @@ const blogPosts = [
     featured: true,
     readingTime: '5 minutes',
     path: '/blog/the-summer-that-never-left-me',
-    heroImage: '/assets/summer-that-never-left-me.png',
-    heroAlt: 'Golden summer creekside scene with books, flowers, warm light, and a nostalgic literary atmosphere',
+    coverId: 'summer-memory',
     excerpt:
       'A reflective story about poetry, memory, summer afternoons, teaching, family, and the small objects that become chapters of a life.',
     paragraphs: [
@@ -80,31 +133,30 @@ const blogPosts = [
     ],
   },
   {
-  title: 'Every Story Has Something to Teach Us',
-  subtitle: 'Why I Created The Lyon Den',
-  author: 'Marguerite Lyon',
-  category: 'Stories',
-  featured: false,
-  readingTime: '4 minutes',
-  path: '/blog/every-story-has-something-to-teach-us',
-  heroImage: '/assets/banner.png',
-  heroAlt: 'The Lyon Den creekside banner artwork with books, flowers, and handwritten story notes',
-  excerpt:
-    'The first official written chapter of The Lyon Den, welcoming readers into stories, lessons, books, and lifelong learning.',
-  paragraphs: [
-    'Throughout my life, I’ve been fortunate to learn from wonderful teachers, remarkable books, family, friendships, mistakes, and experiences I never could have predicted.',
-    'Eventually, I realized something simple and important:',
-    'Every story has something to teach us.',
-    'Some lessons come through joy. Some come through heartbreak. Some come quietly through books, conversations, memories, music, nature, or ordinary days that become meaningful only after time has passed.',
-    'The Lyon Den was created as a place to preserve those lessons and share them with anyone who might need them.',
-    'Here, we explore truth, love, money, literature, poetry, personal growth, and lifelong learning. Not because we have all the answers, but because staying curious keeps us growing.',
-    'My hope is that The Lyon Den becomes a warm place for reflection — a place where stories become lessons, books become conversations, and wisdom is shared one chapter at a time.',
-    'Every life holds chapters worth remembering.',
-    'Every experience can become a seed of wisdom.',
-    'And every story, if shared with love, has the power to encourage someone else.',
-    'Welcome to The Lyon Den.',
-    'Never stop learning.',
-  ],
+    title: 'Every Story Has Something to Teach Us',
+    subtitle: 'Why I Created The Lyon Den',
+    author: 'Marguerite Lyon',
+    category: 'Stories',
+    featured: false,
+    readingTime: '4 minutes',
+    path: '/blog/every-story-has-something-to-teach-us',
+    coverId: 'every-story-blog',
+    excerpt:
+      'The first official written chapter of The Lyon Den, welcoming readers into stories, lessons, books, and lifelong learning.',
+    paragraphs: [
+      'Throughout my life, I’ve been fortunate to learn from wonderful teachers, remarkable books, family, friendships, mistakes, and experiences I never could have predicted.',
+      'Eventually, I realized something simple and important:',
+      'Every story has something to teach us.',
+      'Some lessons come through joy. Some come through heartbreak. Some come quietly through books, conversations, memories, music, nature, or ordinary days that become meaningful only after time has passed.',
+      'The Lyon Den was created as a place to preserve those lessons and share them with anyone who might need them.',
+      'Here, we explore truth, love, money, literature, poetry, personal growth, and lifelong learning. Not because we have all the answers, but because staying curious keeps us growing.',
+      'My hope is that The Lyon Den becomes a warm place for reflection — a place where stories become lessons, books become conversations, and wisdom is shared one chapter at a time.',
+      'Every life holds chapters worth remembering.',
+      'Every experience can become a seed of wisdom.',
+      'And every story, if shared with love, has the power to encourage someone else.',
+      'Welcome to The Lyon Den.',
+      'Never stop learning.',
+    ],
   },
 ]
 
@@ -115,35 +167,60 @@ function getPostByPath(path) {
   return blogPosts.find((post) => post.path === path)
 }
 
+function getCover(coverId) {
+  return coverLibrary[coverId] || coverLibrary['every-story-blog']
+}
+
 const youtubeVideosUrl = `${youtubeChannelUrl}/videos`
 
 const latestChapters = [
   {
+    title: 'Broadway Dreams & The Shower Concert',
+    publishedAt: 'June 2026',
+    description: 'A warm chapter about private songs, unexpected stages, and the dreams that keep humming.',
+    coverId: 'broadway-dreams',
+    url: youtubeChannelUrl,
+  },
+  {
     title: 'Every Story Has Something to Teach Us',
     publishedAt: 'June 2026',
     description: 'A first welcome to The Lyon Den and the stories, books, and lessons that shape this literary home.',
-    thumbnail: '/assets/banner.png',
+    coverId: 'every-story-video',
     url: youtubeChannelUrl,
   },
   {
-    title: 'Truth, Love, Money, and a Life of Learning',
+    title: 'The Summer That Never Left Me',
     publishedAt: 'June 2026',
-    description: 'A reflective chapter on staying curious, gathering wisdom, and noticing what ordinary days can teach.',
-    thumbnail: '/assets/lifelessons.png',
+    description: 'A nostalgic reflection on poetry, water, memory, and the summers that keep returning.',
+    coverId: 'summer-memory',
     url: youtubeChannelUrl,
   },
   {
-    title: 'Books That Stay With Us',
+    title: 'Love Changes',
     publishedAt: 'June 2026',
-    description: 'A gentle bookshelf conversation about literature, memory, and the passages that keep speaking.',
-    thumbnail: '/assets/lessonsthatlast.png',
+    description: 'A reflective chapter on connection, change, courage, and the lessons love leaves behind.',
+    coverId: 'love-changes',
     url: youtubeChannelUrl,
   },
   {
-    title: 'Poetry for the Quiet Hours',
+    title: 'One Bite at a Time',
     publishedAt: 'June 2026',
-    description: 'Short reflections for the softer moments: poetry, wonder, courage, and the heart-work of listening.',
-    thumbnail: '/assets/cta.png',
+    description: 'A gentle lesson about taking the long road slowly, faithfully, and one small step at a time.',
+    coverId: 'one-bite-at-a-time',
+    url: youtubeChannelUrl,
+  },
+  {
+    title: 'The Book That Changed My Life',
+    publishedAt: 'June 2026',
+    description: 'A bookshelf chapter about the pages that change us and the sentences we carry forward.',
+    coverId: 'book-that-changed-me',
+    url: youtubeChannelUrl,
+  },
+  {
+    title: 'The Seed Garden',
+    publishedAt: 'June 2026',
+    description: 'A look inside the place where ideas are planted before they bloom into stories.',
+    coverId: 'seed-garden',
     url: youtubeChannelUrl,
   },
 ]
@@ -234,6 +311,51 @@ function getLoginErrorMessage(error) {
 
 function getReadableError(error, fallback = 'Something went wrong.') {
   return error?.message || error?.error_description || fallback
+}
+
+function EditorialCover({ cover, className = '' }) {
+  const title = cover.titleLines.join(' ')
+
+  if (cover.image) {
+    return (
+      <img
+        className={`editorial-cover-image ${className}`.trim()}
+        src={cover.image}
+        alt={cover.alt}
+        loading="lazy"
+      />
+    )
+  }
+
+  return (
+    <div
+      className={`editorial-cover cover-${cover.theme} ${className}`.trim()}
+      role="img"
+      aria-label={cover.alt}
+    >
+      <div className="cover-frame" aria-hidden="true">
+        <div className="cover-topline">
+          <span className="cover-seal">TLD</span>
+          <span>The Lyon Den</span>
+        </div>
+        <div className="cover-illustration">
+          <span className="cover-shape cover-shape-one" />
+          <span className="cover-shape cover-shape-two" />
+          <span className="cover-shape cover-shape-three" />
+        </div>
+        <h3 aria-hidden="true">
+          {cover.titleLines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </h3>
+        {cover.subtitle && <p>{cover.subtitle}</p>}
+        <div className="cover-footer">
+          <span>{cover.motif}</span>
+          <strong>{title}</strong>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function getSafeNextPath(nextPath, fallbackPath = '/vault') {
@@ -399,11 +521,7 @@ function LatestChaptersCarousel() {
               aria-label={`Watch ${chapter.title} on YouTube`}
               {...youtubeLinkProps}
             >
-              <img
-                src={chapter.thumbnail}
-                alt=""
-                loading="lazy"
-              />
+              <EditorialCover cover={getCover(chapter.coverId)} className="chapter-cover" />
               <div className="chapter-card-body">
                 <p className="chapter-date">{chapter.publishedAt}</p>
                 <h3>{chapter.title}</h3>
@@ -543,15 +661,18 @@ function HomePage() {
 
       <section className="publication-lead section-shell" id="featured" aria-labelledby="publication-title">
         <article className="featured-article-card">
-          <p className="eyebrow">Featured Article</p>
-          <h2 id="publication-title">{featuredBlogPost.title}</h2>
-          <p className="blog-subtitle">{featuredBlogPost.subtitle}</p>
-          <p>
-            {featuredBlogPost.excerpt}
-          </p>
-          <a className="button button-secondary" href={featuredBlogPost.path}>
-            Read the Article
-          </a>
+          <EditorialCover cover={getCover(featuredBlogPost.coverId)} className="feature-cover" />
+          <div className="featured-article-copy">
+            <p className="eyebrow">Featured Article</p>
+            <h2 id="publication-title">{featuredBlogPost.title}</h2>
+            <p className="blog-subtitle">{featuredBlogPost.subtitle}</p>
+            <p>
+              {featuredBlogPost.excerpt}
+            </p>
+            <a className="button button-secondary" href={featuredBlogPost.path}>
+              Read the Article
+            </a>
+          </div>
         </article>
 
         <a
@@ -560,10 +681,13 @@ function HomePage() {
           aria-label="Watch the latest Lyon Den video on YouTube"
           {...youtubeLinkProps}
         >
-          <p className="eyebrow">Latest Chapter</p>
-          <h2>{latestChapters[0].title}</h2>
-          <p>{latestChapters[0].description}</p>
-          <span className="button button-primary">Watch on YouTube</span>
+          <EditorialCover cover={getCover(latestChapters[0].coverId)} className="latest-chapter-cover" />
+          <div>
+            <p className="eyebrow">Latest Chapter</p>
+            <h2>{latestChapters[0].title}</h2>
+            <p>{latestChapters[0].description}</p>
+            <span className="button button-primary">Watch on YouTube</span>
+          </div>
         </a>
       </section>
 
@@ -615,6 +739,7 @@ function HomePage() {
         </div>
         <div className="story-grid">
           <article className="story-card story-card-featured">
+            <EditorialCover cover={getCover(featuredBlogPost.coverId)} className="story-cover" />
             <p className="eyebrow">Latest Blog</p>
             <h3>{featuredBlogPost.title}</h3>
             <p>{featuredBlogPost.subtitle}</p>
@@ -624,6 +749,7 @@ function HomePage() {
             .filter((post) => post.path !== featuredBlogPost.path)
             .map((post) => (
               <article className="story-card" key={post.path}>
+                <EditorialCover cover={getCover(post.coverId)} className="story-cover" />
                 <p className="eyebrow">{post.category}</p>
                 <h3>{post.title}</h3>
                 <p>{post.subtitle}</p>
@@ -642,10 +768,7 @@ function HomePage() {
 
       <section className="section-shell media-section reverse publication-image-band" aria-labelledby="lessons-title">
         <div className="media-image">
-          <img
-            src={featuredBlogPost.heroImage}
-            alt={featuredBlogPost.heroAlt}
-          />
+          <EditorialCover cover={getCover(featuredBlogPost.coverId)} className="media-cover" />
         </div>
         <div className="media-copy">
           <p className="eyebrow">Featured Story</p>
@@ -790,7 +913,7 @@ function BlogPostPage({ post }) {
         </header>
 
         <figure className="blog-hero-image">
-          <img src={post.heroImage} alt={post.heroAlt} />
+          <EditorialCover cover={getCover(post.coverId)} className="article-cover" />
         </figure>
 
         <div className="blog-body">
