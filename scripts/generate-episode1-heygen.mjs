@@ -18,6 +18,7 @@ const pollIntervalMs = Number(process.env.HEYGEN_POLL_INTERVAL_MS || 15000)
 const maxPolls = Number(process.env.HEYGEN_MAX_POLLS || 90)
 const avatarId = '610a6411cf0e4d58925b9cb7c122b973'
 const isDryRun = process.env.HEYGEN_DRY_RUN === '1' || process.argv.includes('--dry-run')
+const isTestShort = process.argv.includes('--test-short')
 
 function requireEnv(name) {
   const value = process.env[name]
@@ -62,6 +63,17 @@ function sleep(ms) {
   })
 }
 
+function getFirstSentences(text, sentenceCount) {
+  const matches = text.match(/[^.!?]+[.!?]+(?:["'”’])?/g) || []
+  const sentences = matches.slice(0, sentenceCount).map((sentence) => sentence.trim())
+
+  if (sentences.length >= sentenceCount) {
+    return sentences.join(' ')
+  }
+
+  return text.split('\n').filter(Boolean).slice(0, sentenceCount).join(' ')
+}
+
 function getVideoId(responseBody) {
   return (
     responseBody?.data?.video_id ||
@@ -82,6 +94,26 @@ function getVideoUrl(responseBody) {
     responseBody?.video_url ||
     responseBody?.url
   )
+}
+
+function getFailureDetails(responseBody) {
+  const data = responseBody?.data || {}
+
+  return {
+    status: getStatus(responseBody),
+    error: data.error || responseBody?.error || null,
+    message: data.message || responseBody?.message || null,
+    failure_reason:
+      data.failure_reason ||
+      data.failureReason ||
+      data.error_message ||
+      data.errorMessage ||
+      responseBody?.failure_reason ||
+      responseBody?.failureReason ||
+      responseBody?.error_message ||
+      responseBody?.errorMessage ||
+      null,
+  }
 }
 
 async function heygenFetch(endpoint, options = {}) {
@@ -135,12 +167,13 @@ function validateRequestBody(requestBody) {
 const heygenVoiceId = process.env.HEYGEN_VOICE_ID || (isDryRun ? 'DRY_RUN_HEYGEN_VOICE_ID' : requireEnv('HEYGEN_VOICE_ID'))
 const scriptMarkdown = await readFile(scriptPath, 'utf8')
 const spokenScript = extractSpokenScript(scriptMarkdown)
+const renderScript = isTestShort ? getFirstSentences(spokenScript, 2) : spokenScript
 const requestTemplate = await readFile(requestPath, 'utf8')
 const requestBody = JSON.parse(
   applyTemplate(requestTemplate, {
     HEYGEN_AVATAR_ID: avatarId,
     HEYGEN_VOICE_ID: heygenVoiceId,
-    SCRIPT_TEXT: JSON.stringify(spokenScript).slice(1, -1),
+    SCRIPT_TEXT: JSON.stringify(renderScript).slice(1, -1),
   }),
 )
 
@@ -149,6 +182,10 @@ validateRequestBody(requestBody)
 
 console.log('Final sanitized HeyGen request body:')
 console.log(JSON.stringify(sanitizeForLog(requestBody), null, 2))
+
+if (isTestShort) {
+  console.log('Short test mode enabled: submitting only the first 2 script sentences.')
+}
 
 if (isDryRun) {
   if (!process.env.HEYGEN_VOICE_ID) {
@@ -194,10 +231,18 @@ for (let attempt = 1; attempt <= maxPolls; attempt += 1) {
   }
 
   if (['failed', 'error', 'canceled', 'cancelled'].includes(status)) {
+    const failurePayload = {
+      video_id: videoId,
+      status,
+      failure_details: getFailureDetails(statusResponse),
+      raw: statusResponse,
+    }
     await writeFile(
       resultPath,
-      `${JSON.stringify({ video_id: videoId, status, raw: statusResponse }, null, 2)}\n`,
+      `${JSON.stringify(failurePayload, null, 2)}\n`,
     )
+    console.error('HeyGen render failed. Full sanitized status response:')
+    console.error(JSON.stringify(sanitizeForLog(failurePayload), null, 2))
     throw new Error(`HeyGen render failed with status: ${status}`)
   }
 }

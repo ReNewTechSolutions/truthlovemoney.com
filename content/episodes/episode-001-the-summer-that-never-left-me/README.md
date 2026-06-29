@@ -44,6 +44,8 @@ Use `npm run generate:episode1 -- --dry-run` or `HEYGEN_DRY_RUN=1` to write `hey
 
 The request uses HeyGen v3's flat avatar-video schema with top-level `type`, `avatar_id`, `script`, and `voice_id` fields.
 
+Use `npm run generate:episode1 -- --test-short` to submit only the first two spoken sentences. This is the recommended compatibility check before spending credits on the full episode render.
+
 ## Render Instructions
 
 1. Confirm the HeyGen avatar `610a6411cf0e4d58925b9cb7c122b973` is available in the connected HeyGen account.
