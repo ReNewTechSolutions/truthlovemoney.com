@@ -40,7 +40,9 @@ export HEYGEN_MAX_POLLS="90"
 export HEYGEN_DRY_RUN="1"
 ```
 
-Use `HEYGEN_DRY_RUN=1` to write `heygen-request.prepared.json` without calling the API.
+Use `npm run generate:episode1 -- --dry-run` or `HEYGEN_DRY_RUN=1` to write `heygen-request.prepared.json` and print the sanitized v3 request body without calling the API.
+
+The request uses HeyGen v3's flat avatar-video schema with top-level `type`, `avatar_id`, `script`, and `voice_id` fields.
 
 ## Render Instructions
 
