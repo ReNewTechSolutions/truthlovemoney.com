@@ -27,6 +27,11 @@ const youtubeLinkProps = {
   target: '_blank',
   rel: 'noopener noreferrer',
 }
+const youtubeChannelId = import.meta.env.VITE_YOUTUBE_CHANNEL_ID || ''
+const configuredYoutubeFeedUrl = import.meta.env.VITE_YOUTUBE_FEED_URL || ''
+const youtubeFeedUrl =
+  configuredYoutubeFeedUrl ||
+  (youtubeChannelId ? `https://www.youtube.com/feeds/videos.xml?channel_id=${youtubeChannelId}` : '')
 
 const coverLibrary = {
   'broadway-dreams': {
@@ -91,6 +96,7 @@ const blogPosts = [
     featured: true,
     readingTime: '5 minutes',
     path: '/blog/the-summer-that-never-left-me',
+    customCover: '',
     coverId: 'summer-memory',
     excerpt:
       'A reflective story about poetry, memory, summer afternoons, teaching, family, and the small objects that become chapters of a life.',
@@ -140,6 +146,7 @@ const blogPosts = [
     featured: false,
     readingTime: '4 minutes',
     path: '/blog/every-story-has-something-to-teach-us',
+    customCover: '',
     coverId: 'every-story-blog',
     excerpt:
       'The first official written chapter of The Lyon Den, welcoming readers into stories, lessons, books, and lifelong learning.',
@@ -171,13 +178,19 @@ function getCover(coverId) {
   return coverLibrary[coverId] || coverLibrary['every-story-blog']
 }
 
+function getCuratedChapterArt(title) {
+  const normalizedTitle = title.trim().toLowerCase()
+  return curatedChapters.find((chapter) => chapter.title.trim().toLowerCase() === normalizedTitle)
+}
+
 const youtubeVideosUrl = `${youtubeChannelUrl}/videos`
 
-const latestChapters = [
+const curatedChapters = [
   {
     title: 'Broadway Dreams & The Shower Concert',
     publishedAt: 'June 2026',
     description: 'A warm chapter about private songs, unexpected stages, and the dreams that keep humming.',
+    customCover: '',
     coverId: 'broadway-dreams',
     url: youtubeChannelUrl,
   },
@@ -185,6 +198,7 @@ const latestChapters = [
     title: 'Every Story Has Something to Teach Us',
     publishedAt: 'June 2026',
     description: 'A first welcome to The Lyon Den and the stories, books, and lessons that shape this literary home.',
+    customCover: '',
     coverId: 'every-story-video',
     url: youtubeChannelUrl,
   },
@@ -192,6 +206,7 @@ const latestChapters = [
     title: 'The Summer That Never Left Me',
     publishedAt: 'June 2026',
     description: 'A nostalgic reflection on poetry, water, memory, and the summers that keep returning.',
+    customCover: '',
     coverId: 'summer-memory',
     url: youtubeChannelUrl,
   },
@@ -199,6 +214,7 @@ const latestChapters = [
     title: 'Love Changes',
     publishedAt: 'June 2026',
     description: 'A reflective chapter on connection, change, courage, and the lessons love leaves behind.',
+    customCover: '',
     coverId: 'love-changes',
     url: youtubeChannelUrl,
   },
@@ -206,6 +222,7 @@ const latestChapters = [
     title: 'One Bite at a Time',
     publishedAt: 'June 2026',
     description: 'A gentle lesson about taking the long road slowly, faithfully, and one small step at a time.',
+    customCover: '',
     coverId: 'one-bite-at-a-time',
     url: youtubeChannelUrl,
   },
@@ -213,6 +230,7 @@ const latestChapters = [
     title: 'The Book That Changed My Life',
     publishedAt: 'June 2026',
     description: 'A bookshelf chapter about the pages that change us and the sentences we carry forward.',
+    customCover: '',
     coverId: 'book-that-changed-me',
     url: youtubeChannelUrl,
   },
@@ -220,6 +238,7 @@ const latestChapters = [
     title: 'The Seed Garden',
     publishedAt: 'June 2026',
     description: 'A look inside the place where ideas are planted before they bloom into stories.',
+    customCover: '',
     coverId: 'seed-garden',
     url: youtubeChannelUrl,
   },
@@ -313,6 +332,65 @@ function getReadableError(error, fallback = 'Something went wrong.') {
   return error?.message || error?.error_description || fallback
 }
 
+function stripHtml(value = '') {
+  return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
+function truncateText(value = '', maxLength = 160) {
+  const cleanValue = stripHtml(value)
+
+  if (cleanValue.length <= maxLength) return cleanValue
+
+  return `${cleanValue.slice(0, maxLength).trim().replace(/[.,;:!?-]+$/, '')}...`
+}
+
+function formatPublishedDate(value) {
+  if (!value) return 'Latest Chapter'
+
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) return value
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(date)
+}
+
+function parseYouTubeFeed(xmlText) {
+  const document = new DOMParser().parseFromString(xmlText, 'application/xml')
+  if (document.querySelector('parsererror')) return []
+
+  const entries = Array.from(document.querySelectorAll('entry'))
+
+  return entries.slice(0, 8).map((entry) => {
+    const title = entry.querySelector('title')?.textContent?.trim() || 'The Lyon Den Chapter'
+    const curatedArt = getCuratedChapterArt(title)
+    const published = entry.querySelector('published')?.textContent?.trim()
+    const link = entry.querySelector('link')?.getAttribute('href') || youtubeChannelUrl
+    const thumbnail =
+      entry.querySelector('thumbnail')?.getAttribute('url') ||
+      entry.querySelector('media\\:thumbnail')?.getAttribute('url') ||
+      ''
+    const description =
+      entry.querySelector('description')?.textContent ||
+      entry.querySelector('media\\:description')?.textContent ||
+      ''
+
+    return {
+      title,
+      publishedAt: formatPublishedDate(published),
+      description: truncateText(description) || 'A new story, reflection, or life lesson from The Lyon Den.',
+      customCover: curatedArt?.customCover || '',
+      coverId: curatedArt?.coverId || '',
+      thumbnail,
+      url: link,
+      source: 'youtube',
+    }
+  })
+}
+
 function EditorialCover({ cover, className = '' }) {
   const title = cover.titleLines.join(' ')
 
@@ -356,6 +434,26 @@ function EditorialCover({ cover, className = '' }) {
       </div>
     </div>
   )
+}
+
+function ChapterVisual({ item, className = '' }) {
+  const imageSrc = item.customCover || item.thumbnail
+  const imageAlt = item.customCover
+    ? `Editorial cover for ${item.title}`
+    : `YouTube thumbnail for ${item.title}`
+
+  if (imageSrc) {
+    return (
+      <img
+        className={`chapter-image ${className}`.trim()}
+        src={imageSrc}
+        alt={imageAlt}
+        loading="lazy"
+      />
+    )
+  }
+
+  return <EditorialCover cover={getCover(item.coverId)} className={className} />
 }
 
 function getSafeNextPath(nextPath, fallbackPath = '/vault') {
@@ -443,12 +541,49 @@ function useChapterVisibleCount() {
   return visibleCount
 }
 
-function LatestChaptersCarousel() {
+function useLatestChapters() {
+  const [chapters, setChapters] = useState(curatedChapters)
+
+  useEffect(() => {
+    if (!youtubeFeedUrl) return undefined
+
+    const controller = new AbortController()
+
+    async function loadYouTubeChapters() {
+      try {
+        const response = await fetch(youtubeFeedUrl, { signal: controller.signal })
+
+        if (!response.ok) {
+          throw new Error(`YouTube feed returned ${response.status}`)
+        }
+
+        const xmlText = await response.text()
+        const youtubeChapters = parseYouTubeFeed(xmlText)
+
+        if (youtubeChapters.length > 0) {
+          setChapters(youtubeChapters)
+        }
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          setChapters(curatedChapters)
+        }
+      }
+    }
+
+    loadYouTubeChapters()
+
+    return () => controller.abort()
+  }, [])
+
+  return chapters
+}
+
+function LatestChaptersCarousel({ chapters }) {
   const visibleCount = useChapterVisibleCount()
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const carouselRef = useRef(null)
-  const maxIndex = Math.max(latestChapters.length - visibleCount, 0)
+  const maxIndex = Math.max(chapters.length - visibleCount, 0)
   const safeIndex = Math.min(activeIndex, maxIndex)
 
   useEffect(() => {
@@ -513,15 +648,15 @@ function LatestChaptersCarousel() {
         ref={carouselRef}
       >
         <div className="chapter-track">
-          {latestChapters.map((chapter, index) => (
+          {chapters.map((chapter, index) => (
             <a
               className="chapter-card"
               href={chapter.url}
-              key={chapter.title}
+              key={`${chapter.title}-${chapter.url}`}
               aria-label={`Watch ${chapter.title} on YouTube`}
               {...youtubeLinkProps}
             >
-              <EditorialCover cover={getCover(chapter.coverId)} className="chapter-cover" />
+              <ChapterVisual item={chapter} className="chapter-cover" />
               <div className="chapter-card-body">
                 <p className="chapter-date">{chapter.publishedAt}</p>
                 <h3>{chapter.title}</h3>
@@ -529,7 +664,7 @@ function LatestChaptersCarousel() {
                 <span className="button button-primary">Watch on YouTube</span>
               </div>
               <span className="sr-only">
-                Chapter {index + 1} of {latestChapters.length}
+                Chapter {index + 1} of {chapters.length}
               </span>
             </a>
           ))}
@@ -590,6 +725,8 @@ function App() {
 
 function HomePage() {
   const [submitted, setSubmitted] = useState(false)
+  const chapters = useLatestChapters()
+  const latestChapter = chapters[0] || curatedChapters[0]
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -657,11 +794,11 @@ function HomePage() {
         </figure>
       </section>
 
-      <LatestChaptersCarousel />
+      <LatestChaptersCarousel chapters={chapters} />
 
       <section className="publication-lead section-shell" id="featured" aria-labelledby="publication-title">
         <article className="featured-article-card">
-          <EditorialCover cover={getCover(featuredBlogPost.coverId)} className="feature-cover" />
+          <ChapterVisual item={featuredBlogPost} className="feature-cover" />
           <div className="featured-article-copy">
             <p className="eyebrow">Featured Article</p>
             <h2 id="publication-title">{featuredBlogPost.title}</h2>
@@ -677,15 +814,15 @@ function HomePage() {
 
         <a
           className="latest-chapter-card"
-          href={youtubeChannelUrl}
-          aria-label="Watch the latest Lyon Den video on YouTube"
+          href={latestChapter.url}
+          aria-label={`Watch ${latestChapter.title} on YouTube`}
           {...youtubeLinkProps}
         >
-          <EditorialCover cover={getCover(latestChapters[0].coverId)} className="latest-chapter-cover" />
-          <div>
+          <ChapterVisual item={latestChapter} className="latest-chapter-cover" />
+          <div className="latest-chapter-copy">
             <p className="eyebrow">Latest Chapter</p>
-            <h2>{latestChapters[0].title}</h2>
-            <p>{latestChapters[0].description}</p>
+            <h2>{latestChapter.title}</h2>
+            <p>{latestChapter.description}</p>
             <span className="button button-primary">Watch on YouTube</span>
           </div>
         </a>
@@ -739,7 +876,7 @@ function HomePage() {
         </div>
         <div className="story-grid">
           <article className="story-card story-card-featured">
-            <EditorialCover cover={getCover(featuredBlogPost.coverId)} className="story-cover" />
+            <ChapterVisual item={featuredBlogPost} className="story-cover" />
             <p className="eyebrow">Latest Blog</p>
             <h3>{featuredBlogPost.title}</h3>
             <p>{featuredBlogPost.subtitle}</p>
@@ -749,7 +886,7 @@ function HomePage() {
             .filter((post) => post.path !== featuredBlogPost.path)
             .map((post) => (
               <article className="story-card" key={post.path}>
-                <EditorialCover cover={getCover(post.coverId)} className="story-cover" />
+                <ChapterVisual item={post} className="story-cover" />
                 <p className="eyebrow">{post.category}</p>
                 <h3>{post.title}</h3>
                 <p>{post.subtitle}</p>
@@ -768,7 +905,7 @@ function HomePage() {
 
       <section className="section-shell media-section reverse publication-image-band" aria-labelledby="lessons-title">
         <div className="media-image">
-          <EditorialCover cover={getCover(featuredBlogPost.coverId)} className="media-cover" />
+          <ChapterVisual item={featuredBlogPost} className="media-cover" />
         </div>
         <div className="media-copy">
           <p className="eyebrow">Featured Story</p>
@@ -927,7 +1064,7 @@ function BlogPostPage({ post }) {
         </header>
 
         <figure className="blog-hero-image">
-          <EditorialCover cover={getCover(post.coverId)} className="article-cover" />
+          <ChapterVisual item={post} className="article-cover" />
         </figure>
 
         <div className="blog-body">
