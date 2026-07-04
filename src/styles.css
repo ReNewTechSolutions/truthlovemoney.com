@@ -668,13 +668,58 @@ p {
 }
 
 .chapter-cover {
+  min-height: clamp(15rem, 60vw, 20rem);
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 .chapter-image.chapter-cover {
+  padding: clamp(0.7rem, 3vw, 1rem);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(233, 202, 140, 0.24), transparent 12rem),
+    linear-gradient(145deg, rgba(255, 253, 248, 0.98), rgba(216, 231, 228, 0.48));
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+  object-position: center;
+}
+
+.chapter-image.chapter-cover.title-card-image {
+  object-fit: contain;
+}
+
+.chapter-image.chapter-cover.thumbnail-image {
+  padding: 0;
+  background: var(--creek-soft);
+  object-fit: cover;
+}
+
+.chapter-card .editorial-cover.chapter-cover {
+  aspect-ratio: auto;
+  padding: clamp(0.55rem, 2.5vw, 0.9rem);
+  background:
+    radial-gradient(circle at 16% 12%, rgba(233, 202, 140, 0.24), transparent 12rem),
+    linear-gradient(145deg, rgba(255, 253, 248, 0.98), rgba(240, 229, 208, 0.7));
+}
+
+.chapter-card .editorial-cover.chapter-cover .cover-frame {
+  inset: clamp(0.8rem, 3vw, 1.15rem);
+  grid-template-rows: auto minmax(3.7rem, 1fr) auto auto;
+  gap: clamp(0.45rem, 2vw, 0.85rem);
+  padding: clamp(0.85rem, 3vw, 1.35rem);
+}
+
+.chapter-card .editorial-cover.chapter-cover .cover-frame h3 {
+  font-size: clamp(1.35rem, 8vw, 2.55rem);
+  line-height: 1.08;
+  letter-spacing: 0.035em;
+}
+
+.chapter-card .editorial-cover.chapter-cover .cover-frame p {
+  font-size: clamp(0.9rem, 3.2vw, 1.08rem);
+}
+
+.chapter-card .editorial-cover.chapter-cover .cover-illustration {
+  min-height: clamp(4rem, 18vw, 6.4rem);
 }
 
 .feature-cover,
@@ -707,7 +752,6 @@ p {
   display: none;
 }
 
-.chapter-cover .cover-frame h3,
 .feature-cover .cover-frame h3,
 .latest-chapter-cover .cover-frame h3,
 .media-cover .cover-frame h3 {
@@ -716,14 +760,12 @@ p {
   letter-spacing: 0.04em;
 }
 
-.chapter-cover .cover-illustration,
 .feature-cover .cover-illustration,
 .latest-chapter-cover .cover-illustration,
 .media-cover .cover-illustration {
   min-height: clamp(2rem, 9vw, 4.5rem);
 }
 
-.chapter-cover .cover-frame p,
 .feature-cover .cover-frame p,
 .latest-chapter-cover .cover-frame p,
 .media-cover .cover-frame p {

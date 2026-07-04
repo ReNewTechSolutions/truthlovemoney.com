@@ -637,11 +637,12 @@ function ChapterVisual({ item, className = '' }) {
   const imageAlt = item.customCover
     ? `Editorial cover for ${item.title}`
     : `YouTube thumbnail for ${item.title}`
+  const imageTypeClass = item.customCover ? 'title-card-image' : 'thumbnail-image'
 
   if (imageSrc) {
     return (
       <img
-        className={`chapter-image ${className}`.trim()}
+        className={`chapter-image ${imageTypeClass} ${className}`.trim()}
         src={imageSrc}
         alt={imageAlt}
         loading="lazy"
