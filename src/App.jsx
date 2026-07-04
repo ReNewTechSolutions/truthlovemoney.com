@@ -680,6 +680,7 @@ function ChapterCardVisual({ item }) {
   const imageAlt = item.customCover
     ? `Editorial cover for ${item.title}`
     : `YouTube thumbnail for ${item.title}`
+  const cover = getCover(item.coverId)
 
   return (
     <div className={`chapter-artwork chapter-artwork-${displayMode}`}>
@@ -691,7 +692,28 @@ function ChapterCardVisual({ item }) {
           loading="lazy"
         />
       ) : (
-        <EditorialCover cover={getCover(item.coverId)} className="chapter-editorial-cover" />
+        <div
+          className={`chapter-book-cover book-cover-${cover.theme}`}
+          role="img"
+          aria-label={cover.alt}
+        >
+          <div className="chapter-book-topline">
+            <span>TLD</span>
+            <strong>The Lyon Den</strong>
+          </div>
+          <div className="chapter-book-ornament" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <h4>
+            {cover.titleLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </h4>
+          {cover.subtitle && <p>{cover.subtitle}</p>}
+          <small>{cover.motif}</small>
+        </div>
       )}
     </div>
   )
