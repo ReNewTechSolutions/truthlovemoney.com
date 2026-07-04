@@ -379,6 +379,19 @@ function getCuratedChapterArt(title) {
   return curatedChapters.find((chapter) => chapter.title.trim().toLowerCase() === normalizedTitle)
 }
 
+function getArtworkDisplayMode(item) {
+  if (item.displayMode === 'cover' || item.displayMode === 'contain') return item.displayMode
+
+  if (item.imageWidth && item.imageHeight) {
+    const ratio = item.imageWidth / item.imageHeight
+    return ratio > 1.8 || ratio < 0.75 ? 'contain' : 'cover'
+  }
+
+  if (item.customCover || item.coverId) return 'contain'
+
+  return 'cover'
+}
+
 const youtubeVideosUrl = `${youtubeChannelUrl}/videos`
 
 const curatedChapters = [
@@ -388,6 +401,7 @@ const curatedChapters = [
     description: 'A warm chapter about private songs, unexpected stages, and the dreams that keep humming.',
     customCover: '',
     coverId: 'broadway-dreams',
+    displayMode: 'contain',
     url: youtubeChannelUrl,
   },
   {
@@ -396,6 +410,7 @@ const curatedChapters = [
     description: 'A first welcome to The Lyon Den and the stories, books, and lessons that shape this literary home.',
     customCover: '',
     coverId: 'every-story-video',
+    displayMode: 'contain',
     url: youtubeChannelUrl,
   },
   {
@@ -404,6 +419,7 @@ const curatedChapters = [
     description: 'A nostalgic reflection on poetry, water, memory, and the summers that keep returning.',
     customCover: '',
     coverId: 'summer-memory',
+    displayMode: 'contain',
     url: youtubeChannelUrl,
   },
   {
@@ -412,6 +428,7 @@ const curatedChapters = [
     description: 'A reflective chapter on connection, change, courage, and the lessons love leaves behind.',
     customCover: '',
     coverId: 'love-changes',
+    displayMode: 'contain',
     url: youtubeChannelUrl,
   },
   {
@@ -420,6 +437,7 @@ const curatedChapters = [
     description: 'A gentle lesson about taking the long road slowly, faithfully, and one small step at a time.',
     customCover: '',
     coverId: 'one-bite-at-a-time',
+    displayMode: 'contain',
     url: youtubeChannelUrl,
   },
   {
@@ -428,6 +446,7 @@ const curatedChapters = [
     description: 'A bookshelf chapter about the pages that change us and the sentences we carry forward.',
     customCover: '',
     coverId: 'book-that-changed-me',
+    displayMode: 'contain',
     url: youtubeChannelUrl,
   },
   {
@@ -436,6 +455,7 @@ const curatedChapters = [
     description: 'A look inside the place where ideas are planted before they bloom into stories.',
     customCover: '',
     coverId: 'seed-garden',
+    displayMode: 'contain',
     url: youtubeChannelUrl,
   },
 ]
@@ -580,6 +600,7 @@ function parseYouTubeFeed(xmlText) {
       description: truncateText(description) || 'A new story, reflection, or life lesson from The Lyon Den.',
       customCover: curatedArt?.customCover || '',
       coverId: curatedArt?.coverId || '',
+      displayMode: curatedArt?.displayMode || (curatedArt?.customCover || curatedArt?.coverId ? 'contain' : 'cover'),
       thumbnail,
       url: link,
       source: 'youtube',
@@ -651,6 +672,29 @@ function ChapterVisual({ item, className = '' }) {
   }
 
   return <EditorialCover cover={getCover(item.coverId)} className={className} />
+}
+
+function ChapterCardVisual({ item }) {
+  const imageSrc = item.customCover || item.thumbnail
+  const displayMode = getArtworkDisplayMode(item)
+  const imageAlt = item.customCover
+    ? `Editorial cover for ${item.title}`
+    : `YouTube thumbnail for ${item.title}`
+
+  return (
+    <div className={`chapter-artwork chapter-artwork-${displayMode}`}>
+      {imageSrc ? (
+        <img
+          className="chapter-artwork-image"
+          src={imageSrc}
+          alt={imageAlt}
+          loading="lazy"
+        />
+      ) : (
+        <EditorialCover cover={getCover(item.coverId)} className="chapter-editorial-cover" />
+      )}
+    </div>
+  )
 }
 
 function getSafeNextPath(nextPath, fallbackPath = '/vault') {
@@ -853,12 +897,14 @@ function LatestChaptersCarousel({ chapters }) {
               aria-label={`Watch ${chapter.title} on YouTube`}
               {...youtubeLinkProps}
             >
-              <ChapterVisual item={chapter} className="chapter-cover" />
+              <ChapterCardVisual item={chapter} />
               <div className="chapter-card-body">
                 <p className="chapter-date">{chapter.publishedAt}</p>
-                <h3>{chapter.title}</h3>
-                {chapter.description && <p>{chapter.description}</p>}
-                <span className="button button-primary">Watch on YouTube</span>
+                <h3 className={chapter.title.length > 32 ? 'chapter-title chapter-title-long' : 'chapter-title'}>
+                  {chapter.title}
+                </h3>
+                {chapter.description && <p className="chapter-description">{chapter.description}</p>}
+                <span className="button button-primary chapter-watch-button">Watch on YouTube</span>
               </div>
               <span className="sr-only">
                 Chapter {index + 1} of {chapters.length}
