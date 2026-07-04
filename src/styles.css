@@ -622,6 +622,21 @@ p {
     linear-gradient(45deg, transparent 45%, rgba(191, 141, 50, 0.4) 46% 54%, transparent 55%);
 }
 
+.cover-freedom {
+  color: var(--creek-deep);
+  background:
+    radial-gradient(circle at 75% 18%, rgba(233, 202, 140, 0.72), transparent 13rem),
+    radial-gradient(circle at 18% 82%, rgba(216, 231, 228, 0.62), transparent 13rem),
+    linear-gradient(135deg, rgba(255, 253, 248, 0.96), rgba(240, 229, 208, 0.78) 56%, rgba(216, 231, 228, 0.72));
+}
+
+.cover-freedom .cover-illustration {
+  background:
+    radial-gradient(circle at 18% 28%, rgba(233, 202, 140, 0.78), transparent 16%),
+    linear-gradient(90deg, rgba(124, 83, 44, 0.16), transparent 28%),
+    repeating-linear-gradient(178deg, rgba(13, 67, 80, 0.24) 0 0.28rem, rgba(216, 231, 228, 0.62) 0.28rem 0.74rem);
+}
+
 .cover-glow-book {
   color: var(--ivory-soft);
   background:
@@ -1596,7 +1611,8 @@ p {
 }
 
 .blog-body p,
-.blog-body blockquote {
+.blog-body blockquote,
+.blog-body h2 {
   color: #314542;
   font-size: clamp(1.12rem, 4.7vw, 1.3rem);
   line-height: 1.92;
@@ -1613,6 +1629,13 @@ p {
   color: var(--creek-deep);
   font-size: clamp(1.7rem, 8vw, 2.55rem);
   line-height: 1.25;
+}
+
+.blog-body h2 {
+  margin: clamp(2.2rem, 8vw, 3.4rem) 0 0.9rem;
+  color: var(--creek-deep);
+  font-size: clamp(1.85rem, 7vw, 2.65rem);
+  line-height: 1.14;
 }
 
 .blog-bottom-print {
@@ -2420,7 +2443,8 @@ a:focus-visible {
   }
 
   .blog-body p,
-  .blog-body blockquote {
+  .blog-body blockquote,
+  .blog-body h2 {
     color: #111111 !important;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 12pt;
@@ -2439,6 +2463,13 @@ a:focus-visible {
     font-size: 16pt;
     line-height: 1.28;
     page-break-inside: avoid;
+  }
+
+  .blog-body h2 {
+    margin: 0.24in 0 0.08in;
+    font-size: 16pt;
+    line-height: 1.25;
+    page-break-after: avoid;
   }
 
   .print-article-footer {

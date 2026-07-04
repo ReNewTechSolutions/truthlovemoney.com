@@ -96,15 +96,187 @@ const coverLibrary = {
     motif: 'open journal • seedling • botanical border',
     alt: 'Editorial cover for The Seed Garden with an open journal, a seedling, botanical borders, and warm sunlight',
   },
+  'freedom-small-things': {
+    titleLines: ['FREEDOM IS', 'FOUND IN THE', 'SMALL THINGS'],
+    subtitle: 'A Fourth of July reflection.',
+    theme: 'freedom',
+    motif: 'porch light • summer pages • quiet gratitude',
+    alt: 'Editorial cover for Freedom Is Found in the Small Things with a porch light, summer evening, books, and warm gold accents',
+  },
 }
 
 const blogPosts = [
+  {
+    title: 'Freedom Is Found in the Small Things',
+    subtitle: 'A warm Fourth of July reflection on summer memories, family traditions, and the quiet freedoms that shape a life.',
+    author: 'Marguerite Lyon',
+    category: 'Reflections',
+    featured: true,
+    date: 'July 4, 2026',
+    readingTime: '6 minutes',
+    path: '/blog/freedom-is-found-in-the-small-things',
+    slug: 'freedom-is-found-in-the-small-things',
+    seoTitle: 'Freedom Is Found in the Small Things | Fourth of July Reflection',
+    metaDescription:
+      'A warm Fourth of July reflection from The Lyon Den on summer memories, family traditions, storytelling, gratitude, literature, wisdom, and legacy.',
+    primaryKeyword: 'Fourth of July reflection',
+    secondaryKeywords: [
+      'summer memories',
+      'storytelling',
+      'family traditions',
+      'gratitude',
+      'Independence Day reflection',
+      'legacy',
+      'literature',
+      'wisdom',
+      'reflection',
+    ],
+    suggestedFeaturedImage: 'freedom-is-found-in-the-small-things.png',
+    socialExcerpt:
+      'A gentle Fourth of July reflection on porch swings, family gatherings, favorite books, and the quiet freedom to tell our stories.',
+    pullQuote:
+      'The freedom to tell our stories is one of the quietest freedoms, and one of the most lasting.',
+    customCover: '',
+    coverId: 'freedom-small-things',
+    excerpt:
+      'A Fourth of July reflection on porch swings, summer evenings, family gathered close, favorite books, and the quiet freedom to tell our stories.',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'There is a certain kind of summer evening that seems to arrive already wrapped in memory.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The air is warm but no longer heavy. The sky softens from blue to gold, then from gold to lavender. Somewhere in the neighborhood, a screen door closes with that familiar wooden sigh. A sprinkler ticks across a lawn. A flag moves gently in the dusk. On the porch, the swing keeps its slow rhythm, back and forth, back and forth, as if time itself has decided to rest for a while.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Before the fireworks begin, there is this quieter hour. The table has been cleared, but the conversation has not ended. Someone is still laughing over a story that has been told before and will almost certainly be told again. A child runs across the yard with bare feet. A book lies open on a chair, facedown for just a moment, waiting for its reader to return.',
+      },
+      {
+        type: 'paragraph',
+        text: 'This is the Fourth of July I find myself thinking about most: not only the bright bursts in the sky, but the tender stillness before them.',
+      },
+      {
+        type: 'heading',
+        text: 'The Brightness and the Quiet',
+      },
+      {
+        type: 'paragraph',
+        text: 'Of course, fireworks have their own magic. They gather people outside. They make everyone look up. They turn the dark into a great theater of red, white, gold, and blue. For a few minutes, the whole sky seems to be speaking in light.',
+      },
+      {
+        type: 'paragraph',
+        text: 'There is joy in that kind of celebration. There is gratitude in standing together beneath a shared sky. There is something moving about hearing the first distant pop, watching the first spark climb, and waiting for the bloom of color that follows.',
+      },
+      {
+        type: 'paragraph',
+        text: 'But as the years pass, I notice that the memories that stay with us are often smaller than fireworks. They are quieter. They do not announce themselves. They slip into the heart while we are busy living them.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A porch swing. Family gathered together. A summer evening. The sound of ice in a glass. The smell of cut grass. A favorite book carried outside because the light was too beautiful to waste. A conversation that begins with something ordinary and somehow becomes a sentence you remember for the rest of your life.',
+      },
+      {
+        type: 'heading',
+        text: 'The Porch Swing Kind of Freedom',
+      },
+      {
+        type: 'paragraph',
+        text: 'There is a freedom in having a place to sit and remember. There is a freedom in belonging to a table, a porch, a family story, a tradition that does not need to be perfect in order to be precious.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A porch swing teaches patience. It does not hurry. It moves in a small arc, returning again and again, reminding us that not every meaningful journey is measured by distance. Sometimes we travel by reflection. Sometimes we go back in order to understand how far we have come.',
+      },
+      {
+        type: 'paragraph',
+        text: 'On a summer evening, when people gather close, stories seem to rise naturally. Someone remembers a trip. Someone mentions a recipe. Someone quotes a line from a song or a book. Someone tells a story about a grandparent, a first job, a hard season, a funny mistake, a moment of courage, a kindness that changed everything.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is when the past becomes present again. Not as a museum, but as a living thing. A legacy.',
+      },
+      {
+        type: 'heading',
+        text: 'Books Beside the Summer Light',
+      },
+      {
+        type: 'paragraph',
+        text: 'I have always believed books belong near windows, on bedside tables, in bags, on porches, and beside cups of tea or lemonade. A favorite book can become part of a season. You may remember where you were when you read it, what the weather was like, who handed it to you, or what was happening in your life when a certain sentence found you.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Literature has a way of keeping company with memory. It gives us language for feelings we had not yet named. It helps us see our own lives with more tenderness. It reminds us that wisdom often arrives through story rather than instruction.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is one reason summer memories and favorite books seem to belong together. Both ask us to slow down. Both invite us to notice. Both hold more than they first appear to hold.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A book read in July may forever carry the sound of cicadas. A poem may bring back the smell of chlorine from a swimming pool, the taste of watermelon, or the face of someone who once sat beside you in the sun. A story may remind you that your own story has meaning too.',
+      },
+      {
+        type: 'heading',
+        text: 'The Freedom to Tell Our Stories',
+      },
+      {
+        type: 'paragraph',
+        text: 'When we speak of freedom, we often think in large words, as we should. History, sacrifice, courage, country, responsibility. Those words matter. They carry weight.',
+      },
+      {
+        type: 'paragraph',
+        text: 'But there is also a quieter freedom, one that lives close to home. The freedom to remember. The freedom to gather. The freedom to read, to ask questions, to listen, to learn. The freedom to tell our stories and to hear the stories of others with respect.',
+      },
+      {
+        type: 'quote',
+        text: 'The freedom to tell our stories is one of the quietest freedoms, and one of the most lasting.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A family tradition does not have to be grand to become sacred. A Fourth of July meal, a chair pulled into the shade, a walk at dusk, a familiar voice calling everyone outside for fireworks: these small things can become the chapters we return to again and again.',
+      },
+      {
+        type: 'paragraph',
+        text: 'This is the heart of The Lyon Den. Every story has something to teach us. Not only the dramatic stories. Not only the polished stories. Not only the stories that arrive with music and a spotlight. The small stories teach us too.',
+      },
+      {
+        type: 'paragraph',
+        text: 'They teach gratitude. They teach perspective. They teach us what we love. They teach us what endured. They teach us that ordinary moments are often ordinary only while they are happening.',
+      },
+      {
+        type: 'heading',
+        text: 'A Gentle Independence Day Reflection',
+      },
+      {
+        type: 'paragraph',
+        text: 'This Independence Day reflection is not about noise or argument. It is about gratitude. It is about the wisdom hidden in summer memories, the comfort of family traditions, and the legacy we leave when we share what life has taught us.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Perhaps tonight, before the fireworks begin, we might pause for the smaller lights. The porch lamp. The fireflies. The candle on the table. The page of a favorite book. The face of someone we love turned toward us in conversation.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Those lights may not fill the sky, but they help us find our way.',
+      },
+      {
+        type: 'paragraph',
+        text: 'And maybe that is part of what it means to never stop learning: to keep discovering that wisdom is not always far away. Sometimes it is right beside us, swinging gently on the porch, waiting for us to sit down and listen.',
+      },
+      {
+        type: 'paragraph',
+        text: 'What simple Fourth of July memory still lives in your heart?',
+      },
+    ],
+  },
   {
     title: 'The Summer That Never Left Me',
     subtitle: 'How one poem reminded me that memories never really leave us.',
     author: 'Marguerite Lyon',
     category: 'Stories',
-    featured: true,
+    featured: false,
     readingTime: '5 minutes',
     path: '/blog/the-summer-that-never-left-me',
     customCover: '',
@@ -183,6 +355,19 @@ const firstBlogPost = blogPosts.find((post) => post.path === '/blog/every-story-
 
 function getPostByPath(path) {
   return blogPosts.find((post) => post.path === path)
+}
+
+function getPostContent(post) {
+  if (post.content) return post.content
+
+  return post.paragraphs.map((paragraph) => ({
+    type:
+      paragraph === 'Every story has something to teach us.' ||
+      paragraph === 'Sometimes a poem doesn’t simply give us words.'
+        ? 'quote'
+        : 'paragraph',
+    text: paragraph,
+  }))
 }
 
 function getCover(coverId) {
@@ -1033,9 +1218,30 @@ function BlogPostPage({ post }) {
   const nextPost = blogPosts[currentIndex - 1] || null
   const continuePost =
     post.path === firstBlogPost.path ? featuredBlogPost : blogPosts.find((blogPost) => blogPost.path !== post.path)
+  const postContent = getPostContent(post)
   const handlePrint = () => {
     window.print()
   }
+
+  useEffect(() => {
+    const previousTitle = document.title
+    const description =
+      document.querySelector('meta[name="description"]') ||
+      document.head.appendChild(Object.assign(document.createElement('meta'), { name: 'description' }))
+    const previousDescription = description.getAttribute('content')
+
+    document.title = post.seoTitle || `${post.title} | The Lyon Den`
+    description.setAttribute('content', post.metaDescription || post.excerpt || post.subtitle)
+
+    return () => {
+      document.title = previousTitle
+      if (previousDescription === null) {
+        description.removeAttribute('content')
+      } else {
+        description.setAttribute('content', previousDescription)
+      }
+    }
+  }, [post])
 
   return (
     <main className="site-shell blog-shell">
@@ -1087,14 +1293,19 @@ function BlogPostPage({ post }) {
         </figure>
 
         <div className="blog-body">
-          {post.paragraphs.map((paragraph) =>
-            paragraph === 'Every story has something to teach us.' ||
-            paragraph === 'Sometimes a poem doesn’t simply give us words.' ? (
-              <blockquote key={paragraph}>{paragraph}</blockquote>
-            ) : (
-              <p key={paragraph}>{paragraph}</p>
-            ),
-          )}
+          {postContent.map((block, index) => {
+            const key = `${block.type}-${index}-${block.text}`
+
+            if (block.type === 'heading') {
+              return <h2 key={key}>{block.text}</h2>
+            }
+
+            if (block.type === 'quote') {
+              return <blockquote key={key}>{block.text}</blockquote>
+            }
+
+            return <p key={key}>{block.text}</p>
+          })}
         </div>
 
         <div className="blog-bottom-print">
