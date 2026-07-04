@@ -693,35 +693,6 @@ p {
   object-fit: cover;
 }
 
-.chapter-card .editorial-cover.chapter-cover {
-  aspect-ratio: auto;
-  padding: clamp(0.55rem, 2.5vw, 0.9rem);
-  background:
-    radial-gradient(circle at 16% 12%, rgba(233, 202, 140, 0.24), transparent 12rem),
-    linear-gradient(145deg, rgba(255, 253, 248, 0.98), rgba(240, 229, 208, 0.7));
-}
-
-.chapter-card .editorial-cover.chapter-cover .cover-frame {
-  inset: clamp(0.8rem, 3vw, 1.15rem);
-  grid-template-rows: auto minmax(3.7rem, 1fr) auto auto;
-  gap: clamp(0.45rem, 2vw, 0.85rem);
-  padding: clamp(0.85rem, 3vw, 1.35rem);
-}
-
-.chapter-card .editorial-cover.chapter-cover .cover-frame h3 {
-  font-size: clamp(1.35rem, 8vw, 2.55rem);
-  line-height: 1.08;
-  letter-spacing: 0.035em;
-}
-
-.chapter-card .editorial-cover.chapter-cover .cover-frame p {
-  font-size: clamp(0.9rem, 3.2vw, 1.08rem);
-}
-
-.chapter-card .editorial-cover.chapter-cover .cover-illustration {
-  min-height: clamp(4rem, 18vw, 6.4rem);
-}
-
 .feature-cover,
 .latest-chapter-cover,
 .story-cover,
@@ -1254,7 +1225,7 @@ p {
 }
 
 .chapter-artwork-image,
-.chapter-book-cover {
+.book-cover {
   width: 100%;
   height: 100%;
   max-height: clamp(22rem, 78vw, 31rem);
@@ -1274,7 +1245,7 @@ p {
   object-fit: cover;
 }
 
-.chapter-book-cover {
+.book-cover {
   position: relative;
   display: grid;
   width: min(100%, 22rem);
@@ -1294,7 +1265,7 @@ p {
     0 22px 48px rgba(8, 47, 59, 0.14);
 }
 
-.chapter-book-cover::before {
+.book-cover::before {
   content: '';
   position: absolute;
   inset: 0.65rem;
@@ -1303,7 +1274,7 @@ p {
   border-radius: 0.72rem;
 }
 
-.chapter-book-topline {
+.book-cover-topline {
   position: relative;
   z-index: 1;
   display: flex;
@@ -1317,7 +1288,7 @@ p {
   text-transform: uppercase;
 }
 
-.chapter-book-topline span {
+.book-cover-topline span {
   display: inline-grid;
   width: clamp(2.2rem, 8vw, 3rem);
   height: clamp(2.2rem, 8vw, 3rem);
@@ -1328,7 +1299,7 @@ p {
   font-family: var(--serif);
 }
 
-.chapter-book-ornament {
+.book-cover-ornament {
   position: relative;
   z-index: 1;
   align-self: stretch;
@@ -1342,13 +1313,13 @@ p {
     repeating-linear-gradient(176deg, rgba(13, 67, 80, 0.18) 0 0.35rem, rgba(216, 231, 228, 0.58) 0.35rem 0.82rem);
 }
 
-.chapter-book-ornament span {
+.book-cover-ornament span {
   position: absolute;
   border: 1px solid rgba(191, 141, 50, 0.42);
   background: rgba(255, 253, 248, 0.58);
 }
 
-.chapter-book-ornament span:nth-child(1) {
+.book-cover-ornament span:nth-child(1) {
   width: 30%;
   height: 34%;
   left: 18%;
@@ -1357,7 +1328,7 @@ p {
   transform: rotate(-5deg);
 }
 
-.chapter-book-ornament span:nth-child(2) {
+.book-cover-ornament span:nth-child(2) {
   width: 20%;
   aspect-ratio: 1;
   left: 50%;
@@ -1366,7 +1337,7 @@ p {
   transform: translateX(-50%);
 }
 
-.chapter-book-ornament span:nth-child(3) {
+.book-cover-ornament span:nth-child(3) {
   width: 30%;
   height: 34%;
   right: 18%;
@@ -1375,7 +1346,7 @@ p {
   transform: rotate(5deg);
 }
 
-.chapter-book-cover h4 {
+.book-cover h4 {
   position: relative;
   z-index: 1;
   align-self: center;
@@ -1390,11 +1361,11 @@ p {
   text-transform: uppercase;
 }
 
-.chapter-book-cover h4 span {
+.book-cover h4 span {
   display: block;
 }
 
-.chapter-book-cover p {
+.book-cover p {
   position: relative;
   z-index: 1;
   margin: 0 auto;
@@ -1406,7 +1377,7 @@ p {
   text-align: center;
 }
 
-.chapter-book-cover small {
+.book-cover small {
   position: relative;
   z-index: 1;
   overflow-wrap: anywhere;
@@ -1428,7 +1399,7 @@ p {
     repeating-linear-gradient(90deg, #6f241d 0 1rem, #8a3325 1rem 2rem);
 }
 
-.book-cover-theater .chapter-book-topline span {
+.book-cover-theater .book-cover-topline span {
   background: rgba(8, 47, 59, 0.22);
   color: var(--gold-soft);
 }
@@ -1466,6 +1437,30 @@ p {
   background:
     radial-gradient(circle at 72% 14%, rgba(233, 202, 140, 0.52), transparent 10rem),
     linear-gradient(145deg, rgba(255, 253, 248, 0.98), rgba(209, 225, 204, 0.72));
+}
+
+.feature-cover.book-cover,
+.latest-chapter-cover.book-cover,
+.media-cover.book-cover {
+  justify-self: center;
+  width: min(100%, 24rem);
+  max-height: none;
+}
+
+.latest-chapter-cover.book-cover {
+  width: min(100%, 28rem);
+}
+
+.story-cover.book-cover {
+  justify-self: center;
+  width: min(100%, 16rem);
+  max-height: none;
+}
+
+.article-cover.book-cover {
+  width: min(100%, 36rem);
+  max-height: none;
+  margin-inline: auto;
 }
 
 .chapter-card-body {

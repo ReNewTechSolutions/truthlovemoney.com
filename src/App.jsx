@@ -671,7 +671,34 @@ function ChapterVisual({ item, className = '' }) {
     )
   }
 
-  return <EditorialCover cover={getCover(item.coverId)} className={className} />
+  return <BookCover cover={getCover(item.coverId)} className={className} />
+}
+
+function BookCover({ cover, className = '' }) {
+  return (
+    <div
+      className={`book-cover book-cover-${cover.theme} ${className}`.trim()}
+      role="img"
+      aria-label={cover.alt}
+    >
+      <div className="book-cover-topline">
+        <span>TLD</span>
+        <strong>The Lyon Den</strong>
+      </div>
+      <div className="book-cover-ornament" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+      <h4>
+        {cover.titleLines.map((line) => (
+          <span key={line}>{line}</span>
+        ))}
+      </h4>
+      {cover.subtitle && <p>{cover.subtitle}</p>}
+      <small>{cover.motif}</small>
+    </div>
+  )
 }
 
 function ChapterCardVisual({ item }) {
@@ -680,7 +707,6 @@ function ChapterCardVisual({ item }) {
   const imageAlt = item.customCover
     ? `Editorial cover for ${item.title}`
     : `YouTube thumbnail for ${item.title}`
-  const cover = getCover(item.coverId)
 
   return (
     <div className={`chapter-artwork chapter-artwork-${displayMode}`}>
@@ -692,28 +718,7 @@ function ChapterCardVisual({ item }) {
           loading="lazy"
         />
       ) : (
-        <div
-          className={`chapter-book-cover book-cover-${cover.theme}`}
-          role="img"
-          aria-label={cover.alt}
-        >
-          <div className="chapter-book-topline">
-            <span>TLD</span>
-            <strong>The Lyon Den</strong>
-          </div>
-          <div className="chapter-book-ornament" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-          <h4>
-            {cover.titleLines.map((line) => (
-              <span key={line}>{line}</span>
-            ))}
-          </h4>
-          {cover.subtitle && <p>{cover.subtitle}</p>}
-          <small>{cover.motif}</small>
-        </div>
+        <BookCover cover={getCover(item.coverId)} className="chapter-book-cover" />
       )}
     </div>
   )
