@@ -22,6 +22,17 @@ const reflectionCards = [
   'Reflections for personal growth and quiet courage.',
 ]
 
+const poetryFeature = {
+  pageTitle: 'Poems That Stayed With Me',
+  poemTitle: 'Reflections on a Gift of Watermelon Pickle Received from a Friend Called Felicity',
+  author: 'John Tobias',
+  anthology: 'Reflections on a Gift of Watermelon Pickle... and other Modern Verse',
+  sourceUrl: 'https://archive.org/details/reflectionsongif00nota',
+  note:
+    'This poem reminded Marguerite of childhood summers, teaching literature, students discovering poetry, family memories, and the way ordinary moments become treasured over time.',
+  question: 'Has a poem ever carried you back to a memory you thought you had forgotten?',
+}
+
 const youtubeChannelUrl = 'https://www.youtube.com/@TheLyonDen-Marguerite'
 const youtubeLinkProps = {
   target: '_blank',
@@ -720,6 +731,10 @@ function App() {
     return <BlogPostPage post={selectedPost || featuredBlogPost} />
   }
 
+  if (normalizedPath === '/poetry') {
+    return <PoetryPage />
+  }
+
   return <HomePage />
 }
 
@@ -756,7 +771,7 @@ function HomePage() {
           <a href="#featured">Featured</a>
           <a href="#latest-chapters">Latest Chapters</a>
           <a href="#bookshelf">Books</a>
-          <a href="#poetry">Poetry</a>
+          <a href="/poetry">Poetry</a>
           <a href="#about">About</a>
           <a href="/blog">Blog</a>
           <a className="youtube-nav-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
@@ -849,21 +864,24 @@ function HomePage() {
       </section>
 
       <section className="poetry section-shell" id="poetry" aria-labelledby="poetry-title">
-        <div className="section-heading centered">
-          <p className="eyebrow">Poetry &amp; Reflections</p>
-          <h2 id="poetry-title">A softer room for meaning, memory, and wonder.</h2>
-          <p>
-            Some lessons arrive as stories. Some arrive as poems. Some arrive as one quiet
-            sentence that keeps tapping on the heart.
-          </p>
-        </div>
-        <div className="reflection-grid">
-          {reflectionCards.map((text) => (
-            <article className="reflection-card" key={text}>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
+        <article className="poetry-feature-card">
+          <div>
+            <p className="eyebrow">Poetry</p>
+            <h2 id="poetry-title">{poetryFeature.pageTitle}</h2>
+            <p>
+              A new reflection series about poems, memories, teaching, and the lines that
+              stay with us long after the book is closed.
+            </p>
+            <a className="button button-secondary" href="/poetry">
+              Read the Reflection
+            </a>
+          </div>
+          <div className="poetry-card-note" aria-label="Featured poem">
+            <span>Featured Poem</span>
+            <strong>{poetryFeature.poemTitle}</strong>
+            <em>{poetryFeature.author}</em>
+          </div>
+        </article>
       </section>
 
       <section className="latest-stories section-shell" id="latest-stories" aria-labelledby="latest-stories-title">
@@ -1032,6 +1050,7 @@ function BlogPostPage({ post }) {
         <nav className="site-nav" aria-label="Blog navigation">
           <a href="/">Home</a>
           <a href="/blog">Blog</a>
+          <a href="/poetry">Poetry</a>
           <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
           <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
         </nav>
@@ -1139,6 +1158,132 @@ function BlogPostPage({ post }) {
         <a className="button button-primary" href={youtubeChannelUrl} {...youtubeLinkProps}>
           Watch on YouTube
         </a>
+      </section>
+
+      <footer className="footer">
+        <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
+        <div>
+          <p>TruthLoveMoney.com</p>
+          <p>The Lyon Den • Hosted by Marguerite</p>
+          <p>Never Stop Learning</p>
+          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
+            <YouTubeIcon />
+            YouTube
+          </a>
+          <a className="creator-login-link" href="/vault">Creator Login</a>
+        </div>
+      </footer>
+    </main>
+  )
+}
+
+function PoetryPage() {
+  return (
+    <main className="site-shell poetry-shell">
+      <header className="site-header blog-header" aria-label="TruthLoveMoney.com poetry header">
+        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
+          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
+          <span>
+            <strong>TruthLoveMoney.com</strong>
+            <small>The Lyon Den Poetry</small>
+          </span>
+        </a>
+        <a
+          className="mobile-youtube-link"
+          href={youtubeChannelUrl}
+          aria-label="Open The Lyon Den YouTube channel"
+          {...youtubeLinkProps}
+        >
+          <YouTubeIcon />
+        </a>
+        <nav className="site-nav" aria-label="Poetry navigation">
+          <a href="/">Home</a>
+          <a href="/blog">Blog</a>
+          <a href="/poetry">Poetry</a>
+          <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
+          <a className="nav-cta" href="#poetry-reflection">Read Reflection</a>
+        </nav>
+      </header>
+
+      <section className="poetry-hero section-shell" aria-labelledby="poetry-page-title">
+        <div className="poetry-hero-scene" aria-hidden="true">
+          <span className="poetry-lantern" />
+          <span className="firefly firefly-one" />
+          <span className="firefly firefly-two" />
+          <span className="firefly firefly-three" />
+          <span className="creek-shimmer shimmer-one" />
+          <span className="creek-shimmer shimmer-two" />
+        </div>
+        <div className="poetry-hero-copy">
+          <p className="eyebrow">Poetry &amp; Reflections</p>
+          <h1 id="poetry-page-title">{poetryFeature.pageTitle}</h1>
+          <p>
+            Some poems do more than sit on a page. They open a door, stir a
+            summer afternoon, and let memory step quietly back into the room.
+          </p>
+        </div>
+      </section>
+
+      <article
+        className="poetry-reflection section-shell"
+        id="poetry-reflection"
+        aria-labelledby="featured-poem-title"
+      >
+        <div className="poetry-reflection-main">
+          <p className="eyebrow">Featured Poem</p>
+          <h2 id="featured-poem-title">{poetryFeature.poemTitle}</h2>
+          <p className="blog-subtitle">by {poetryFeature.author}</p>
+          <dl className="poem-reference">
+            <div>
+              <dt>Anthology</dt>
+              <dd>{poetryFeature.anthology}</dd>
+            </div>
+          </dl>
+          <p>{poetryFeature.note}</p>
+          <p>
+            The Lyon Den does not republish the poem here. Instead, this page
+            honors the way a poem can become a key: opening a room full of
+            summer light, classroom voices, family stories, and ordinary
+            moments that became treasured only with time.
+          </p>
+          <p>
+            For Marguerite, the poem belongs with the kind of literature that
+            helps readers notice what they already carry. It invites us to ask
+            why one image, one taste, one phrase, or one remembered afternoon
+            can remain bright for years.
+          </p>
+          <div className="poetry-actions">
+            <a className="button button-primary" href={poetryFeature.sourceUrl} {...youtubeLinkProps}>
+              Find the Poem
+            </a>
+            <a className="button button-secondary" href="/blog/the-summer-that-never-left-me">
+              Read the Summer Reflection
+            </a>
+          </div>
+        </div>
+
+        <aside className="discussion-card" aria-labelledby="discussion-title">
+          <p className="eyebrow">Discussion Question</p>
+          <h3 id="discussion-title">{poetryFeature.question}</h3>
+          <p>
+            Bring the memory gently. A poem, like a seed, may already know
+            where it wants to bloom.
+          </p>
+        </aside>
+      </article>
+
+      <section className="poetry-notes section-shell" aria-labelledby="poetry-notes-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">What This Series Explores</p>
+          <h2 id="poetry-notes-title">Poems as memory, conversation, and lesson.</h2>
+        </div>
+        <div className="reflection-grid">
+          {reflectionCards.map((text) => (
+            <article className="reflection-card" key={text}>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <footer className="footer">
