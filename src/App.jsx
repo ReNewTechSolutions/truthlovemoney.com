@@ -49,73 +49,116 @@ const coverLibrary = {
     titleLines: ['BROADWAY', 'DREAMS'],
     subtitle: 'Sometimes life gives us a different stage.',
     theme: 'theater',
+    category: 'Episode',
+    icon: 'lion',
+    variant: 'episode',
     motif: 'sheet music • spotlight • golden curtain',
-    alt: 'Editorial cover for Broadway Dreams with a golden theater curtain, sheet music, and a warm spotlight',
+    alt: 'Editorial monogram card for Broadway Dreams with a classic Lyon Den lion seal',
   },
   'every-story-video': {
     titleLines: ['EVERY STORY', 'HAS SOMETHING', 'TO TEACH US'],
     theme: 'creek',
+    category: 'Episode',
+    icon: 'openBook',
+    variant: 'episode',
     motif: 'journal • lantern • creek pages',
-    alt: 'Editorial cover for Every Story Has Something to Teach Us with an open journal, lantern, creek, and floating pages',
+    alt: 'Editorial monogram card for Every Story Has Something to Teach Us with an open book seal',
   },
   'summer-memory': {
     titleLines: ['THE SUMMER', 'THAT NEVER', 'LEFT ME'],
     theme: 'summer',
+    category: 'Poetry',
+    icon: 'creek',
+    variant: 'poetry',
     motif: 'poetry book • water light • flowers',
-    alt: 'Editorial cover for The Summer That Never Left Me with pool water, summer light, a poetry book, and flowers',
+    alt: 'Editorial monogram card for The Summer That Never Left Me with a creek line seal',
   },
   'every-story-blog': {
     titleLines: ['EVERY STORY', 'HAS SOMETHING', 'TO TEACH US'],
     theme: 'window',
+    category: 'Blog',
+    icon: 'journal',
+    variant: 'blog',
     motif: 'old books • warm window • creek view',
-    alt: 'Editorial cover for Every Story Has Something to Teach Us with a journal, old books, warm window light, and a creek view',
+    alt: 'Editorial monogram card for Every Story Has Something to Teach Us with a journal seal',
   },
   'love-changes': {
     titleLines: ['LOVE', 'CHANGES'],
     subtitle: 'But it never stops teaching us.',
     theme: 'love',
+    category: 'Legacy / Wisdom',
+    icon: 'lioness',
+    variant: 'wisdom',
     motif: 'two chairs • sunset creek • books',
-    alt: 'Editorial cover for Love Changes with two chairs beside a creek at sunset and books nearby',
+    alt: 'Editorial monogram card for Love Changes with a graceful lioness seal',
   },
   'one-bite-at-a-time': {
     titleLines: ['ONE BITE', 'AT A TIME'],
     theme: 'path',
+    category: 'Harvest Session',
+    icon: 'cub',
+    variant: 'harvest',
     motif: 'storybook path • lanterns • mountains',
-    alt: 'Editorial cover for One Bite at a Time with a storybook path, lanterns, distant mountains, and a gentle elephant motif',
+    alt: 'Editorial monogram card for One Bite at a Time with a small cub seal',
   },
   'book-that-changed-me': {
     titleLines: ['THE BOOK', 'THAT CHANGED', 'ME'],
     theme: 'glow-book',
+    category: 'Books',
+    icon: 'openBook',
+    variant: 'blog',
     motif: 'antique books • gold light • discovery',
-    alt: 'Editorial cover for The Book That Changed Me with antique books and one glowing book in warm gold light',
+    alt: 'Editorial monogram card for The Book That Changed Me with an open book seal',
   },
   'seed-garden': {
     titleLines: ['THE SEED', 'GARDEN'],
     subtitle: 'Where ideas begin to bloom.',
     theme: 'garden',
+    category: 'Field Notes',
+    icon: 'journal',
+    variant: 'field',
     motif: 'open journal • seedling • botanical border',
-    alt: 'Editorial cover for The Seed Garden with an open journal, a seedling, botanical borders, and warm sunlight',
+    alt: 'Editorial monogram card for The Seed Garden with a journal and seed seal',
   },
   'freedom-small-things': {
     titleLines: ['FREEDOM IS', 'FOUND IN THE', 'SMALL THINGS'],
     subtitle: 'A Fourth of July reflection.',
     theme: 'freedom',
+    category: 'Blog',
+    icon: 'lantern',
+    variant: 'blog',
     motif: 'porch light • summer pages • quiet gratitude',
-    alt: 'Editorial cover for Freedom Is Found in the Small Things with a porch light, summer evening, books, and warm gold accents',
+    alt: 'Editorial monogram card for Freedom Is Found in the Small Things with a lantern seal',
   },
   'covey-mother': {
     titleLines: ['STEPHEN COVEY', 'WROTE WHAT', 'MY MOTHER LIVED'],
     subtitle: 'Values, influence, and a calling to teach.',
     theme: 'legacy',
+    category: 'Legacy / Wisdom',
+    icon: 'lioness',
+    variant: 'legacy',
     motif: 'red convertible • classroom light • lifelong influence',
-    alt: 'Editorial cover for Stephen Covey Wrote What My Mother Lived with classroom light, a red convertible motif, and warm legacy details',
+    alt: 'Editorial monogram card for Stephen Covey Wrote What My Mother Lived with a lioness seal',
   },
   'clear-grammar': {
     titleLines: ['CLEAR GRAMMAR', 'CLEAR', 'THOUGHTS'],
     subtitle: 'Language, listening, and the wisdom of expression.',
     theme: 'language',
+    category: 'Field Notes',
+    icon: 'journal',
+    variant: 'field',
     motif: 'ink pen • open pages • thoughtful listening',
-    alt: 'Editorial cover for Clear Grammar, Clear Thoughts with an ink pen, open pages, and elegant literary details',
+    alt: 'Editorial monogram card for Clear Grammar, Clear Thoughts with a journal seal',
+  },
+  'poems-stayed': {
+    titleLines: ['POEMS THAT', 'STAYED WITH ME'],
+    subtitle: 'Lines, memory, and reflection.',
+    theme: 'poetry',
+    category: 'Poetry',
+    icon: 'lantern',
+    variant: 'poetry',
+    motif: 'poems • memory • quiet light',
+    alt: 'Editorial monogram card for Poems That Stayed With Me with a lantern seal',
   },
 }
 
@@ -688,6 +731,41 @@ function getArtworkDisplayMode(item) {
   return 'cover'
 }
 
+function getFallbackTitleLines(title = 'The Lyon Den') {
+  const words = title.split(/\s+/).filter(Boolean)
+  if (words.length <= 2) return [title.toUpperCase()]
+
+  const midpoint = Math.ceil(words.length / 2)
+  return [
+    words.slice(0, midpoint).join(' ').toUpperCase(),
+    words.slice(midpoint).join(' ').toUpperCase(),
+  ]
+}
+
+function getEditorialCover(item = {}, fallbackCoverId = 'every-story-blog') {
+  const baseCover = item.coverId ? getCover(item.coverId) : getCover(fallbackCoverId)
+  const category = item.category || baseCover.category || (item.source === 'youtube' ? 'Episode' : 'Blog')
+
+  if (item.coverId) {
+    return {
+      ...baseCover,
+      category,
+      title: item.title || baseCover.titleLines.join(' '),
+    }
+  }
+
+  return {
+    ...baseCover,
+    title: item.title || baseCover.titleLines.join(' '),
+    titleLines: getFallbackTitleLines(item.title || baseCover.titleLines.join(' ')),
+    subtitle: item.subtitle || '',
+    category,
+    icon: item.source === 'youtube' ? 'lion' : baseCover.icon,
+    variant: item.source === 'youtube' ? 'episode' : baseCover.variant,
+    alt: `Editorial monogram card for ${item.title || baseCover.titleLines.join(' ')}`,
+  }
+}
+
 const youtubeVideosUrl = `${youtubeChannelUrl}/videos`
 
 const curatedChapters = [
@@ -949,73 +1027,135 @@ function EditorialCover({ cover, className = '' }) {
   )
 }
 
-function ChapterVisual({ item, className = '' }) {
-  const imageSrc = item.customCover || item.thumbnail
-  const imageAlt = item.customCover
-    ? `Editorial cover for ${item.title}`
-    : `YouTube thumbnail for ${item.title}`
-  const imageTypeClass = item.customCover ? 'title-card-image' : 'thumbnail-image'
+function LyonDenIcon({ name = 'lion' }) {
+  const commonProps = {
+    viewBox: '0 0 64 64',
+    fill: 'none',
+    xmlns: 'http://www.w3.org/2000/svg',
+    'aria-hidden': 'true',
+    focusable: 'false',
+  }
 
-  if (imageSrc) {
+  if (name === 'lioness') {
     return (
-      <img
-        className={`chapter-image ${imageTypeClass} ${className}`.trim()}
-        src={imageSrc}
-        alt={imageAlt}
-        loading="lazy"
-      />
+      <svg className="lyon-icon" {...commonProps}>
+        <path d="M16 42c4-15 14-25 31-27" />
+        <path d="M24 50c-2-10 0-18 7-24 5-5 12-7 21-7-3 6-7 10-13 12" />
+        <path d="M40 31c7 1 11 5 13 11-8 2-15 1-21-4" />
+        <path d="M27 47c7 2 15 1 23-4" />
+        <path d="M33 26c-2 4-3 8-3 13" />
+      </svg>
     )
   }
 
-  return <BookCover cover={getCover(item.coverId)} className={className} />
+  if (name === 'cub') {
+    return (
+      <svg className="lyon-icon" {...commonProps}>
+        <path d="M18 43c3-11 10-18 22-21" />
+        <path d="M25 50c-2-8 0-15 6-20 4-4 10-6 17-6-2 5-5 8-10 10" />
+        <path d="M39 34c5 1 8 4 10 9-6 1-11 0-16-3" />
+        <path d="M19 35c-3-2-5-5-5-9 5 0 9 2 12 6" />
+        <path d="M30 47c5 1 11 0 17-3" />
+      </svg>
+    )
+  }
+
+  if (name === 'openBook') {
+    return (
+      <svg className="lyon-icon" {...commonProps}>
+        <path d="M10 18c7-3 15-2 22 3v29c-7-5-15-6-22-3V18Z" />
+        <path d="M54 18c-7-3-15-2-22 3v29c7-5 15-6 22-3V18Z" />
+        <path d="M32 21v29M16 27c4-1 8 0 12 2M16 35c4-1 8 0 12 2M48 27c-4-1-8 0-12 2M48 35c-4-1-8 0-12 2" />
+      </svg>
+    )
+  }
+
+  if (name === 'lantern') {
+    return (
+      <svg className="lyon-icon" {...commonProps}>
+        <path d="M25 12h14M28 12c0 5-5 7-5 13v21c0 4 4 7 9 7s9-3 9-7V25c0-6-5-8-5-13" />
+        <path d="M23 26h18M23 45h18M32 25c-5 7-5 14 0 20 5-6 5-13 0-20Z" />
+        <path d="M18 53h28M32 8v4" />
+      </svg>
+    )
+  }
+
+  if (name === 'journal') {
+    return (
+      <svg className="lyon-icon" {...commonProps}>
+        <path d="M18 12h25c4 0 7 3 7 7v33H23c-5 0-9-4-9-9V16c0-2 2-4 4-4Z" />
+        <path d="M23 12v40M30 22h12M30 30h12M30 38h9" />
+        <path d="M18 52c2-3 5-4 10-4h22" />
+      </svg>
+    )
+  }
+
+  if (name === 'creek') {
+    return (
+      <svg className="lyon-icon" {...commonProps}>
+        <path d="M8 40c9-8 16-8 24 0s15 8 24 0" />
+        <path d="M10 29c8-6 15-6 22 0s14 6 22 0" />
+        <path d="M17 18c5-4 10-4 15 0s10 4 15 0" />
+        <path d="M20 49h24" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg className="lyon-icon" {...commonProps}>
+      <path d="M14 45c2-14 9-25 22-32" />
+      <path d="M21 53c-2-12 1-22 9-30 6-6 15-9 27-9-3 8-8 14-16 18" />
+      <path d="M43 32c8 1 13 6 16 14-10 2-18 0-25-6" />
+      <path d="M27 19c-7-2-13-1-18 4 6 1 11 4 15 8" />
+      <path d="M28 50c8 2 17 0 27-5" />
+      <path d="M33 24c-3 6-4 12-3 18" />
+    </svg>
+  )
 }
 
-function BookCover({ cover, className = '' }) {
+function EditorialCard({ cover, className = '' }) {
+  const title = cover.title || cover.titleLines.join(' ')
+  const variant = cover.variant || cover.theme || 'blog'
+  const icon = cover.icon || 'lion'
+
   return (
     <div
-      className={`book-cover book-cover-${cover.theme} ${className}`.trim()}
+      className={`editorial-card editorial-card-${variant} ${className}`.trim()}
       role="img"
-      aria-label={cover.alt}
+      aria-label={cover.alt || `Editorial card for ${title}`}
     >
-      <div className="book-cover-topline">
-        <span>TLD</span>
-        <strong>The Lyon Den</strong>
+      <div className="editorial-card-inner" aria-hidden="true">
+        <div className="editorial-card-topline">
+          <span>{cover.category || 'The Lyon Den'}</span>
+          <strong>TLD</strong>
+        </div>
+        <div className="editorial-seal">
+          <LyonDenIcon name={icon} />
+        </div>
+        <div className="editorial-card-title">
+          {cover.titleLines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </div>
+        {cover.subtitle && <p>{cover.subtitle}</p>}
+        <small>{cover.motif || 'Truth • Love • Money'}</small>
       </div>
-      <div className="book-cover-ornament" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
-      <h4>
-        {cover.titleLines.map((line) => (
-          <span key={line}>{line}</span>
-        ))}
-      </h4>
-      {cover.subtitle && <p>{cover.subtitle}</p>}
-      <small>{cover.motif}</small>
     </div>
   )
 }
 
-function ChapterCardVisual({ item }) {
-  const imageSrc = item.customCover || item.thumbnail
-  const displayMode = getArtworkDisplayMode(item)
-  const imageAlt = item.customCover
-    ? `Editorial cover for ${item.title}`
-    : `YouTube thumbnail for ${item.title}`
+function ChapterVisual({ item, className = '' }) {
+  return <EditorialCard cover={getEditorialCover(item)} className={className} />
+}
 
+function BookCover({ cover, className = '' }) {
+  return <EditorialCard cover={cover} className={className} />
+}
+
+function ChapterCardVisual({ item }) {
   return (
-    <div className={`chapter-artwork chapter-artwork-${displayMode}`}>
-      {imageSrc ? (
-        <img
-          className="chapter-artwork-image"
-          src={imageSrc}
-          alt={imageAlt}
-          loading="lazy"
-        />
-      ) : (
-        <BookCover cover={getCover(item.coverId)} className="chapter-book-cover" />
-      )}
+    <div className="chapter-artwork chapter-artwork-imprint">
+      <EditorialCard cover={getEditorialCover(item, 'broadway-dreams')} className="chapter-book-cover" />
     </div>
   )
 }
@@ -1432,6 +1572,10 @@ function HomePage() {
             </a>
           </div>
           <div className="poetry-card-note" aria-label="Featured poem">
+            <ChapterVisual
+              item={{ title: poetryFeature.pageTitle, coverId: 'poems-stayed', category: 'Poetry' }}
+              className="poetry-imprint-card"
+            />
             <span>Featured Poem</span>
             <strong>{poetryFeature.poemTitle}</strong>
             <em>{poetryFeature.author}</em>
