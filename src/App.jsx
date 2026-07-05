@@ -76,7 +76,7 @@ const coverLibrary = {
   'every-story-blog': {
     titleLines: ['EVERY STORY', 'HAS SOMETHING', 'TO TEACH US'],
     theme: 'window',
-    category: 'Blog',
+    category: 'Journal',
     icon: 'journal',
     variant: 'blog',
     motif: 'old books • warm window • creek view',
@@ -124,7 +124,7 @@ const coverLibrary = {
     titleLines: ['FREEDOM IS', 'FOUND IN THE', 'SMALL THINGS'],
     subtitle: 'A Fourth of July reflection.',
     theme: 'freedom',
-    category: 'Blog',
+    category: 'Journal',
     icon: 'lantern',
     variant: 'blog',
     motif: 'porch light • summer pages • quiet gratitude',
@@ -160,11 +160,354 @@ const coverLibrary = {
     motif: 'poems • memory • quiet light',
     alt: 'Editorial monogram card for Poems That Stayed With Me with a lantern seal',
   },
+  'poetry-notebook': {
+    titleLines: ['THE NOTEBOOK', 'THAT CHANGED', 'EVERYTHING'],
+    subtitle: 'Poetry, teaching, and the first thread.',
+    theme: 'language',
+    category: 'Journal',
+    icon: 'journal',
+    variant: 'field',
+    motif: 'notebook • poetry • student inspiration',
+    alt: 'Editorial monogram card for The Notebook That Changed Everything with a journal seal',
+  },
+  'teacher-never-retires': {
+    titleLines: ['A TEACHER', 'NEVER', 'RETIRES'],
+    subtitle: 'Influence, listening, and lifelong wisdom.',
+    theme: 'legacy',
+    category: 'Legacy / Wisdom',
+    icon: 'lioness',
+    variant: 'legacy',
+    motif: 'influence • clear words • legacy lessons',
+    alt: 'Editorial monogram card for A Teacher Never Retires with a lioness seal',
+  },
 }
+
+const collectionDefinitions = [
+  {
+    title: 'Summer Memories',
+    slug: 'summer-memories',
+    description: 'Water, porch light, family gatherings, and the warm seasons that return through story.',
+    icon: 'creek',
+    coverId: 'summer-memory',
+  },
+  {
+    title: 'Teaching & Wisdom',
+    slug: 'teaching-wisdom',
+    description: 'Classroom lessons, influence, clear communication, and the wisdom that keeps teaching.',
+    icon: 'lioness',
+    coverId: 'teacher-never-retires',
+  },
+  {
+    title: 'Poetry',
+    slug: 'poetry',
+    description: 'Poems, notebooks, anthologies, and the lines that open doors into memory.',
+    icon: 'lantern',
+    coverId: 'poems-stayed',
+  },
+  {
+    title: 'Books That Changed Me',
+    slug: 'books-that-changed-me',
+    description: 'The books, authors, passages, and reading memories that shaped a life of learning.',
+    icon: 'openBook',
+    coverId: 'book-that-changed-me',
+  },
+  {
+    title: 'Conversations',
+    slug: 'conversations',
+    description: 'Reflections shaped by listening, relationships, advice, and words that stay.',
+    icon: 'lion',
+    coverId: 'love-changes',
+  },
+  {
+    title: 'Field Notes',
+    slug: 'field-notes',
+    description: 'Short observations, language lessons, seed ideas, and thoughtful notes from the margins.',
+    icon: 'journal',
+    coverId: 'clear-grammar',
+  },
+  {
+    title: 'Illustrated Pages',
+    slug: 'illustrated-pages',
+    description: 'Visual chapters, editorial covers, and page-like pieces for the growing Lyon Den archive.',
+    icon: 'openBook',
+    coverId: 'every-story-video',
+  },
+  {
+    title: 'Legacy Lessons',
+    slug: 'legacy-lessons',
+    description: 'Family values, moral foundations, influence, and wisdom passed from one chapter to the next.',
+    icon: 'lioness',
+    coverId: 'covey-mother',
+  },
+]
 
 const blogPosts = [
   {
-    title: 'Clear Grammar, Clear Thoughts',
+    title: 'A Teacher Never Retires',
+    subtitle: 'Teaching as a way of living, listening, and leaving a gentle influence.',
+    author: 'Marguerite Lyon',
+    category: 'Legacy Lessons',
+    featured: false,
+    date: 'July 5, 2026',
+    readingTime: '6 minutes',
+    path: '/blog/a-teacher-never-retires',
+    slug: 'a-teacher-never-retires',
+    seoTitle: 'A Teacher Never Retires | Teaching Wisdom and Legacy Lessons',
+    metaDescription:
+      'Marguerite reflects on lifelong teaching, influence, advice as a love language, listening before judging, and clear communication.',
+    primaryKeyword: 'lifelong teacher',
+    secondaryKeywords: [
+      'teaching wisdom',
+      'storytelling and education',
+      'clear communication',
+      'legacy lessons',
+      'listening before judging',
+      'moral foundation',
+      'lifelong learning',
+    ],
+    tags: [
+      'lifelong teacher',
+      'teaching wisdom',
+      'storytelling and education',
+      'clear communication',
+      'legacy lessons',
+    ],
+    collectionSlugs: ['teaching-wisdom', 'legacy-lessons', 'conversations'],
+    ogImage: '/assets/watermark-logo.png',
+    suggestedFeaturedImage: 'a-teacher-never-retires.png',
+    socialExcerpt:
+      'A Lyon Den reflection on teaching as a way of living, listening before judging, and the quiet reach of influence.',
+    pullQuote:
+      'A teacher never really retires because teaching is not only what you do. It is how you listen, guide, encourage, and love.',
+    customCover: '',
+    coverId: 'teacher-never-retires',
+    excerpt:
+      'A reflection on lifelong teaching, advice as a love language, listening before judging, clear communication, and the legacy of influence.',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Some callings do not end simply because a season changes.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A classroom may empty. A calendar may stop carrying lesson plans. The bell may no longer ring at the same hour each morning. But the habit of teaching, the instinct to listen, the desire to help someone find words for what they mean, those things remain. They become part of the way a person moves through the world.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I have come to believe that a teacher never really retires because teaching is not only a profession. It is a way of living. It is a way of paying attention. It is the willingness to see possibility in another person before they can see it clearly in themselves.',
+      },
+      {
+        type: 'quote',
+        text: 'You never know where your influence lies.',
+      },
+      {
+        type: 'heading',
+        text: 'Influence Travels Quietly',
+      },
+      {
+        type: 'paragraph',
+        text: 'The phrase “You never know where your influence lies” has followed me for years. It is both a comfort and a responsibility. We may never know which sentence helped a student keep going, which correction became confidence, or which moment of patience taught more than the lesson on the board.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Influence rarely announces itself. It often travels quietly through memory. A student may not understand the value of a difficult assignment until much later. A young person may resist advice in the moment, then return to it years afterward when life finally explains why it mattered.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is one reason teaching requires faith. You plant more than you harvest. You speak into lives without always knowing what will take root. You correct, encourage, challenge, and explain, trusting that something useful may remain.',
+      },
+      {
+        type: 'heading',
+        text: 'Advice as a Love Language',
+      },
+      {
+        type: 'paragraph',
+        text: 'In my own family, advice was often a love language. My parents gave me a strong moral and ethical foundation. They taught me that choices matter, that words matter, and that character is revealed not only in grand decisions but in ordinary habits.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Advice did not always arrive wrapped in softness, but it usually arrived from care. It meant someone loved you enough to point toward a better path. It meant they believed you were capable of more clarity, more courage, more responsibility, more growth.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That kind of guidance shaped the teacher in me. I wanted students to understand not only grammar or literature, but themselves. I wanted them to recognize that their words could carry ideas, questions, memories, and convictions into the world.',
+      },
+      {
+        type: 'heading',
+        text: 'Listening Before Judging',
+      },
+      {
+        type: 'paragraph',
+        text: 'A good teacher learns to listen before judging. A sentence that seems confused may be a thought still becoming clear. A student who seems careless may be overwhelmed. A person who speaks sharply may be carrying a story we have not yet heard.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Listening does not mean we abandon standards. It means we gather context before we decide what the moment requires. Sometimes the answer is correction. Sometimes it is encouragement. Sometimes it is silence long enough for someone else to find their voice.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Helping people articulate their thoughts is a quiet form of respect. When we help someone say what they mean, we help them stand more firmly inside their own life.',
+      },
+      {
+        type: 'heading',
+        text: 'Clear Words, Clearer Understanding',
+      },
+      {
+        type: 'paragraph',
+        text: 'I still believe in clear grammar, clear articulation, and clear thoughts. Not because language should be used to make people feel small, but because language can give dignity to what a person carries inside.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A clear sentence can become a bridge. A careful explanation can calm confusion. A well-chosen word can make room for understanding. That is why teaching communication is never only about punctuation or pronunciation. It is about helping people be heard.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The older I get, the more I understand that teaching continues in many forms. It happens in conversation. It happens in family. It happens when someone asks for advice, when a memory becomes a lesson, when a story helps another person feel less alone.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The Lyon Den grows from that belief. Every story has something to teach us. Every life holds lessons worth preserving. And every person, if they keep listening and learning, can still be both student and teacher.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A teacher never retires. The classroom simply becomes wider.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Never Stop Learning.',
+      },
+    ],
+  },
+  {
+    title: 'The Notebook That Changed Everything',
+    subtitle: 'How a seventh-grade poetry notebook became a lifelong thread through teaching, memory, and story.',
+    author: 'Marguerite Lyon',
+    category: 'Poetry',
+    featured: false,
+    date: 'July 5, 2026',
+    readingTime: '6 minutes',
+    path: '/blog/the-notebook-that-changed-everything',
+    slug: 'the-notebook-that-changed-everything',
+    seoTitle: 'The Notebook That Changed Everything | Poetry Notebook and Teaching Poetry',
+    metaDescription:
+      'Marguerite reflects on a seventh-grade poetry notebook, the Watermelon Pickle anthology, teaching poetry, student inspiration, and lifelong learning.',
+    primaryKeyword: 'poetry notebook',
+    secondaryKeywords: [
+      'teaching poetry',
+      'student inspiration',
+      'lifelong learning',
+      'literary memories',
+      'Watermelon Pickle anthology',
+      'self-expression',
+      'teaching influence',
+    ],
+    tags: [
+      'poetry notebook',
+      'teaching poetry',
+      'student inspiration',
+      'lifelong learning',
+      'literary memories',
+    ],
+    collectionSlugs: ['poetry', 'teaching-wisdom', 'summer-memories', 'illustrated-pages'],
+    ogImage: '/assets/watermark-logo.png',
+    suggestedFeaturedImage: 'the-notebook-that-changed-everything.png',
+    socialExcerpt:
+      'A Lyon Den reflection on a seventh-grade poetry notebook, Watermelon Pickle, and the poems that helped students find their own voices.',
+    pullQuote:
+      'A notebook can look small from the outside and still hold the beginning of a lifelong thread.',
+    customCover: '',
+    coverId: 'poetry-notebook',
+    excerpt:
+      'A reflection on a seventh-grade poetry notebook, the Watermelon Pickle anthology, teaching poetry, and the lifelong thread of imagination.',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'A notebook can look small from the outside and still hold the beginning of a lifelong thread.',
+      },
+      {
+        type: 'paragraph',
+        text: 'When I think back to seventh grade, I remember a poetry notebook. It was not grand. It was not expensive. It did not announce itself as something that would matter for years. But inside those pages, something opened. Poetry became more than an assignment. It became a doorway.',
+      },
+      {
+        type: 'paragraph',
+        text: 'At that age, a person is still learning how to name the world. Feelings arrive before vocabulary. Imagination runs ahead of explanation. A poem can meet a young reader in that tender space because it does not always demand a full report. Sometimes it simply offers an image, a rhythm, a line, and lets the reader step closer.',
+      },
+      {
+        type: 'quote',
+        text: 'Poetry became a doorway into interest, imagination, and self-expression.',
+      },
+      {
+        type: 'heading',
+        text: 'The First Doorway',
+      },
+      {
+        type: 'paragraph',
+        text: 'That seventh-grade notebook taught me that language could hold more than facts. It could hold wonder. It could hold humor, memory, sorrow, surprise, and the little flashes of recognition that make a reader think, I know that feeling too.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I did not know then how long that thread would continue. I only knew that poetry had a way of catching my attention. It made ordinary things feel worth noticing. It gave shape to moments that might otherwise drift away.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Years later, that early love of poetry followed me into teaching. I wanted students to experience literature not as something distant and dusty, but as something alive. A poem could become a conversation. A line could become a question. A surprising image could make even a reluctant reader pause.',
+      },
+      {
+        type: 'heading',
+        text: 'Watermelon Pickle and the Classroom',
+      },
+      {
+        type: 'paragraph',
+        text: 'One anthology stayed especially close to my heart: Reflections on a Gift of Watermelon Pickle... and other Modern Verse. Even the title felt like an invitation. It sounded curious, specific, memorable. It suggested that poetry could begin with something as ordinary as a gift, a taste, a memory, or a friend.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I loved that book enough to buy twenty copies for students. That decision was not simply about having enough books in a classroom. It was about wanting students to hold the pages themselves, to turn them, to find a poem that might belong to them in some private way.',
+      },
+      {
+        type: 'paragraph',
+        text: 'There is a special joy in watching students discover that poetry does not have to be decoded like a locked box. It can be entered. It can be questioned. It can be felt first and understood more slowly. It can invite a student to say, “This reminds me of something,” and suddenly the lesson becomes personal.',
+      },
+      {
+        type: 'heading',
+        text: 'Teaching as Influence',
+      },
+      {
+        type: 'paragraph',
+        text: 'Teaching poetry is really teaching attention. It asks students to notice a word, a sound, a memory, a shift in tone, a feeling they may not have known how to explain. It gives them permission to bring their own lives to the page.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is where influence begins. Not in forcing a student to love what we love, but in offering something with enough care that they feel invited to explore it for themselves. A teacher can place a book in a student’s hands and never know which page will matter.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The poems that stayed with me became part of the way I taught. They reminded me that literature is not only about analysis. It is about interest, imagination, self-expression, and the courage to let language carry what might otherwise remain unspoken.',
+      },
+      {
+        type: 'heading',
+        text: 'The Thread That Continued',
+      },
+      {
+        type: 'paragraph',
+        text: 'Looking back, I can see the thread more clearly now. A seventh-grade poetry notebook. A beloved anthology. Twenty copies for students. Classroom conversations. Memories awakened by poems years later. The thread kept weaving itself through teaching, family, literature, and reflection.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is one reason The Lyon Den matters to me. It is a place to gather the threads. It is a place to remember that the small things, a notebook, a poem, a classroom set of books, can become part of a larger story.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Every story has something to teach us. Sometimes the lesson begins with a poem we met when we were young and returns when we are finally ready to understand what it gave us.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Never Stop Learning.',
+      },
+    ],
+  },
+  {
+   title: 'Clear Grammar, Clear Thoughts',
     subtitle: 'Why words, listening, and careful expression still matter.',
     author: 'Marguerite Lyon',
     category: 'Reflections',
@@ -696,6 +1039,137 @@ function getPostByPath(path) {
   return blogPosts.find((post) => post.path === path)
 }
 
+function getCollectionBySlug(slug) {
+  return collectionDefinitions.find((collection) => collection.slug === slug)
+}
+
+function getCollectionPath(slug) {
+  return `/collections/${slug}`
+}
+
+function getPostCollections(post) {
+  if (post.collectionSlugs?.length) return post.collectionSlugs
+
+  const fallbackCollections = {
+    '/blog/clear-grammar-clear-thoughts': ['field-notes', 'teaching-wisdom', 'conversations'],
+    '/blog/stephen-covey-wrote-what-my-mother-lived': ['books-that-changed-me', 'legacy-lessons', 'teaching-wisdom'],
+    '/blog/freedom-is-found-in-the-small-things': ['summer-memories', 'legacy-lessons', 'conversations'],
+    '/blog/the-summer-that-never-left-me': ['summer-memories', 'poetry', 'teaching-wisdom'],
+    '/blog/every-story-has-something-to-teach-us': ['field-notes', 'legacy-lessons', 'illustrated-pages'],
+  }
+
+  return fallbackCollections[post.path] || ['field-notes']
+}
+
+function getPostTags(post) {
+  return [
+    ...(post.tags || []),
+    post.category,
+    post.primaryKeyword,
+    ...(post.secondaryKeywords || []),
+  ].filter(Boolean)
+}
+
+function getPostSlug(post) {
+  return post.slug || post.path.split('/').filter(Boolean).pop()
+}
+
+function getPostOgImage(post) {
+  return post.ogImage || '/assets/watermark-logo.png'
+}
+
+function getArchiveEntries() {
+  const journalEntries = blogPosts.map((post) => ({
+    type: 'Journal',
+    title: post.title,
+    description: post.excerpt || post.subtitle,
+    date: post.date || post.publishedAt || '',
+    path: post.path,
+    coverId: post.coverId,
+    category: post.category,
+    collectionSlugs: getPostCollections(post),
+  }))
+
+  const chapterEntries = curatedChapters.map((chapter) => ({
+    type: 'Episode',
+    title: chapter.title,
+    description: chapter.description,
+    date: chapter.publishedAt,
+    path: chapter.url,
+    external: true,
+    coverId: chapter.coverId,
+    category: 'Episode',
+    collectionSlugs: chapter.collectionSlugs || ['illustrated-pages'],
+  }))
+
+  const poetryEntries = [
+    {
+      type: 'Poetry',
+      title: poetryFeature.pageTitle,
+      description: poetryFeature.note,
+      date: '',
+      path: '/poetry',
+      coverId: 'poems-stayed',
+      category: 'Poetry',
+      collectionSlugs: ['poetry', 'summer-memories'],
+    },
+  ]
+
+  return [...journalEntries, ...chapterEntries, ...poetryEntries]
+}
+
+function getCollectionEntries(slug) {
+  return getArchiveEntries().filter((entry) => entry.collectionSlugs.includes(slug))
+}
+
+function getRelatedPosts(post, limit = 3) {
+  const collections = new Set(getPostCollections(post))
+  const tags = new Set(getPostTags(post).map((tag) => tag.toLowerCase()))
+
+  const scoredPosts = blogPosts
+    .filter((candidate) => candidate.path !== post.path)
+    .map((candidate) => {
+      const candidateCollections = getPostCollections(candidate)
+      const candidateTags = getPostTags(candidate).map((tag) => tag.toLowerCase())
+      const collectionScore = candidateCollections.filter((slug) => collections.has(slug)).length * 4
+      const tagScore = candidateTags.filter((tag) => tags.has(tag)).length
+
+      return {
+        post: candidate,
+        score: collectionScore + tagScore,
+      }
+    })
+    .sort((a, b) => b.score - a.score)
+
+  const related = scoredPosts.filter((entry) => entry.score > 0).map((entry) => entry.post)
+  const fallback = blogPosts.filter((candidate) => candidate.path !== post.path)
+
+  return [...related, ...fallback.filter((candidate) => !related.includes(candidate))].slice(0, limit)
+}
+
+function setMetaContent(selector, attributes, content) {
+  let meta = document.querySelector(selector)
+
+  if (!meta) {
+    meta = document.createElement('meta')
+    Object.entries(attributes).forEach(([key, value]) => {
+      meta.setAttribute(key, value)
+    })
+    document.head.appendChild(meta)
+  }
+
+  const previousContent = meta.getAttribute('content')
+  meta.setAttribute('content', content)
+
+  return () => {
+    if (previousContent === null) {
+      meta.removeAttribute('content')
+    } else {
+      meta.setAttribute('content', previousContent)
+    }
+  }
+}
+
 function getPostContent(post) {
   if (post.content) return post.content
 
@@ -744,7 +1218,7 @@ function getFallbackTitleLines(title = 'The Lyon Den') {
 
 function getEditorialCover(item = {}, fallbackCoverId = 'every-story-blog') {
   const baseCover = item.coverId ? getCover(item.coverId) : getCover(fallbackCoverId)
-  const category = item.category || baseCover.category || (item.source === 'youtube' ? 'Episode' : 'Blog')
+  const category = item.category || baseCover.category || (item.source === 'youtube' ? 'Episode' : 'Journal')
 
   if (item.coverId) {
     return {
@@ -777,6 +1251,7 @@ const curatedChapters = [
     coverId: 'broadway-dreams',
     displayMode: 'contain',
     url: youtubeChannelUrl,
+    collectionSlugs: ['illustrated-pages', 'conversations'],
   },
   {
     title: 'Every Story Has Something to Teach Us',
@@ -786,6 +1261,7 @@ const curatedChapters = [
     coverId: 'every-story-video',
     displayMode: 'contain',
     url: youtubeChannelUrl,
+    collectionSlugs: ['illustrated-pages', 'field-notes', 'legacy-lessons'],
   },
   {
     title: 'The Summer That Never Left Me',
@@ -795,6 +1271,7 @@ const curatedChapters = [
     coverId: 'summer-memory',
     displayMode: 'contain',
     url: youtubeChannelUrl,
+    collectionSlugs: ['summer-memories', 'poetry', 'illustrated-pages'],
   },
   {
     title: 'Love Changes',
@@ -804,6 +1281,7 @@ const curatedChapters = [
     coverId: 'love-changes',
     displayMode: 'contain',
     url: youtubeChannelUrl,
+    collectionSlugs: ['conversations', 'legacy-lessons'],
   },
   {
     title: 'One Bite at a Time',
@@ -813,6 +1291,7 @@ const curatedChapters = [
     coverId: 'one-bite-at-a-time',
     displayMode: 'contain',
     url: youtubeChannelUrl,
+    collectionSlugs: ['field-notes', 'legacy-lessons'],
   },
   {
     title: 'The Book That Changed My Life',
@@ -822,6 +1301,7 @@ const curatedChapters = [
     coverId: 'book-that-changed-me',
     displayMode: 'contain',
     url: youtubeChannelUrl,
+    collectionSlugs: ['books-that-changed-me', 'illustrated-pages'],
   },
   {
     title: 'The Seed Garden',
@@ -831,6 +1311,7 @@ const curatedChapters = [
     coverId: 'seed-garden',
     displayMode: 'contain',
     url: youtubeChannelUrl,
+    collectionSlugs: ['field-notes', 'illustrated-pages'],
   },
 ]
 
@@ -1422,8 +1903,18 @@ function App() {
 
   const selectedPost = getPostByPath(normalizedPath)
 
-  if (normalizedPath === '/blog' || selectedPost) {
-    return <BlogPostPage post={selectedPost || featuredBlogPost} />
+  if (normalizedPath === '/blog') {
+    return <JournalPage />
+  }
+
+  if (selectedPost) {
+    return <BlogPostPage post={selectedPost} />
+  }
+
+  if (normalizedPath.startsWith('/collections/')) {
+    const collectionSlug = normalizedPath.replace('/collections/', '')
+    const collection = getCollectionBySlug(collectionSlug)
+    return collection ? <CollectionPage collection={collection} /> : <JournalPage />
   }
 
   if (normalizedPath === '/poetry') {
@@ -1465,10 +1956,11 @@ function HomePage() {
         <nav className="site-nav" aria-label="Primary navigation">
           <a href="#featured">Featured</a>
           <a href="#latest-chapters">Latest Chapters</a>
+          <a href="#collections">Collections</a>
           <a href="#bookshelf">Books</a>
           <a href="/poetry">Poetry</a>
           <a href="#about">About</a>
-          <a href="/blog">Blog</a>
+          <a href="/blog">Journal</a>
           <a className="youtube-nav-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
             <YouTubeIcon />
           </a>
@@ -1505,6 +1997,34 @@ function HomePage() {
       </section>
 
       <LatestChaptersCarousel chapters={chapters} />
+
+      <section className="collections section-shell" id="collections" aria-labelledby="collections-title">
+        <div className="section-heading">
+          <p className="eyebrow">Featured Collections</p>
+          <h2 id="collections-title">A literary archive of stories, notes, poems, and lessons.</h2>
+          <p>
+            Browse The Lyon Den by memory, subject, and enduring question. Each collection gathers
+            Journal entries, episodes, poetry, illustrated pages, and field notes into a quieter shelf.
+          </p>
+        </div>
+        <div className="collection-grid">
+          {collectionDefinitions.map((collection) => {
+            const entryCount = getCollectionEntries(collection.slug).length
+
+            return (
+              <a className="collection-card" href={getCollectionPath(collection.slug)} key={collection.slug}>
+                <div className="collection-seal" aria-hidden="true">
+                  <LyonDenIcon name={collection.icon} />
+                </div>
+                <p className="eyebrow">{entryCount} {entryCount === 1 ? 'Entry' : 'Entries'}</p>
+                <h3>{collection.title}</h3>
+                <p>{collection.description}</p>
+                <span className="text-link">Open Collection</span>
+              </a>
+            )
+          })}
+        </div>
+      </section>
 
       <section className="publication-lead section-shell" id="featured" aria-labelledby="publication-title">
         <article className="featured-article-card">
@@ -1594,7 +2114,7 @@ function HomePage() {
         <div className="story-grid">
           <article className="story-card story-card-featured">
             <ChapterVisual item={featuredBlogPost} className="story-cover" />
-            <p className="eyebrow">Latest Blog</p>
+            <p className="eyebrow">Latest Journal</p>
             <h3>{featuredBlogPost.title}</h3>
             <p>{featuredBlogPost.subtitle}</p>
             <a className="text-link" href={featuredBlogPost.path}>Read now</a>
@@ -1726,6 +2246,235 @@ function HomePage() {
   )
 }
 
+function JournalPage() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const normalizedSearch = searchQuery.trim().toLowerCase()
+  const filteredPosts = normalizedSearch
+    ? blogPosts.filter((post) => {
+        const searchableText = [
+          post.title,
+          post.subtitle,
+          post.excerpt,
+          post.category,
+          ...getPostTags(post),
+          ...getPostCollections(post).map((slug) => getCollectionBySlug(slug)?.title || slug),
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase()
+
+        return searchableText.includes(normalizedSearch)
+      })
+    : blogPosts
+
+  return (
+    <main className="site-shell blog-shell">
+      <header className="site-header blog-header" aria-label="TruthLoveMoney.com journal header">
+        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
+          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
+          <span>
+            <strong>TruthLoveMoney.com</strong>
+            <small>The Lyon Den Journal</small>
+          </span>
+        </a>
+        <nav className="site-nav" aria-label="Journal navigation">
+          <a href="/">Home</a>
+          <a href="/#collections">Collections</a>
+          <a href="/poetry">Poetry</a>
+          <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
+          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
+        </nav>
+      </header>
+
+      <section className="archive-hero section-shell" aria-labelledby="journal-title">
+        <p className="eyebrow">Journal</p>
+        <h1 id="journal-title">Entries from The Lyon Den archive.</h1>
+        <p>
+          Literary reflections, teaching memories, poetry, books, family lessons, field notes,
+          and story-shaped wisdom gathered one chapter at a time.
+        </p>
+      </section>
+
+      <section className="journal-index section-shell" aria-labelledby="journal-index-title">
+        <div className="section-heading">
+          <p className="eyebrow">Latest Entries</p>
+          <h2 id="journal-index-title">Read the Journal</h2>
+        </div>
+        <form className="archive-search" role="search" onSubmit={(event) => event.preventDefault()}>
+          <label htmlFor="journal-search">Search the archive</label>
+          <input
+            id="journal-search"
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search poetry, teaching, summer memories..."
+          />
+        </form>
+        <div className="story-grid archive-grid">
+          {filteredPosts.map((post) => (
+            <article className="story-card" key={post.path}>
+              <ChapterVisual item={post} className="story-cover" />
+              <p className="eyebrow">{post.category}</p>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt || post.subtitle}</p>
+              <div className="entry-tags" aria-label={`${post.title} collections`}>
+                {getPostCollections(post).slice(0, 2).map((slug) => (
+                  <a href={getCollectionPath(slug)} key={slug}>
+                    {getCollectionBySlug(slug)?.title || slug}
+                  </a>
+                ))}
+              </div>
+              <a className="text-link" href={post.path}>Continue Reading</a>
+            </article>
+          ))}
+        </div>
+        {filteredPosts.length === 0 && (
+          <p className="archive-empty" role="status">
+            No Journal entries matched that search. Try a collection like poetry, teaching, or summer memories.
+          </p>
+        )}
+      </section>
+
+      <section className="collections section-shell" aria-labelledby="journal-collections-title">
+        <div className="section-heading">
+          <p className="eyebrow">Browse by Collection</p>
+          <h2 id="journal-collections-title">Find entries by theme.</h2>
+        </div>
+        <div className="collection-grid compact">
+          {collectionDefinitions.map((collection) => (
+            <a className="collection-card" href={getCollectionPath(collection.slug)} key={collection.slug}>
+              <div className="collection-seal" aria-hidden="true">
+                <LyonDenIcon name={collection.icon} />
+              </div>
+              <h3>{collection.title}</h3>
+              <p>{collection.description}</p>
+              <span className="text-link">{getCollectionEntries(collection.slug).length} entries</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <footer className="footer">
+        <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
+        <div>
+          <p>TruthLoveMoney.com</p>
+          <p>The Lyon Den • Hosted by Marguerite</p>
+          <p>Never Stop Learning</p>
+          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
+            <YouTubeIcon />
+            YouTube
+          </a>
+          <a className="creator-login-link" href="/vault">Creator Login</a>
+        </div>
+      </footer>
+    </main>
+  )
+}
+
+function CollectionPage({ collection }) {
+  const entries = getCollectionEntries(collection.slug)
+  const journalEntries = entries.filter((entry) => entry.type === 'Journal')
+  const supportingEntries = entries.filter((entry) => entry.type !== 'Journal')
+
+  return (
+    <main className="site-shell blog-shell">
+      <header className="site-header blog-header" aria-label={`${collection.title} collection header`}>
+        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
+          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
+          <span>
+            <strong>TruthLoveMoney.com</strong>
+            <small>The Lyon Den Archive</small>
+          </span>
+        </a>
+        <nav className="site-nav" aria-label="Collection navigation">
+          <a href="/">Home</a>
+          <a href="/blog">Journal</a>
+          <a href="/#collections">Collections</a>
+          <a href="/poetry">Poetry</a>
+          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
+        </nav>
+      </header>
+
+      <section className="archive-hero collection-hero section-shell" aria-labelledby="collection-title">
+        <div>
+          <p className="eyebrow">Collection</p>
+          <h1 id="collection-title">{collection.title}</h1>
+          <p>{collection.description}</p>
+        </div>
+        <EditorialCard
+          cover={{
+            ...getCover(collection.coverId),
+            titleLines: getFallbackTitleLines(collection.title),
+            title: collection.title,
+            category: 'Collection',
+            icon: collection.icon,
+            variant: 'field',
+            alt: `Editorial collection card for ${collection.title}`,
+          }}
+          className="collection-hero-card"
+        />
+      </section>
+
+      <section className="journal-index section-shell" aria-labelledby="collection-entries-title">
+        <div className="section-heading">
+          <p className="eyebrow">{entries.length} {entries.length === 1 ? 'Entry' : 'Entries'}</p>
+          <h2 id="collection-entries-title">Continue Reading</h2>
+        </div>
+        <div className="story-grid archive-grid">
+          {journalEntries.map((entry) => (
+            <article className="story-card" key={entry.path}>
+              <ChapterVisual item={entry} className="story-cover" />
+              <p className="eyebrow">{entry.type}</p>
+              <h3>{entry.title}</h3>
+              <p>{entry.description}</p>
+              <a className="text-link" href={entry.path}>Continue Reading</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {supportingEntries.length > 0 && (
+        <section className="related-reading section-shell" aria-labelledby="supporting-entries-title">
+          <div className="section-heading">
+            <p className="eyebrow">Related Field Notes &amp; Illustrated Pages</p>
+            <h2 id="supporting-entries-title">More from this shelf.</h2>
+          </div>
+          <div className="related-grid">
+            {supportingEntries.map((entry) => (
+              <a
+                className="related-card"
+                href={entry.path}
+                key={`${entry.type}-${entry.title}`}
+                {...(entry.external ? youtubeLinkProps : {})}
+              >
+                <ChapterVisual item={entry} className="story-cover" />
+                <p className="eyebrow">{entry.type}</p>
+                <h3>{entry.title}</h3>
+                <p>{entry.description}</p>
+                <span className="text-link">{entry.external ? 'Open on YouTube' : 'Continue Reading'}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <footer className="footer">
+        <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
+        <div>
+          <p>TruthLoveMoney.com</p>
+          <p>The Lyon Den • Hosted by Marguerite</p>
+          <p>Never Stop Learning</p>
+          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
+            <YouTubeIcon />
+            YouTube
+          </a>
+          <a className="creator-login-link" href="/vault">Creator Login</a>
+        </div>
+      </footer>
+    </main>
+  )
+}
+
 function BlogPostPage({ post }) {
   const currentIndex = blogPosts.findIndex((blogPost) => blogPost.path === post.path)
   const previousPost = blogPosts[currentIndex + 1] || null
@@ -1733,6 +2482,8 @@ function BlogPostPage({ post }) {
   const continuePost =
     post.path === firstBlogPost.path ? featuredBlogPost : blogPosts.find((blogPost) => blogPost.path !== post.path)
   const postContent = getPostContent(post)
+  const postCollections = getPostCollections(post)
+  const relatedPosts = getRelatedPosts(post)
   const handlePrint = () => {
     window.print()
   }
@@ -1743,12 +2494,22 @@ function BlogPostPage({ post }) {
       document.querySelector('meta[name="description"]') ||
       document.head.appendChild(Object.assign(document.createElement('meta'), { name: 'description' }))
     const previousDescription = description.getAttribute('content')
+    const cleanDescription = post.metaDescription || post.excerpt || post.subtitle
+    const cleanTitle = post.seoTitle || `${post.title} | The Lyon Den Journal`
+    const cleanupMeta = [
+      setMetaContent('meta[property="og:title"]', { property: 'og:title' }, cleanTitle),
+      setMetaContent('meta[property="og:description"]', { property: 'og:description' }, cleanDescription),
+      setMetaContent('meta[property="og:type"]', { property: 'og:type' }, 'article'),
+      setMetaContent('meta[property="og:image"]', { property: 'og:image' }, getPostOgImage(post)),
+      setMetaContent('meta[name="keywords"]', { name: 'keywords' }, getPostTags(post).join(', ')),
+    ]
 
-    document.title = post.seoTitle || `${post.title} | The Lyon Den`
-    description.setAttribute('content', post.metaDescription || post.excerpt || post.subtitle)
+    document.title = cleanTitle
+    description.setAttribute('content', cleanDescription)
 
     return () => {
       document.title = previousTitle
+      cleanupMeta.forEach((cleanup) => cleanup())
       if (previousDescription === null) {
         description.removeAttribute('content')
       } else {
@@ -1759,7 +2520,7 @@ function BlogPostPage({ post }) {
 
   return (
     <main className="site-shell blog-shell">
-      <header className="site-header blog-header" aria-label="TruthLoveMoney.com blog header">
+      <header className="site-header blog-header" aria-label="TruthLoveMoney.com journal header">
         <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
           <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
           <span>
@@ -1767,9 +2528,10 @@ function BlogPostPage({ post }) {
             <small>The Lyon Den Journal</small>
           </span>
         </a>
-        <nav className="site-nav" aria-label="Blog navigation">
+        <nav className="site-nav" aria-label="Journal navigation">
           <a href="/">Home</a>
-          <a href="/blog">Blog</a>
+          <a href="/blog">Journal</a>
+          <a href="/#collections">Collections</a>
           <a href="/poetry">Poetry</a>
           <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
           <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
@@ -1799,6 +2561,13 @@ function BlogPostPage({ post }) {
             {(post.date || post.publishedAt) && <span>{post.date || post.publishedAt}</span>}
             <span>{post.readingTime}</span>
             {post.featured && <span>Featured Story</span>}
+          </div>
+          <div className="entry-tags article-tags" aria-label={`${post.title} collections`}>
+            {postCollections.map((slug) => (
+              <a href={getCollectionPath(slug)} key={slug}>
+                {getCollectionBySlug(slug)?.title || slug}
+              </a>
+            ))}
           </div>
         </header>
 
@@ -1838,6 +2607,24 @@ function BlogPostPage({ post }) {
           <p>truthlovemoney.com</p>
         </footer>
       </article>
+
+      <section className="related-reading section-shell" aria-labelledby="related-reading-title">
+        <div className="section-heading">
+          <p className="eyebrow">Related Reading</p>
+          <h2 id="related-reading-title">More from this shelf.</h2>
+        </div>
+        <div className="related-grid">
+          {relatedPosts.map((relatedPost) => (
+            <a className="related-card" href={relatedPost.path} key={relatedPost.path}>
+              <ChapterVisual item={relatedPost} className="story-cover" />
+              <p className="eyebrow">{relatedPost.category}</p>
+              <h3>{relatedPost.title}</h3>
+              <p>{relatedPost.excerpt || relatedPost.subtitle}</p>
+              <span className="text-link">Continue Reading</span>
+            </a>
+          ))}
+        </div>
+      </section>
 
       {continuePost && (
         <section className="continue-reading section-shell" aria-labelledby="continue-reading-title">
@@ -1923,7 +2710,8 @@ function PoetryPage() {
         </a>
         <nav className="site-nav" aria-label="Poetry navigation">
           <a href="/">Home</a>
-          <a href="/blog">Blog</a>
+          <a href="/blog">Journal</a>
+          <a href="/#collections">Collections</a>
           <a href="/poetry">Poetry</a>
           <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
           <a className="nav-cta" href="#poetry-reflection">Read Reflection</a>
