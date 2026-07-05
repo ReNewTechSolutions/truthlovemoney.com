@@ -1432,11 +1432,27 @@ p {
 
 .book-cover-path,
 .book-cover-garden,
-.book-cover-freedom {
+.book-cover-freedom,
+.book-cover-legacy,
+.book-cover-language {
   color: var(--creek-deep);
   background:
     radial-gradient(circle at 72% 14%, rgba(233, 202, 140, 0.52), transparent 10rem),
     linear-gradient(145deg, rgba(255, 253, 248, 0.98), rgba(209, 225, 204, 0.72));
+}
+
+.book-cover-legacy .book-cover-ornament {
+  background:
+    radial-gradient(circle at 20% 54%, rgba(139, 51, 37, 0.28), transparent 20%),
+    radial-gradient(circle at 78% 26%, rgba(233, 202, 140, 0.58), transparent 18%),
+    linear-gradient(145deg, rgba(255, 253, 248, 0.58), rgba(216, 231, 228, 0.5));
+}
+
+.book-cover-language .book-cover-ornament {
+  background:
+    linear-gradient(90deg, rgba(13, 67, 80, 0.18) 0 0.12rem, transparent 0.12rem),
+    repeating-linear-gradient(180deg, rgba(191, 141, 50, 0.18) 0 0.08rem, rgba(255, 253, 248, 0.62) 0.08rem 0.78rem);
+  background-size: 1.6rem 100%, auto;
 }
 
 .feature-cover.book-cover,
@@ -1447,6 +1463,18 @@ p {
   max-height: none;
 }
 
+.feature-cover.book-cover h4,
+.latest-chapter-cover.book-cover h4,
+.media-cover.book-cover h4 {
+  font-size: clamp(1.45rem, 4.8vw, 2.25rem);
+}
+
+.feature-cover.book-cover .book-cover-topline,
+.latest-chapter-cover.book-cover .book-cover-topline,
+.media-cover.book-cover .book-cover-topline {
+  font-size: clamp(0.54rem, 1.5vw, 0.68rem);
+}
+
 .latest-chapter-cover.book-cover {
   width: min(100%, 28rem);
 }
@@ -1455,6 +1483,15 @@ p {
   justify-self: center;
   width: min(100%, 16rem);
   max-height: none;
+}
+
+.story-cover.book-cover h4 {
+  font-size: clamp(1.15rem, 5vw, 1.65rem);
+}
+
+.story-cover.book-cover p,
+.story-cover.book-cover small {
+  display: none;
 }
 
 .article-cover.book-cover {

@@ -103,9 +103,305 @@ const coverLibrary = {
     motif: 'porch light • summer pages • quiet gratitude',
     alt: 'Editorial cover for Freedom Is Found in the Small Things with a porch light, summer evening, books, and warm gold accents',
   },
+  'covey-mother': {
+    titleLines: ['STEPHEN COVEY', 'WROTE WHAT', 'MY MOTHER LIVED'],
+    subtitle: 'Values, influence, and a calling to teach.',
+    theme: 'legacy',
+    motif: 'red convertible • classroom light • lifelong influence',
+    alt: 'Editorial cover for Stephen Covey Wrote What My Mother Lived with classroom light, a red convertible motif, and warm legacy details',
+  },
+  'clear-grammar': {
+    titleLines: ['CLEAR GRAMMAR', 'CLEAR', 'THOUGHTS'],
+    subtitle: 'Language, listening, and the wisdom of expression.',
+    theme: 'language',
+    motif: 'ink pen • open pages • thoughtful listening',
+    alt: 'Editorial cover for Clear Grammar, Clear Thoughts with an ink pen, open pages, and elegant literary details',
+  },
 }
 
 const blogPosts = [
+  {
+    title: 'Clear Grammar, Clear Thoughts',
+    subtitle: 'Why words, listening, and careful expression still matter.',
+    author: 'Marguerite Lyon',
+    category: 'Reflections',
+    featured: false,
+    date: 'July 5, 2026',
+    readingTime: '6 minutes',
+    path: '/blog/clear-grammar-clear-thoughts',
+    slug: 'clear-grammar-clear-thoughts',
+    seoTitle: 'Clear Grammar, Clear Thoughts | The Lyon Den',
+    metaDescription:
+      'Marguerite reflects on grammar, articulation, teaching, listening before judging, and how clear language helps us express wisdom with care.',
+    primaryKeyword: 'clear grammar',
+    secondaryKeywords: [
+      'clear articulation',
+      'clear thoughts',
+      'language',
+      'teaching',
+      'communication',
+      'listening',
+      'storytelling',
+      'lifelong learning',
+      'wisdom',
+    ],
+    suggestedFeaturedImage: 'clear-grammar-clear-thoughts.png',
+    socialExcerpt:
+      'A Lyon Den reflection on grammar, articulation, listening, and why clear words can carry wisdom gently and well.',
+    pullQuote:
+      'Clear language is not about sounding impressive. It is about making room for understanding.',
+    customCover: '',
+    coverId: 'clear-grammar',
+    excerpt:
+      'A reflection on grammar, articulation, listening, and the way clear words help us understand one another with more patience and wisdom.',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'There is a kind of clarity that begins long before a sentence reaches the page.',
+      },
+      {
+        type: 'paragraph',
+        text: 'It begins in the mind, where a thought is still taking shape. It begins in the pause before we speak, when we are deciding not only what we want to say, but how carefully we want to say it. It begins when we realize that words are not decorations. They are bridges.',
+      },
+      {
+        type: 'paragraph',
+        text: 'As a teacher, I spent many years helping students understand grammar, articulation, and expression. But the longer I taught, the more I understood that language was never only about rules. Rules mattered, of course. A clear sentence has a kind of architecture. A paragraph needs order. Punctuation can change meaning. A verb can give life to an idea. But beneath all of that was something deeper.',
+      },
+      {
+        type: 'quote',
+        text: 'Clear language is not about sounding impressive. It is about making room for understanding.',
+      },
+      {
+        type: 'heading',
+        text: 'Words Give Shape to Thought',
+      },
+      {
+        type: 'paragraph',
+        text: 'When students struggled to express themselves, I often saw that the problem was not a lack of intelligence. More often, it was that the thought had not yet found its structure. Language gave the thought a place to stand.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is why clear grammar can lead to clear thoughts. A sentence asks us to choose. What is the subject? What is the action? What belongs here, and what belongs somewhere else? What are we really trying to say?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Those questions are not small. They are the same questions we ask in life. What matters? What is true? What is connected? What needs to be said with courage, and what needs to be said with gentleness?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Language becomes a tool for expressing wisdom when we use it honestly. A clear thought does not have to be harsh. A carefully spoken sentence does not have to be cold. In fact, some of the kindest people I have known were people who chose their words with care because they understood their weight.',
+      },
+      {
+        type: 'heading',
+        text: 'Teaching Students to Communicate',
+      },
+      {
+        type: 'paragraph',
+        text: 'Teaching communication is really teaching confidence. When a student discovers that they can explain an idea, defend a belief, tell a story, or ask a thoughtful question, something changes. They stand a little taller. They begin to trust that their inner life can be shared.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I loved watching that happen. A student who once hid behind silence might read a sentence aloud with new steadiness. Another might learn that revising a paragraph was not punishment, but discovery. Someone else might realize that the right word could make a memory vivid, an argument fair, or a feeling understandable.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Words matter because people matter. If we want to be understood, we must learn to speak with some measure of order. If we want to understand others, we must learn to listen beyond the first sentence.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A classroom teaches that lesson every day. One student may need structure, another encouragement, another time to discover that their voice is worth hearing.',
+      },
+      {
+        type: 'heading',
+        text: 'Listening Before Judging',
+      },
+      {
+        type: 'paragraph',
+        text: 'One of the most important lessons language teaches is patience. We do not always know what someone means the first time they speak. Sometimes a person is searching for words. Sometimes they are carrying a story we have not yet heard. Sometimes what sounds abrupt is really fear. Sometimes what seems confused is simply unfinished.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Listening before judging is an act of respect. It says, I believe there may be more here than I can see at first glance. It says, I am willing to learn the context before I decide the meaning.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Stories help us do that. A story gives context to a sentence. It shows us where a person has been, what they have carried, what they were taught, what they survived, and what they hope for. Without story, we are tempted to reduce people to a single moment. With story, we remember that every life has chapters.',
+      },
+      {
+        type: 'heading',
+        text: 'Lifelong Learning Through Language',
+      },
+      {
+        type: 'paragraph',
+        text: 'I still believe in good grammar. I still believe in articulation. I still believe young people deserve to be taught how to express themselves clearly, not because correctness is the highest goal, but because clarity can become freedom.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A person who can communicate can ask for what they need. They can tell the truth. They can preserve a memory. They can write a letter of apology, a note of gratitude, a poem, a story, a lesson for someone who comes after them.',
+      },
+      {
+        type: 'paragraph',
+        text: 'And we never stop learning language. We keep learning how to say difficult things with kindness. We keep learning when to speak and when to wait. We keep learning that silence can be wise, but so can a well-chosen word.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I think often about how many misunderstandings begin with words that were hurried, unfinished, or heard without patience. A sentence can be technically correct and still miss the heart of what needed to be said. That is why clear expression is not only a matter of grammar; it is also a matter of character. It asks us to slow down enough to be truthful, generous, and precise.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Perhaps that is why language belongs so naturally in The Lyon Den. Every story has something to teach us, but we need words to carry the lesson. We need listening to receive it. We need humility to revise what we thought we knew.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Clear grammar. Clear articulation. Clear thoughts. Not perfect thoughts. Not polished beyond recognition. Just honest thoughts, shaped with care and offered with respect.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is a lesson worth returning to, one sentence at a time.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Never stop learning.',
+      },
+    ],
+  },
+  {
+    title: 'Stephen Covey Wrote What My Mother Lived',
+    subtitle: 'A reflection on values, influence, courage, and the calling to keep growing.',
+    author: 'Marguerite Lyon',
+    category: 'Books',
+    featured: false,
+    date: 'July 5, 2026',
+    readingTime: '6 minutes',
+    path: '/blog/stephen-covey-wrote-what-my-mother-lived',
+    slug: 'stephen-covey-wrote-what-my-mother-lived',
+    seoTitle: 'Stephen Covey Wrote What My Mother Lived | The Lyon Den',
+    metaDescription:
+      'Marguerite reflects on The 7 Habits of Highly Effective People, her mother’s lived values, teaching, influence, courage, and lifelong learning.',
+    primaryKeyword: 'Stephen Covey reflection',
+    secondaryKeywords: [
+      'The 7 Habits of Highly Effective People',
+      'mother lived values',
+      'teaching as a calling',
+      'lifelong learning',
+      'influence',
+      'family wisdom',
+      'moral foundation',
+      'ethical foundation',
+      'personal growth',
+    ],
+    suggestedFeaturedImage: 'stephen-covey-wrote-what-my-mother-lived.png',
+    socialExcerpt:
+      'A reflective Lyon Den essay on Stephen Covey, a mother’s lived wisdom, the courage to grow, and the quiet legacy of influence.',
+    pullQuote:
+      'Stephen Covey wrote what my mother lived: character first, growth always, and influence carried quietly into the lives of others.',
+    customCover: '',
+    coverId: 'covey-mother',
+    excerpt:
+      'Marguerite reflects on Stephen Covey, her mother’s lived wisdom, teaching as a calling, and the quiet influence of a moral foundation.',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Some books explain what we have believed for years before we had language for it.',
+      },
+      {
+        type: 'paragraph',
+        text: 'When I think about Stephen Covey and The 7 Habits of Highly Effective People, I do not think first of charts, systems, or business advice. I think of my mother. I think of the values she lived so naturally that they did not feel like principles at the time. They felt like home.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is the curious gift of a good book. It can put words around something we already knew in our bones. It can help us recognize a pattern, honor a memory, and understand that wisdom is not always discovered in a classroom or a conference room. Sometimes it is lived at the kitchen table. Sometimes it is modeled in a difficult decision. Sometimes it is handed down through advice we did not fully appreciate until years later.',
+      },
+      {
+        type: 'quote',
+        text: 'Stephen Covey wrote what my mother lived: character first, growth always, and influence carried quietly into the lives of others.',
+      },
+      {
+        type: 'heading',
+        text: 'The Courage to Choose Growth',
+      },
+      {
+        type: 'paragraph',
+        text: 'One of the lessons I learned from my mother was that growth often asks something of us. It is rarely convenient. It may require us to leave something secure. It may ask us to trade comfort for calling.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I think about the courage it took to leave a secure job and take a pay cut. On paper, that might not look like wisdom. It might look risky. It might look impractical. But life is not lived only on paper. There are moments when the soul knows it is being called toward something more meaningful, even if the numbers do not immediately applaud.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That decision carried a lesson I have never forgotten: security is valuable, but purpose has its own kind of strength. My mother understood that a life cannot be measured only by what we keep. Sometimes it is measured by what we are willing to release.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Even the red convertible became part of that lesson. Selling it was not just about a car. It was about priorities. It was about choosing the future over the symbol. It was about understanding that sacrifice is not always loss. Sometimes sacrifice is how love rearranges a life.',
+      },
+      {
+        type: 'heading',
+        text: 'Teaching as a Lifelong Calling',
+      },
+      {
+        type: 'paragraph',
+        text: 'Teaching was never merely a job in our family. It was a calling. It was a way of seeing people, especially young people, not only as they were but as they might become. My mother carried that spirit. She believed in growth. She believed in discipline. She believed in doing what was right even when no one was praising you for it.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The best teachers do more than deliver information. They shape confidence. They model fairness. They make students feel that their effort matters. They plant seeds that may not bloom until years later.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is why the phrase “You never know where your influence lies” has stayed with me. It is one of the truest things I know. We may never see the full effect of a sentence spoken at the right time, a standard held with kindness, or advice given because we loved someone enough to tell the truth.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Influence is often quiet. It does not always announce itself. It travels through memory, habit, conscience, and example. Long after a conversation ends, the lesson may remain.',
+      },
+      {
+        type: 'heading',
+        text: 'Advice as a Love Language',
+      },
+      {
+        type: 'paragraph',
+        text: 'In my family, advice was often a love language. It was not always wrapped in softness, but it came from care. It came from the desire to help us stand on a strong foundation. My parents gave me a moral and ethical grounding that has shaped every chapter of my life.',
+      },
+      {
+        type: 'paragraph',
+        text: 'They taught me that character matters when choices are easy and when choices are hard. They taught me that truth is not a decoration for convenient moments. They taught me that money, work, ambition, education, and relationships all need an inner compass.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is why Covey’s language about principles, habits, responsibility, and growth feels familiar to me. He organized ideas beautifully. He gave many people a framework. But when I read or remember those ideas, I also see my mother living them without needing to name them.',
+      },
+      {
+        type: 'heading',
+        text: 'A Foundation That Still Teaches',
+      },
+      {
+        type: 'paragraph',
+        text: 'The older I get, the more I understand that the values we inherit are not meant to sit untouched on a shelf. They are meant to be lived, tested, revised, deepened, and passed along. We honor our parents not by pretending they were perfect, but by recognizing the wisdom they gave us and allowing it to continue doing good.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I can look back now and see how many of my own choices were shaped by that foundation. It was there when I entered a classroom. It was there when I had to make decisions about work, money, family, and responsibility. It was there when advice needed to become action. My parents gave me more than instructions; they gave me a way to measure a life.',
+      },
+      {
+        type: 'paragraph',
+        text: 'My mother’s life taught me that growth is a choice. Teaching is a calling. Influence is a responsibility. Advice can be love. And a strong moral foundation can carry a person through seasons they could not have predicted.',
+      },
+      {
+        type: 'paragraph',
+        text: 'This is part of The Lyon Den philosophy too. Every story has something to teach us. Every family has lessons tucked inside its memories. Every book becomes more meaningful when it meets a life that has already been learning.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Stephen Covey wrote what my mother lived. And because she lived it, I am still learning from it.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Never Stop Learning.',
+      },
+    ],
+  },
   {
     title: 'Freedom Is Found in the Small Things',
     subtitle: 'A warm Fourth of July reflection on summer memories, family traditions, and the quiet freedoms that shape a life.',
