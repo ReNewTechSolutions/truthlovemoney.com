@@ -4,7 +4,7 @@ The site references these production image files:
 
 - `watermark-logo.png` - site logo and footer brand mark
 - `hero.png` - cinematic homepage hero image
-- `portrait.png` - illustrated host portrait for About and preview sections
+- `portrait.png` - realistic host portrait for About and preview sections
 - `banner.png` - supporting brand/channel banner image
 - `lifelessons.png` - Life Lessons Gallery image
 - `lessonsthatlast.png` - Teaching & Speaking image

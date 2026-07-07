@@ -15,6 +15,15 @@ The official channel is:
 https://www.youtube.com/@TheLyonDen-Marguerite
 ```
 
+## Social Links
+
+The official YouTube link is built into the site. Optional Facebook and Instagram links appear automatically when these Vite environment variables are set:
+
+```bash
+VITE_FACEBOOK_URL=https://www.facebook.com/your-official-page
+VITE_INSTAGRAM_URL=https://www.instagram.com/your-official-profile
+```
+
 To enable automatic chapter loading, add either of these Vite environment variables:
 
 ```bash

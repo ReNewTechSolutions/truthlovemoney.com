@@ -43,6 +43,25 @@ const configuredYoutubeFeedUrl = import.meta.env.VITE_YOUTUBE_FEED_URL || ''
 const youtubeFeedUrl =
   configuredYoutubeFeedUrl ||
   (youtubeChannelId ? `https://www.youtube.com/feeds/videos.xml?channel_id=${youtubeChannelId}` : '')
+const facebookUrl = import.meta.env.VITE_FACEBOOK_URL || ''
+const instagramUrl = import.meta.env.VITE_INSTAGRAM_URL || ''
+const socialLinks = [
+  {
+    label: 'YouTube',
+    href: youtubeChannelUrl,
+    icon: 'play',
+  },
+  {
+    label: 'Facebook',
+    href: facebookUrl,
+    icon: 'f',
+  },
+  {
+    label: 'Instagram',
+    href: instagramUrl,
+    icon: 'camera',
+  },
+].filter((link) => link.href)
 
 const coverLibrary = {
   'broadway-dreams': {
@@ -1844,8 +1863,29 @@ function getTypeLabel(value) {
   return entryTypes.find((entry) => entry.value === value)?.label || value
 }
 
-function YouTubeIcon() {
-  return <span className="youtube-icon" aria-hidden="true">▶</span>
+function SocialIcon({ type }) {
+  if (type === 'play') {
+    return <span className="social-icon" aria-hidden="true">▶</span>
+  }
+
+  if (type === 'camera') {
+    return <span className="social-icon" aria-hidden="true">◎</span>
+  }
+
+  return <span className="social-icon" aria-hidden="true">{type}</span>
+}
+
+function SocialLinks({ className = '' }) {
+  return (
+    <div className={`social-links ${className}`.trim()} aria-label="The Lyon Den social links">
+      {socialLinks.map((link) => (
+        <a className="social-link" href={link.href} key={link.label} {...youtubeLinkProps}>
+          <SocialIcon type={link.icon} />
+          {link.label}
+        </a>
+      ))}
+    </div>
+  )
 }
 
 function useChapterVisibleCount() {
@@ -2247,11 +2287,12 @@ function HomePage() {
             The Lyon Den is a place for memoirs, meaningful books, poetry, clear questions,
             and lessons that stay with us.
           </p>
+          <SocialLinks className="about-social-links" />
         </div>
         <div className="media-image">
           <img
             src="/assets/portrait.png"
-            alt="Illustrated portrait of Marguerite with silver hair, glasses, and a warm scarf"
+            alt="Portrait of Marguerite with silver hair, glasses, and a warm scarf"
           />
         </div>
       </section>
@@ -2262,10 +2303,7 @@ function HomePage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Stories • Wisdom • Life Lessons</p>
-          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
-            <YouTubeIcon />
-            YouTube
-          </a>
+          <SocialLinks />
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
@@ -2334,10 +2372,7 @@ function EpisodesPage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
-          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
-            <YouTubeIcon />
-            YouTube
-          </a>
+          <SocialLinks />
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
@@ -2460,10 +2495,7 @@ function JournalPage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
-          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
-            <YouTubeIcon />
-            YouTube
-          </a>
+          <SocialLinks />
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
@@ -2565,10 +2597,7 @@ function CollectionPage({ collection }) {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
-          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
-            <YouTubeIcon />
-            YouTube
-          </a>
+          <SocialLinks />
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
@@ -2779,10 +2808,7 @@ function BlogPostPage({ post }) {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
-          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
-            <YouTubeIcon />
-            YouTube
-          </a>
+          <SocialLinks />
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
@@ -2905,10 +2931,7 @@ function PoetryPage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
-          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
-            <YouTubeIcon />
-            YouTube
-          </a>
+          <SocialLinks />
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
