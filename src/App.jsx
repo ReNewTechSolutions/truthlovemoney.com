@@ -180,6 +180,16 @@ const coverLibrary = {
     motif: 'influence • clear words • legacy lessons',
     alt: 'Editorial monogram card for A Teacher Never Retires with a lioness seal',
   },
+  'mother-already-knew': {
+    titleLines: ['WHAT MY', 'MOTHER ALREADY', 'KNEW'],
+    subtitle: 'Values lived before they were named.',
+    theme: 'legacy',
+    category: 'Journal',
+    icon: 'lioness',
+    variant: 'legacy',
+    motif: 'character • influence • lived wisdom',
+    alt: 'Editorial monogram card for What My Mother Already Knew with a lioness seal',
+  },
 }
 
 const collectionDefinitions = [
@@ -242,6 +252,141 @@ const collectionDefinitions = [
 ]
 
 const blogPosts = [
+  {
+    title: 'What My Mother Already Knew',
+    subtitle: 'Stephen Covey gave language to values my mother had already lived.',
+    author: 'Marguerite Lyon',
+    category: 'Legacy Lessons',
+    featured: false,
+    date: 'July 7, 2026',
+    readingTime: '6 minutes',
+    path: '/blog/what-my-mother-already-knew',
+    slug: 'what-my-mother-already-knew',
+    seoTitle: 'What My Mother Already Knew | Stephen Covey, Mother Wisdom, and Lived Values',
+    metaDescription:
+      'Marguerite reflects on Stephen Covey, her mother’s moral foundation, teaching as lifelong influence, character, people-first wisdom, and Never Stop Learning.',
+    primaryKeyword: 'mother wisdom',
+    secondaryKeywords: [
+      'Stephen Covey reflection',
+      'lived wisdom',
+      'teaching influence',
+      'moral foundation',
+      'ethical foundation',
+      'character over circumstances',
+      'legacy lessons',
+      'Never Stop Learning',
+    ],
+    tags: [
+      'mother wisdom',
+      'Stephen Covey',
+      'lived values',
+      'teaching influence',
+      'legacy lessons',
+      'character',
+      'lifelong learning',
+    ],
+    collectionSlugs: ['legacy-lessons', 'teaching-wisdom', 'books-that-changed-me', 'conversations'],
+    ogImage: '/assets/watermark-logo.png',
+    suggestedFeaturedImage: 'what-my-mother-already-knew.png',
+    socialExcerpt:
+      'Some people never write books. They simply become the lesson. A Lyon Den reflection on Stephen Covey, mother wisdom, character, and influence.',
+    pullQuote:
+      'Stephen Covey wrote what my mother lived, but she did not need a chapter title to understand character.',
+    customCover: '',
+    coverId: 'mother-already-knew',
+    excerpt:
+      'A reflective Journal entry about Stephen Covey, a mother’s moral foundation, living to give, teaching as influence, and wisdom that was lived before it was named.',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Sometimes a book does not teach us something entirely new. Sometimes it gives language to something we have already witnessed in the life of someone we love.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is how I feel when I think about Stephen Covey and the principles he wrote about so clearly. His words helped many people understand habits, choices, values, responsibility, and character. But when I read or remember those ideas, I also think of my mother. I think of the way she lived before I had the vocabulary to describe it.',
+      },
+      {
+        type: 'quote',
+        text: 'Stephen Covey wrote what my mother lived, but she did not need a chapter title to understand character.',
+      },
+      {
+        type: 'paragraph',
+        text: 'My mother gave me a moral and ethical foundation that has followed me through every season of my life. She did not present it as a lecture series. She did not call it leadership training. She simply lived by a set of inner commitments. People first. Character first. Growth always. Responsibility even when circumstances were difficult. Giving because giving was part of love.',
+      },
+      {
+        type: 'heading',
+        text: 'Living to Give',
+      },
+      {
+        type: 'paragraph',
+        text: 'There are people who live as though the world exists mainly to serve them. My mother was not one of those people. She lived to give. She gave advice, time, concern, standards, encouragement, and sometimes correction. She gave because she cared about what would become of the people around her.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I did not always understand that advice could be a love language. When we are young, advice can feel like interference. Later, if we are fortunate, we begin to hear the love inside it. We realize that someone was trying to help us build a foundation strong enough to stand on when life became complicated.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is one of the great gifts parents and teachers can give. Not a perfect life. Not a life without disappointment. A foundation. A way to measure choices. A sense that truth matters, that work matters, that people matter, and that our influence reaches farther than we can see.',
+      },
+      {
+        type: 'heading',
+        text: 'Character Over Circumstances',
+      },
+      {
+        type: 'paragraph',
+        text: 'Stephen Covey wrote about choosing our response, about living from principles instead of being ruled by circumstances. My mother understood that long before I saw it written in a book. She knew that circumstances could change quickly. Money could be tight. Work could be hard. Plans could be interrupted. But character was the steady place from which a person could still choose wisely.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That does not mean life is easy. It means we are not helpless inside it. We can decide what kind of person we will be while we are passing through the hard parts. We can decide whether to become bitter or generous, careless or responsible, self-protective or useful.',
+      },
+      {
+        type: 'paragraph',
+        text: 'My mother’s life taught me that values are not proved in theory. They are proved in ordinary decisions. They show up in how we speak when we are tired, how we treat people who cannot repay us, how we respond when plans change, and how willing we are to keep growing when staying the same would be easier.',
+      },
+      {
+        type: 'heading',
+        text: 'Teaching as Lifelong Influence',
+      },
+      {
+        type: 'paragraph',
+        text: 'I have often returned to the phrase, “You never know where your influence lies.” It is one of those sentences that becomes more true the longer you live. A teacher may never know which comment stayed with a student. A parent may never know which example became a child’s inner compass. A friend may never know which conversation helped someone keep going.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Teaching is not limited to classrooms. Teaching happens whenever we help another person see more clearly, choose more carefully, or believe that growth is still possible. My mother taught in that way. She taught by example. She taught through standards. She taught through concern. She taught by expecting people to become better without giving up on them when they were still learning.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That kind of influence is quiet. It is not always praised in public. It may never become a book or a speech or a formal lesson. But it becomes part of other people. It becomes the voice they hear when they are making a decision. It becomes the question they ask themselves when no one else is watching.',
+      },
+      {
+        type: 'heading',
+        text: 'Some People Become the Lesson',
+      },
+      {
+        type: 'paragraph',
+        text: 'Some people never write books. They simply become the lesson. Their lives teach what words can only point toward. They show us what patience looks like, what courage costs, what generosity requires, and what it means to keep learning across an entire lifetime.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is why Covey’s ideas feel personal to me. He organized principles beautifully, but my mother had already made them visible. People first. Character over circumstances. Influence as responsibility. Advice as care. Growth as a choice. A life measured not only by what we accomplish, but by what we give to others along the way.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The Lyon Den exists for reflections like this. Every story has something to teach us, and sometimes the most important stories are not dramatic at all. They are the stories of people who quietly became examples. People whose wisdom was not announced, but lived.',
+      },
+      {
+        type: 'paragraph',
+        text: 'My mother already knew what many of us spend years learning: that a life built on truth, love, responsibility, and generosity continues teaching long after the moment has passed.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Never Stop Learning.',
+      },
+    ],
+  },
   {
     title: 'A Teacher Never Retires',
     subtitle: 'Teaching as a way of living, listening, and leaving a gentle influence.',
@@ -1911,6 +2056,14 @@ function App() {
     return <BlogPostPage post={selectedPost} />
   }
 
+  if (normalizedPath === '/episodes') {
+    return <EpisodesPage />
+  }
+
+  if (normalizedPath === '/field-notes') {
+    return <CollectionPage collection={getCollectionBySlug('field-notes')} />
+  }
+
   if (normalizedPath.startsWith('/collections/')) {
     const collectionSlug = normalizedPath.replace('/collections/', '')
     const collection = getCollectionBySlug(collectionSlug)
@@ -1925,20 +2078,22 @@ function App() {
 }
 
 function HomePage() {
-  const [submitted, setSubmitted] = useState(false)
   const chapters = useLatestChapters()
   const latestChapter = chapters[0] || curatedChapters[0]
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    setSubmitted(true)
-    event.currentTarget.reset()
-  }
+  const journalHighlights = blogPosts.slice(0, 3)
+  const fieldNotes = blogPosts
+    .filter((post) => getPostCollections(post).includes('field-notes'))
+    .slice(0, 2)
+  const poetryEntry = blogPosts.find((post) => getPostCollections(post).includes('poetry'))
+  const illustratedEntry = curatedChapters.find((chapter) => getPostCollections({
+    path: '',
+    collectionSlugs: chapter.collectionSlugs,
+  }).includes('illustrated-pages')) || curatedChapters[0]
 
   return (
     <main className="site-shell" id="top">
       <header className="site-header" aria-label="TruthLoveMoney.com header">
-        <a className="brand" href="#top" aria-label="TruthLoveMoney.com home">
+        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
           <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
           <span>
             <strong>TruthLoveMoney.com</strong>
@@ -1947,220 +2102,139 @@ function HomePage() {
         </a>
         <a
           className="mobile-youtube-link"
-          href={youtubeChannelUrl}
-          aria-label="Open The Lyon Den YouTube channel"
-          {...youtubeLinkProps}
+          href="/blog"
+          aria-label="Open The Lyon Den Journal"
         >
-          <YouTubeIcon />
+          Journal
         </a>
         <nav className="site-nav" aria-label="Primary navigation">
-          <a href="#featured">Featured</a>
-          <a href="#latest-chapters">Latest Chapters</a>
-          <a href="#collections">Collections</a>
-          <a href="#bookshelf">Books</a>
+          <a href="/">Home</a>
+          <a href="/blog">Journal</a>
+          <a href="/episodes">Episodes</a>
+          <a href="/field-notes">Field Notes</a>
           <a href="/poetry">Poetry</a>
           <a href="#about">About</a>
-          <a href="/blog">Journal</a>
-          <a className="youtube-nav-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
-            <YouTubeIcon />
-          </a>
-          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
         </nav>
       </header>
 
-      <section className="hero section-shell" aria-labelledby="hero-title">
+      <section className="hero simple-hero section-shell" aria-labelledby="hero-title">
         <div className="hero-copy">
-          <p className="script-line">A modern literary home for</p>
+          <p className="eyebrow">Truth • Love • Money</p>
           <h1 id="hero-title">The Lyon Den</h1>
-          <p className="truth-line">Truth • Love • Money</p>
-          <p className="tagline">Never Stop Learning</p>
           <p className="hero-intro">
-            Read reflective essays, discover meaningful books, watch gentle video chapters,
-            and linger with poetry, memoir, and life lessons for the heart.
+            A calm literary home for reflective Journal entries, gentle video chapters,
+            poetry, field notes, and wisdom gathered from a life that never stops learning.
           </p>
           <div className="hero-actions" aria-label="Primary actions">
-            <a className="button button-primary" href={featuredBlogPost.path}>
-              Read Featured Article
+            <a className="button button-primary" href="/blog">
+              Enter The Journal
             </a>
-            <a className="button button-secondary" href={youtubeChannelUrl} {...youtubeLinkProps}>
-              Watch on YouTube
+            <a className="button button-secondary" href={latestChapter.url} {...youtubeLinkProps}>
+              Watch The Latest Chapter
             </a>
           </div>
         </div>
 
-        <figure className="hero-media">
-          <img
-            src="/assets/hero.png"
-            alt="Truth Love Money hero artwork for The Lyon Den with creekside books and warm reflective light"
-          />
-        </figure>
-      </section>
-
-      <LatestChaptersCarousel chapters={chapters} />
-
-      <section className="collections section-shell" id="collections" aria-labelledby="collections-title">
-        <div className="section-heading">
-          <p className="eyebrow">Featured Collections</p>
-          <h2 id="collections-title">A literary archive of stories, notes, poems, and lessons.</h2>
-          <p>
-            Browse The Lyon Den by memory, subject, and enduring question. Each collection gathers
-            Journal entries, episodes, poetry, illustrated pages, and field notes into a quieter shelf.
-          </p>
-        </div>
-        <div className="collection-grid">
-          {collectionDefinitions.map((collection) => {
-            const entryCount = getCollectionEntries(collection.slug).length
-
-            return (
-              <a className="collection-card" href={getCollectionPath(collection.slug)} key={collection.slug}>
-                <div className="collection-seal" aria-hidden="true">
-                  <LyonDenIcon name={collection.icon} />
-                </div>
-                <p className="eyebrow">{entryCount} {entryCount === 1 ? 'Entry' : 'Entries'}</p>
-                <h3>{collection.title}</h3>
-                <p>{collection.description}</p>
-                <span className="text-link">Open Collection</span>
-              </a>
-            )
-          })}
+        <div className="hero-seal-card" aria-hidden="true">
+          <img src="/assets/watermark-logo.png" alt="" />
+          <p>Stories • Wisdom • Life Lessons</p>
+          <span>Never Stop Learning</span>
         </div>
       </section>
 
-      <section className="publication-lead section-shell" id="featured" aria-labelledby="publication-title">
-        <article className="featured-article-card">
-          <ChapterVisual item={featuredBlogPost} className="feature-cover" />
-          <div className="featured-article-copy">
-            <p className="eyebrow">Featured Article</p>
-            <h2 id="publication-title">{featuredBlogPost.title}</h2>
-            <p className="blog-subtitle">{featuredBlogPost.subtitle}</p>
-            <p>
-              {featuredBlogPost.excerpt}
-            </p>
-            <a className="button button-secondary" href={featuredBlogPost.path}>
-              Read the Article
-            </a>
-          </div>
-        </article>
-
+      <section className="home-section section-shell" id="episodes" aria-labelledby="latest-chapter-title">
         <a
-          className="latest-chapter-card"
+          className="feature-row"
           href={latestChapter.url}
           aria-label={`Watch ${latestChapter.title} on YouTube`}
           {...youtubeLinkProps}
         >
-          <ChapterVisual item={latestChapter} className="latest-chapter-cover" />
-          <div className="latest-chapter-copy">
+          <ChapterVisual item={latestChapter} className="feature-row-card" />
+          <div>
             <p className="eyebrow">Latest Chapter</p>
-            <h2>{latestChapter.title}</h2>
+            <h2 id="latest-chapter-title">{latestChapter.title}</h2>
             <p>{latestChapter.description}</p>
-            <span className="button button-primary">Watch on YouTube</span>
+            <span className="text-link">Watch The Latest Chapter</span>
           </div>
         </a>
       </section>
 
-      <section className="bookshelf section-shell" id="bookshelf" aria-labelledby="bookshelf-title">
+      <section className="home-section section-shell" id="journal" aria-labelledby="journal-title">
         <div className="section-heading">
-          <p className="eyebrow">Bookshelf</p>
-          <h2 id="bookshelf-title">Books, memoirs, and lessons worth keeping close.</h2>
+          <p className="eyebrow">Journal</p>
+          <h2 id="journal-title">Latest reflections from The Lyon Den.</h2>
           <p>
-            The Lyon Den reads life through books and books through life: favorite passages,
-            remembered chapters, and practical wisdom for ordinary days.
+            Essays, memories, and life lessons gathered with the quiet pace of a literary journal.
           </p>
         </div>
-        <div className="bookshelf-grid">
-          {bookshelfItems.map((item) => (
-            <article className="book-card" key={item.title}>
-              <span aria-hidden="true">Chapter</span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+        <div className="simple-card-grid journal-preview-grid">
+          {journalHighlights.map((post) => (
+            <article className="simple-editorial-card" key={post.path}>
+              <div className="simple-card-seal" aria-hidden="true">
+                <LyonDenIcon name={getCover(post.coverId).icon} />
+              </div>
+              <p className="eyebrow">{post.category}</p>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt || post.subtitle}</p>
+              <a className="text-link" href={post.path}>Continue Reading</a>
             </article>
           ))}
         </div>
+        <a className="button button-secondary section-action" href="/blog">Browse The Journal</a>
       </section>
 
-      <section className="poetry section-shell" id="poetry" aria-labelledby="poetry-title">
-        <article className="poetry-feature-card">
-          <div>
+      <section className="home-section section-shell" id="field-notes" aria-labelledby="field-notes-title">
+        <div className="section-heading">
+          <p className="eyebrow">Field Notes</p>
+          <h2 id="field-notes-title">Small observations with lasting roots.</h2>
+          <p>
+            Shorter entries, language notes, seed ideas, and practical wisdom from the margins.
+          </p>
+        </div>
+        <div className="simple-card-grid two-up-grid">
+          {fieldNotes.map((post) => (
+            <article className="simple-editorial-card" key={post.path}>
+              <div className="simple-card-seal" aria-hidden="true">
+                <LyonDenIcon name={getCover(post.coverId).icon} />
+              </div>
+              <p className="eyebrow">{post.category}</p>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt || post.subtitle}</p>
+              <a className="text-link" href={post.path}>Read Field Note</a>
+            </article>
+          ))}
+        </div>
+        <a className="button button-secondary section-action" href="/field-notes">Browse Field Notes</a>
+      </section>
+
+      <section className="home-section section-shell" id="poetry-pages" aria-labelledby="poetry-pages-title">
+        <div className="section-heading">
+          <p className="eyebrow">Poetry / Illustrated Pages</p>
+          <h2 id="poetry-pages-title">Poems, images, and pages that stay.</h2>
+        </div>
+        <div className="simple-card-grid two-up-grid">
+          <article className="simple-editorial-card">
+            <div className="simple-card-seal" aria-hidden="true">
+              <LyonDenIcon name="lantern" />
+            </div>
             <p className="eyebrow">Poetry</p>
-            <h2 id="poetry-title">{poetryFeature.pageTitle}</h2>
-            <p>
-              A new reflection series about poems, memories, teaching, and the lines that
-              stay with us long after the book is closed.
-            </p>
-            <a className="button button-secondary" href="/poetry">
-              Read the Reflection
-            </a>
-          </div>
-          <div className="poetry-card-note" aria-label="Featured poem">
-            <ChapterVisual
-              item={{ title: poetryFeature.pageTitle, coverId: 'poems-stayed', category: 'Poetry' }}
-              className="poetry-imprint-card"
-            />
-            <span>Featured Poem</span>
-            <strong>{poetryFeature.poemTitle}</strong>
-            <em>{poetryFeature.author}</em>
-          </div>
-        </article>
-      </section>
-
-      <section className="latest-stories section-shell" id="latest-stories" aria-labelledby="latest-stories-title">
-        <div className="section-heading">
-          <p className="eyebrow">Latest Stories</p>
-          <h2 id="latest-stories-title">Truth, love, and money through a story-shaped lens.</h2>
-          <p>
-            Essays, video chapters, and reflections gather here as the publication grows.
-          </p>
-        </div>
-        <div className="story-grid">
-          <article className="story-card story-card-featured">
-            <ChapterVisual item={featuredBlogPost} className="story-cover" />
-            <p className="eyebrow">Latest Journal</p>
-            <h3>{featuredBlogPost.title}</h3>
-            <p>{featuredBlogPost.subtitle}</p>
-            <a className="text-link" href={featuredBlogPost.path}>Read now</a>
+            <h3>{poetryFeature.pageTitle}</h3>
+            <p>{poetryFeature.note}</p>
+            <a className="text-link" href="/poetry">Read Poetry</a>
           </article>
-          {blogPosts
-            .filter((post) => post.path !== featuredBlogPost.path)
-            .map((post) => (
-              <article className="story-card" key={post.path}>
-                <ChapterVisual item={post} className="story-cover" />
-                <p className="eyebrow">{post.category}</p>
-                <h3>{post.title}</h3>
-                <p>{post.subtitle}</p>
-                <a className="text-link" href={post.path}>Continue reading</a>
-              </article>
-            ))}
-          {exploreCards.map((card) => (
-            <article className="story-card" key={card.title}>
-              <p className="eyebrow">{card.title}</p>
-              <h3>{card.title} Notes</h3>
-              <p>{card.text}</p>
-            </article>
-          ))}
+          <a className="simple-editorial-card" href={illustratedEntry.url} {...youtubeLinkProps}>
+            <div className="simple-card-seal" aria-hidden="true">
+              <LyonDenIcon name="openBook" />
+            </div>
+            <p className="eyebrow">Illustrated Pages</p>
+            <h3>{illustratedEntry.title}</h3>
+            <p>{illustratedEntry.description}</p>
+            <span className="text-link">Open Page</span>
+          </a>
         </div>
       </section>
 
-      <section className="section-shell media-section reverse publication-image-band" aria-labelledby="lessons-title">
-        <div className="media-image">
-          <ChapterVisual item={featuredBlogPost} className="media-cover" />
-        </div>
-        <div className="media-copy">
-          <p className="eyebrow">Featured Story</p>
-          <h2 id="lessons-title">{featuredBlogPost.title}</h2>
-          <p>
-            {featuredBlogPost.excerpt}
-          </p>
-          <a className="text-link" href={featuredBlogPost.path}>Read the featured story</a>
-        </div>
-      </section>
-
-      <section className="about section-shell media-section" id="about" aria-labelledby="about-title">
-        <div className="media-image">
-          <img
-            src="/assets/portrait.png"
-            alt="Illustrated portrait of Marguerite with silver hair, glasses, and a warm scarf"
-          />
-        </div>
+      <section className="about section-shell media-section quiet-about" id="about" aria-labelledby="about-title">
         <div className="media-copy">
           <p className="eyebrow">About Marguerite</p>
           <h2 id="about-title">A host for thoughtful stories and gentle wisdom.</h2>
@@ -2174,58 +2248,11 @@ function HomePage() {
             and lessons that stay with us.
           </p>
         </div>
-      </section>
-
-      <section className="join section-shell" id="join" aria-labelledby="join-title">
-        <div className="join-copy">
-          <p className="eyebrow">Subscribe</p>
-          <h2 id="join-title">Join the Story Circle.</h2>
-          <p>
-            Receive new essays, video chapters, reading notes, poetry, and invitations from
-            The Lyon Den.
-          </p>
-        </div>
-        <form className="signup-form" onSubmit={handleSubmit}>
-          <label>
-            Name
-            <input type="text" name="name" autoComplete="name" />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" autoComplete="email" required />
-          </label>
-          <label>
-            Message or topic request
-            <textarea name="message" rows="4" />
-          </label>
-          <button className="button button-primary" type="submit">
-            Join the Story Circle
-          </button>
-          {submitted && (
-            <p className="success" role="status">
-              Thank you. Your note has been received for this preview site.
-            </p>
-          )}
-        </form>
-      </section>
-
-      <section className="final-cta section-shell" aria-labelledby="final-cta-title">
-        <div className="final-cta-image">
+        <div className="media-image">
           <img
-            src="/assets/cta.png"
-            alt="Warm Lyon Den call-to-action artwork with books, flowers, creekside light, and the Truth Love Money brand"
+            src="/assets/portrait.png"
+            alt="Illustrated portrait of Marguerite with silver hair, glasses, and a warm scarf"
           />
-        </div>
-        <div className="final-cta-copy">
-          <p className="eyebrow">Never Stop Learning</p>
-          <h2 id="final-cta-title">Bring your story to the circle.</h2>
-          <p>
-            Truth Love Money grows from shared questions, good books, honest memories, and
-            reflections that help us live with more courage.
-          </p>
-          <a className="button button-primary" href="#join">
-            Share a Question or Story Idea
-          </a>
         </div>
       </section>
 
@@ -2235,6 +2262,78 @@ function HomePage() {
           <p>TruthLoveMoney.com</p>
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Stories • Wisdom • Life Lessons</p>
+          <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
+            <YouTubeIcon />
+            YouTube
+          </a>
+          <a className="creator-login-link" href="/vault">Creator Login</a>
+        </div>
+      </footer>
+    </main>
+  )
+}
+
+function EpisodesPage() {
+  return (
+    <main className="site-shell blog-shell">
+      <header className="site-header blog-header" aria-label="TruthLoveMoney.com episodes header">
+        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
+          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
+          <span>
+            <strong>TruthLoveMoney.com</strong>
+            <small>The Lyon Den Episodes</small>
+          </span>
+        </a>
+        <nav className="site-nav" aria-label="Episodes navigation">
+          <a href="/">Home</a>
+          <a href="/blog">Journal</a>
+          <a href="/episodes">Episodes</a>
+          <a href="/field-notes">Field Notes</a>
+          <a href="/poetry">Poetry</a>
+          <a href="/#about">About</a>
+        </nav>
+      </header>
+
+      <section className="archive-hero section-shell" aria-labelledby="episodes-title">
+        <p className="eyebrow">Episodes</p>
+        <h1 id="episodes-title">Gentle chapters from The Lyon Den.</h1>
+        <p>
+          Video reflections and spoken stories from Marguerite, gathered here as a quiet
+          shelf for listening, learning, and returning.
+        </p>
+      </section>
+
+      <section className="journal-index section-shell" aria-labelledby="episodes-index-title">
+        <div className="section-heading">
+          <p className="eyebrow">Latest Chapters</p>
+          <h2 id="episodes-index-title">Watch the Episodes</h2>
+        </div>
+        <div className="simple-card-grid journal-preview-grid">
+          {curatedChapters.map((chapter) => (
+            <a
+              className="simple-editorial-card"
+              href={chapter.url}
+              key={chapter.title}
+              {...youtubeLinkProps}
+            >
+              <div className="simple-card-seal" aria-hidden="true">
+                <LyonDenIcon name={getCover(chapter.coverId).icon} />
+              </div>
+              <p className="eyebrow">{chapter.publishedAt}</p>
+              <h3>{chapter.title}</h3>
+              <p>{chapter.description}</p>
+              <span className="text-link">Watch on YouTube</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <footer className="footer">
+        <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
+        <div>
+          <p>TruthLoveMoney.com</p>
+          <p>The Lyon Den • Hosted by Marguerite</p>
+          <p>Never Stop Learning</p>
           <a className="footer-youtube-link" href={youtubeChannelUrl} {...youtubeLinkProps}>
             <YouTubeIcon />
             YouTube
@@ -2279,10 +2378,11 @@ function JournalPage() {
         </a>
         <nav className="site-nav" aria-label="Journal navigation">
           <a href="/">Home</a>
-          <a href="/#collections">Collections</a>
+          <a href="/blog">Journal</a>
+          <a href="/episodes">Episodes</a>
+          <a href="/field-notes">Field Notes</a>
           <a href="/poetry">Poetry</a>
-          <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
-          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
+          <a href="/#about">About</a>
         </nav>
       </header>
 
@@ -2389,9 +2489,10 @@ function CollectionPage({ collection }) {
         <nav className="site-nav" aria-label="Collection navigation">
           <a href="/">Home</a>
           <a href="/blog">Journal</a>
-          <a href="/#collections">Collections</a>
+          <a href="/episodes">Episodes</a>
+          <a href="/field-notes">Field Notes</a>
           <a href="/poetry">Poetry</a>
-          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
+          <a href="/#about">About</a>
         </nav>
       </header>
 
@@ -2531,10 +2632,10 @@ function BlogPostPage({ post }) {
         <nav className="site-nav" aria-label="Journal navigation">
           <a href="/">Home</a>
           <a href="/blog">Journal</a>
-          <a href="/#collections">Collections</a>
+          <a href="/episodes">Episodes</a>
+          <a href="/field-notes">Field Notes</a>
           <a href="/poetry">Poetry</a>
-          <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
-          <a className="nav-cta" href={youtubeChannelUrl} {...youtubeLinkProps}>Subscribe</a>
+          <a href="/#about">About</a>
         </nav>
       </header>
 
@@ -2702,19 +2803,18 @@ function PoetryPage() {
         </a>
         <a
           className="mobile-youtube-link"
-          href={youtubeChannelUrl}
-          aria-label="Open The Lyon Den YouTube channel"
-          {...youtubeLinkProps}
+          href="/blog"
+          aria-label="Open The Lyon Den Journal"
         >
-          <YouTubeIcon />
+          Journal
         </a>
         <nav className="site-nav" aria-label="Poetry navigation">
           <a href="/">Home</a>
           <a href="/blog">Journal</a>
-          <a href="/#collections">Collections</a>
+          <a href="/episodes">Episodes</a>
+          <a href="/field-notes">Field Notes</a>
           <a href="/poetry">Poetry</a>
-          <a href={youtubeChannelUrl} {...youtubeLinkProps}>YouTube</a>
-          <a className="nav-cta" href="#poetry-reflection">Read Reflection</a>
+          <a href="/#about">About</a>
         </nav>
       </header>
 
