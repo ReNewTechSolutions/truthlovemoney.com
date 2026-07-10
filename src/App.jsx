@@ -1888,6 +1888,103 @@ function SocialLinks({ className = '' }) {
   )
 }
 
+const publicNavItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Stories', href: '/collections/legacy-lessons' },
+  { label: 'Watch', href: '/episodes' },
+  { label: 'From the Bookshelf', href: '/collections/books-that-changed-me' },
+  { label: 'Field Notes', href: '/field-notes' },
+  { label: 'About Marguerite', href: '/about' },
+  { label: 'The Archive', href: '/archive' },
+  { label: 'Journal', href: '/blog' },
+]
+
+function SiteHeader({ variant = 'light', subtitle = 'Preserving wisdom through beautiful storytelling.' }) {
+  return (
+    <header className={`site-header heirloom-header heirloom-header-${variant}`} aria-label="TruthLoveMoney.com header">
+      <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
+        <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
+        <span>
+          <strong>The Lyon Den</strong>
+          <small>{subtitle}</small>
+        </span>
+      </a>
+      <a className="mobile-youtube-link heirloom-mobile-link" href="/archive">
+        The Archive
+      </a>
+      <nav className="site-nav heirloom-nav" aria-label="Primary navigation">
+        {publicNavItems.map((item) => (
+          <a href={item.href} key={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </header>
+  )
+}
+
+function SiteFooter() {
+  return (
+    <footer className="footer heirloom-footer">
+      <div className="footer-bookplate">
+        <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
+        <p>Preserving wisdom through beautiful storytelling.</p>
+      </div>
+      <nav aria-label="Footer navigation" className="footer-nav">
+        {publicNavItems.map((item) => (
+          <a href={item.href} key={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      <div className="footer-meta">
+        <p>TruthLoveMoney.com</p>
+        <p>The Lyon Den • Produced with ReNewTech Solutions</p>
+        <p>Never Stop Learning</p>
+        <SocialLinks />
+        <div className="footer-quiet-links">
+          <a href="/vault">Creator Login</a>
+          <a href="/archive">Archive</a>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+function usePageMeta({ title, description, image = '/assets/watermark-logo.png', type = 'website' }) {
+  useEffect(() => {
+    const previousTitle = document.title
+    const descriptionMeta =
+      document.querySelector('meta[name="description"]') ||
+      document.head.appendChild(Object.assign(document.createElement('meta'), { name: 'description' }))
+    const previousDescription = descriptionMeta.getAttribute('content')
+    const cleanTitle = title || 'The Lyon Den | Stories, Memory, Literature & Legacy'
+    const cleanDescription =
+      description ||
+      'Enter The Lyon Den, a living archive where Marguerite Lyon’s memories, reflections, books, and lessons become cinematic episodes, written stories, and lasting legacy.'
+    const cleanupMeta = [
+      setMetaContent('meta[property="og:title"]', { property: 'og:title' }, cleanTitle),
+      setMetaContent('meta[property="og:description"]', { property: 'og:description' }, cleanDescription),
+      setMetaContent('meta[property="og:type"]', { property: 'og:type' }, type),
+      setMetaContent('meta[property="og:image"]', { property: 'og:image' }, image),
+      setMetaContent('meta[name="twitter:card"]', { name: 'twitter:card' }, 'summary_large_image'),
+    ]
+
+    document.title = cleanTitle
+    descriptionMeta.setAttribute('content', cleanDescription)
+
+    return () => {
+      document.title = previousTitle
+      cleanupMeta.forEach((cleanup) => cleanup())
+      if (previousDescription === null) {
+        descriptionMeta.removeAttribute('content')
+      } else {
+        descriptionMeta.setAttribute('content', previousDescription)
+      }
+    }
+  }, [title, description, image, type])
+}
+
 function useChapterVisibleCount() {
   const getVisibleCount = () => {
     if (typeof window === 'undefined') return 1
@@ -2096,12 +2193,28 @@ function App() {
     return <BlogPostPage post={selectedPost} />
   }
 
-  if (normalizedPath === '/episodes') {
+  if (normalizedPath === '/episodes' || normalizedPath === '/watch') {
     return <EpisodesPage />
   }
 
   if (normalizedPath === '/field-notes') {
     return <CollectionPage collection={getCollectionBySlug('field-notes')} />
+  }
+
+  if (normalizedPath === '/stories') {
+    return <CollectionPage collection={getCollectionBySlug('legacy-lessons')} />
+  }
+
+  if (normalizedPath === '/bookshelf' || normalizedPath === '/from-the-bookshelf') {
+    return <CollectionPage collection={getCollectionBySlug('books-that-changed-me')} />
+  }
+
+  if (normalizedPath === '/archive' || normalizedPath === '/the-archive') {
+    return <ArchivePage />
+  }
+
+  if (normalizedPath === '/about') {
+    return <AboutPage />
   }
 
   if (normalizedPath.startsWith('/collections/')) {
@@ -2119,199 +2232,221 @@ function App() {
 
 function HomePage() {
   const chapters = useLatestChapters()
-  const latestChapter = chapters[0] || curatedChapters[0]
-  const journalHighlights = blogPosts.slice(0, 3)
-  const fieldNotes = blogPosts
-    .filter((post) => getPostCollections(post).includes('field-notes'))
-    .slice(0, 2)
-  const poetryEntry = blogPosts.find((post) => getPostCollections(post).includes('poetry'))
-  const illustratedEntry = curatedChapters.find((chapter) => getPostCollections({
-    path: '',
-    collectionSlugs: chapter.collectionSlugs,
-  }).includes('illustrated-pages')) || curatedChapters[0]
+  const latestChapter = chapters.find((chapter) => chapter.title === 'The Summer That Never Left Me') || chapters[0] || curatedChapters[0]
+  const summerStory = getPostByPath('/blog/the-summer-that-never-left-me') || featuredBlogPost
+  const writtenChapters = blogPosts.slice(0, 4)
+  const [newsletterStatus, setNewsletterStatus] = useState('')
+
+  usePageMeta({
+    title: 'The Lyon Den | Stories, Memory, Literature & Legacy',
+    description:
+      'Enter The Lyon Den, a living archive where Marguerite Lyon’s memories, reflections, books, and lessons become cinematic episodes, written stories, and lasting legacy.',
+    image: '/assets/hero.png',
+  })
+
+  function handleNewsletterSubmit(event) {
+    event.preventDefault()
+    setNewsletterStatus('Welcome to the Story Circle. The next chapter will find its way to you.')
+    event.currentTarget.reset()
+  }
 
   return (
-    <main className="site-shell" id="top">
-      <header className="site-header" aria-label="TruthLoveMoney.com header">
-        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
-          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
-          <span>
-            <strong>TruthLoveMoney.com</strong>
-            <small>Stories • Wisdom • Life Lessons</small>
-          </span>
-        </a>
-        <a
-          className="mobile-youtube-link"
-          href="/blog"
-          aria-label="Open The Lyon Den Journal"
-        >
-          Journal
-        </a>
-        <nav className="site-nav" aria-label="Primary navigation">
-          <a href="/">Home</a>
-          <a href="/blog">Journal</a>
-          <a href="/episodes">Episodes</a>
-          <a href="/field-notes">Field Notes</a>
-          <a href="/poetry">Poetry</a>
-          <a href="#about">About</a>
-        </nav>
-      </header>
-
-      <section className="hero simple-hero section-shell" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <p className="eyebrow">Truth • Love • Money</p>
-          <h1 id="hero-title">The Lyon Den</h1>
-          <p className="hero-intro">
-            A calm literary home for reflective Journal entries, gentle video chapters,
-            poetry, field notes, and wisdom gathered from a life that never stops learning.
+    <main className="site-shell heirloom-site" id="top">
+      <section className="cinematic-hero" aria-labelledby="hero-title">
+        <SiteHeader variant="dark" />
+        <div className="cinematic-hero-bg" aria-hidden="true">
+          <img src="/assets/hero.png" alt="" />
+        </div>
+        <div className="cinematic-hero-content section-shell">
+          <p className="eyebrow">A Living Archive of Story, Memory &amp; Wisdom</p>
+          <h1 id="hero-title">Every Story Has Something to Teach Us</h1>
+          <p>
+            Enter The Lyon Den, where memories become illustrated stories, meaningful books
+            open new conversations, and the lessons of a lifetime are preserved for generations.
           </p>
           <div className="hero-actions" aria-label="Primary actions">
-            <a className="button button-primary" href="/blog">
-              Enter The Journal
+            <a className="button button-primary" href={latestChapter.url} {...youtubeLinkProps}>
+              Watch the Latest Chapter
             </a>
-            <a className="button button-secondary" href={latestChapter.url} {...youtubeLinkProps}>
-              Watch The Latest Chapter
+            <a className="story-link" href="/archive">
+              Enter the Story Archive
             </a>
           </div>
-        </div>
-
-        <div className="hero-seal-card" aria-hidden="true">
-          <img src="/assets/watermark-logo.png" alt="" />
-          <p>Stories • Wisdom • Life Lessons</p>
-          <span>Never Stop Learning</span>
+          <a className="turn-page-cue" href="#featured-chapter">
+            <span aria-hidden="true" />
+            Turn the page
+          </a>
         </div>
       </section>
 
-      <section className="home-section section-shell" id="episodes" aria-labelledby="latest-chapter-title">
-        <a
-          className="feature-row"
-          href={latestChapter.url}
-          aria-label={`Watch ${latestChapter.title} on YouTube`}
-          {...youtubeLinkProps}
-        >
-          <ChapterVisual item={latestChapter} className="feature-row-card" />
-          <div>
-            <p className="eyebrow">Latest Chapter</p>
-            <h2 id="latest-chapter-title">{latestChapter.title}</h2>
-            <p>{latestChapter.description}</p>
-            <span className="text-link">Watch The Latest Chapter</span>
+      <section className="premiere-section" id="featured-chapter" aria-labelledby="featured-chapter-title">
+        <div className="section-shell premiere-layout">
+          <figure className="cinematic-poster">
+            <img
+              src="/assets/summer-that-never-left-me.png"
+              alt="Painterly summer chapter artwork for The Summer That Never Left Me"
+              loading="lazy"
+            />
+          </figure>
+          <div className="premiere-copy">
+            <p className="chapter-kicker">Chapter One</p>
+            <h2 id="featured-chapter-title">The Summer That Never Left Me</h2>
+            <p>
+              A warm, reflective story about childhood, memory, summer, and the moments that
+              remain with us long after the season has passed.
+            </p>
+            <div className="inline-actions">
+              <a className="button button-primary" href={latestChapter.url} {...youtubeLinkProps}>
+                Watch the Episode
+              </a>
+              <a className="button button-secondary" href={summerStory.path}>
+                Read the Story
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
       </section>
 
-      <section className="home-section section-shell" id="journal" aria-labelledby="journal-title">
-        <div className="section-heading">
-          <p className="eyebrow">Journal</p>
-          <h2 id="journal-title">Latest reflections from The Lyon Den.</h2>
+      <section className="storyteller-spread section-shell" id="about" aria-labelledby="storyteller-title">
+        <div className="portrait-bookplate">
+          <img
+            src="/assets/portrait.png"
+            alt="Portrait of Marguerite with silver hair, glasses, and a warm scarf"
+            loading="lazy"
+          />
+          <span>Marguerite Lyon</span>
+        </div>
+        <div className="storyteller-copy">
+          <p className="eyebrow">Meet the Storyteller</p>
+          <h2 id="storyteller-title">Stories gathered over a lifetime deserve more than a passing moment.</h2>
           <p>
-            Essays, memories, and life lessons gathered with the quiet pace of a literary journal.
+            Marguerite Lyon reflects on childhood, literature, family, work, truth, love,
+            money, and the small memories that quietly shape a life. Through film, writing,
+            and illustrated storytelling, The Lyon Den preserves those reflections as a
+            living archive for generations to come.
+          </p>
+          <blockquote>“Preserve wisdom through beautiful storytelling.”</blockquote>
+          <a className="text-link" href="/about">Meet Marguerite</a>
+        </div>
+      </section>
+
+      <section className="story-world section-shell" aria-labelledby="story-world-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">Explore the Story World</p>
+          <h2 id="story-world-title">Three doorways into the archive.</h2>
+        </div>
+        <div className="pathway-layout">
+          <a className="pathway pathway-large" href="/collections/legacy-lessons">
+            <span className="pathway-number">01</span>
+            <h3>Stories From a Life</h3>
+            <p>Memoir, family, childhood, memory, work, and legacy.</p>
+          </a>
+          <a className="pathway" href="/collections/books-that-changed-me">
+            <span className="pathway-number">02</span>
+            <h3>From the Bookshelf</h3>
+            <p>Literature, poetry, beloved passages, and conversations worth continuing.</p>
+          </a>
+          <a className="pathway" href="/field-notes">
+            <span className="pathway-number">03</span>
+            <h3>Field Notes</h3>
+            <p>Short reflections, photographs, observations, fragments, and lessons gathered along the way.</p>
+          </a>
+        </div>
+      </section>
+
+      <section className="philosophy-section" aria-labelledby="philosophy-title">
+        <div className="section-shell philosophy-layout">
+          <div>
+            <p className="eyebrow">Truth • Love • Money</p>
+            <h2 id="philosophy-title">Three words. A lifetime of questions.</h2>
+          </div>
+          <div className="philosophy-lines">
+            <p><strong>Truth</strong> asks us to look closely.</p>
+            <p><strong>Love</strong> asks us to remember.</p>
+            <p><strong>Money</strong> asks us what we value.</p>
+          </div>
+          <p>
+            These themes shape stories about family, identity, books, work, choices,
+            relationships, memory, responsibility, and legacy.
           </p>
         </div>
-        <div className="simple-card-grid journal-preview-grid">
-          {journalHighlights.map((post) => (
-            <article className="simple-editorial-card" key={post.path}>
-              <div className="simple-card-seal" aria-hidden="true">
-                <LyonDenIcon name={getCover(post.coverId).icon} />
-              </div>
-              <p className="eyebrow">{post.category}</p>
+      </section>
+
+      <section className="living-archive section-shell" aria-labelledby="archive-title">
+        <div className="archive-intro">
+          <p className="eyebrow">The Living Archive</p>
+          <h2 id="archive-title">A Story Preserved Becomes a Legacy</h2>
+          <p>
+            Every chapter becomes part of a growing archive of films, written stories,
+            photographs, reflections, companion journals, and collected wisdom.
+          </p>
+        </div>
+        <div className="archive-shelf">
+          {['Episodes', 'Written Chapters', 'Companion Journal', 'Seed Garden', 'Volume I', 'Photographs and Keepsakes'].map((item, index) => (
+            <a className="archive-volume" href={index === 3 ? '/vault' : '/archive'} key={item}>
+              <span>Vol. {String(index + 1).padStart(2, '0')}</span>
+              {item}
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="written-chapters section-shell" aria-labelledby="written-title">
+        <div className="section-heading">
+          <p className="eyebrow">Latest Written Chapters</p>
+          <h2 id="written-title">Recent entries from the Journal.</h2>
+        </div>
+        <div className="magazine-layout">
+          {writtenChapters.map((post, index) => (
+            <article className={index === 0 ? 'magazine-story magazine-story-featured' : 'magazine-story'} key={post.path}>
+              <p className="chapter-kicker">{String(index + 1).padStart(2, '0')} • {post.category}</p>
               <h3>{post.title}</h3>
               <p>{post.excerpt || post.subtitle}</p>
               <a className="text-link" href={post.path}>Continue Reading</a>
             </article>
           ))}
         </div>
-        <a className="button button-secondary section-action" href="/blog">Browse The Journal</a>
       </section>
 
-      <section className="home-section section-shell" id="field-notes" aria-labelledby="field-notes-title">
-        <div className="section-heading">
-          <p className="eyebrow">Field Notes</p>
-          <h2 id="field-notes-title">Small observations with lasting roots.</h2>
+      <section className="story-circle section-shell" aria-labelledby="story-circle-title">
+        <div className="letter-panel">
+          <p className="eyebrow">Story Circle</p>
+          <h2 id="story-circle-title">Join the Story Circle</h2>
           <p>
-            Shorter entries, language notes, seed ideas, and practical wisdom from the margins.
+            Receive each new chapter, occasional letters from The Lyon Den, reading reflections,
+            and quiet reminders of the stories that matter.
           </p>
-        </div>
-        <div className="simple-card-grid two-up-grid">
-          {fieldNotes.map((post) => (
-            <article className="simple-editorial-card" key={post.path}>
-              <div className="simple-card-seal" aria-hidden="true">
-                <LyonDenIcon name={getCover(post.coverId).icon} />
-              </div>
-              <p className="eyebrow">{post.category}</p>
-              <h3>{post.title}</h3>
-              <p>{post.excerpt || post.subtitle}</p>
-              <a className="text-link" href={post.path}>Read Field Note</a>
-            </article>
-          ))}
-        </div>
-        <a className="button button-secondary section-action" href="/field-notes">Browse Field Notes</a>
-      </section>
-
-      <section className="home-section section-shell" id="poetry-pages" aria-labelledby="poetry-pages-title">
-        <div className="section-heading">
-          <p className="eyebrow">Poetry / Illustrated Pages</p>
-          <h2 id="poetry-pages-title">Poems, images, and pages that stay.</h2>
-        </div>
-        <div className="simple-card-grid two-up-grid">
-          <article className="simple-editorial-card">
-            <div className="simple-card-seal" aria-hidden="true">
-              <LyonDenIcon name="lantern" />
-            </div>
-            <p className="eyebrow">Poetry</p>
-            <h3>{poetryFeature.pageTitle}</h3>
-            <p>{poetryFeature.note}</p>
-            <a className="text-link" href="/poetry">Read Poetry</a>
-          </article>
-          <a className="simple-editorial-card" href={illustratedEntry.url} {...youtubeLinkProps}>
-            <div className="simple-card-seal" aria-hidden="true">
-              <LyonDenIcon name="openBook" />
-            </div>
-            <p className="eyebrow">Illustrated Pages</p>
-            <h3>{illustratedEntry.title}</h3>
-            <p>{illustratedEntry.description}</p>
-            <span className="text-link">Open Page</span>
-          </a>
+          <form className="story-circle-form" onSubmit={handleNewsletterSubmit}>
+            <label className="sr-only" htmlFor="story-circle-email">Your email address</label>
+            <input id="story-circle-email" type="email" placeholder="Your email address" required />
+            <button className="button button-primary" type="submit">Take Your Place by the Fire</button>
+          </form>
+          <small>Quiet updates only. No clutter, no noise.</small>
+          {newsletterStatus && <p className="form-success" role="status">{newsletterStatus}</p>}
         </div>
       </section>
 
-      <section className="about section-shell media-section quiet-about" id="about" aria-labelledby="about-title">
-        <div className="media-copy">
-          <p className="eyebrow">About Marguerite</p>
-          <h2 id="about-title">A host for thoughtful stories and gentle wisdom.</h2>
-          <p>
-            Marguerite shares reflections from literature, life, love, personal growth, and
-            practical financial wisdom. The tone is personal and grounded: not a lecture,
-            but a welcoming conversation.
-          </p>
-          <p>
-            The Lyon Den is a place for memoirs, meaningful books, poetry, clear questions,
-            and lessons that stay with us.
-          </p>
-          <SocialLinks className="about-social-links" />
-        </div>
-        <div className="media-image">
-          <img
-            src="/assets/portrait.png"
-            alt="Portrait of Marguerite with silver hair, glasses, and a warm scarf"
-          />
+      <section className="closing-bookend" aria-labelledby="closing-title">
+        <img src="/assets/cta.png" alt="Illustrated journal, flowers, and creekside Lyon Den keepsake scene" loading="lazy" />
+        <div className="closing-copy section-shell">
+          <p className="eyebrow">The Story Continues</p>
+          <h2 id="closing-title">Come back when you are ready for the next chapter.</h2>
         </div>
       </section>
 
-      <footer className="footer">
-        <img src="/assets/watermark-logo.png" alt="" className="footer-logo" />
-        <div>
-          <p>TruthLoveMoney.com</p>
-          <p>The Lyon Den • Hosted by Marguerite</p>
-          <p>Stories • Wisdom • Life Lessons</p>
-          <SocialLinks />
-          <a className="creator-login-link" href="/vault">Creator Login</a>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   )
 }
 
 function EpisodesPage() {
+  usePageMeta({
+    title: 'Watch The Lyon Den Episodes | Stories & Life Lessons',
+    description:
+      'Watch gentle video chapters from The Lyon Den, including spoken stories, reflections, and life lessons from Marguerite Lyon.',
+    image: '/assets/summer-that-never-left-me.png',
+  })
+
   return (
     <main className="site-shell blog-shell">
       <header className="site-header blog-header" aria-label="TruthLoveMoney.com episodes header">
@@ -2400,6 +2535,13 @@ function JournalPage() {
         return searchableText.includes(normalizedSearch)
       })
     : blogPosts
+
+  usePageMeta({
+    title: 'The Lyon Den Journal | Written Stories, Poetry & Legacy Lessons',
+    description:
+      'Read The Lyon Den Journal: literary reflections, teaching memories, poetry, books, family lessons, and story-shaped wisdom.',
+    image: '/assets/watermark-logo.png',
+  })
 
   return (
     <main className="site-shell blog-shell">
@@ -2508,6 +2650,12 @@ function CollectionPage({ collection }) {
   const journalEntries = entries.filter((entry) => entry.type === 'Journal')
   const supportingEntries = entries.filter((entry) => entry.type !== 'Journal')
 
+  usePageMeta({
+    title: `${collection.title} | The Lyon Den Archive`,
+    description: collection.description,
+    image: '/assets/watermark-logo.png',
+  })
+
   return (
     <main className="site-shell blog-shell">
       <header className="site-header blog-header" aria-label={`${collection.title} collection header`}>
@@ -2601,6 +2749,161 @@ function CollectionPage({ collection }) {
           <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
+    </main>
+  )
+}
+
+function ArchivePage() {
+  const [activeType, setActiveType] = useState('All')
+  const entries = getArchiveEntries()
+  const entryTypesForFilter = ['All', ...Array.from(new Set(entries.map((entry) => entry.type)))]
+  const filteredEntries = activeType === 'All' ? entries : entries.filter((entry) => entry.type === activeType)
+
+  usePageMeta({
+    title: 'The Lyon Den Archive | Stories, Episodes, Poetry & Field Notes',
+    description:
+      'Browse The Lyon Den living archive of stories, episodes, poetry, field notes, books, reflections, and legacy lessons.',
+    image: '/assets/banner.png',
+  })
+
+  return (
+    <main className="site-shell blog-shell archive-page">
+      <SiteHeader subtitle="The living archive of stories, episodes, poetry, and field notes." />
+
+      <section className="archive-hero archive-page-hero section-shell" aria-labelledby="archive-page-title">
+        <p className="eyebrow">The Archive</p>
+        <h1 id="archive-page-title">A curated library of memory and meaning.</h1>
+        <p>
+          Browse written chapters, spoken episodes, poetry reflections, field notes, and
+          the growing shelves of The Lyon Den.
+        </p>
+      </section>
+
+      <section className="section-shell archive-filter-panel" aria-label="Archive filters">
+        <div className="archive-filter-buttons">
+          {entryTypesForFilter.map((type) => (
+            <button
+              type="button"
+              className={type === activeType ? 'archive-filter active' : 'archive-filter'}
+              onClick={() => setActiveType(type)}
+              key={type}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell archive-index" aria-labelledby="archive-index-title">
+        <div className="section-heading">
+          <p className="eyebrow">{filteredEntries.length} {filteredEntries.length === 1 ? 'Piece' : 'Pieces'}</p>
+          <h2 id="archive-index-title">Open a drawer.</h2>
+        </div>
+        <div className="archive-drawer-list">
+          {filteredEntries.map((entry, index) => (
+            <a
+              className="archive-drawer"
+              href={entry.path}
+              key={`${entry.type}-${entry.title}`}
+              {...(entry.external ? youtubeLinkProps : {})}
+            >
+              <span className="archive-drawer-number">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <p className="eyebrow">{entry.type} {entry.date ? `• ${entry.date}` : ''}</p>
+                <h3>{entry.title}</h3>
+                <p>{entry.description}</p>
+              </div>
+              <span className="text-link">{entry.external ? 'Watch' : 'Read'}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="collections section-shell" aria-labelledby="archive-collections-title">
+        <div className="section-heading">
+          <p className="eyebrow">Collections</p>
+          <h2 id="archive-collections-title">Shelves within the archive.</h2>
+        </div>
+        <div className="collection-grid compact">
+          {collectionDefinitions.map((collection) => (
+            <a className="collection-card" href={getCollectionPath(collection.slug)} key={collection.slug}>
+              <div className="collection-seal" aria-hidden="true">
+                <LyonDenIcon name={collection.icon} />
+              </div>
+              <h3>{collection.title}</h3>
+              <p>{collection.description}</p>
+              <span className="text-link">{getCollectionEntries(collection.slug).length} entries</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <SiteFooter />
+    </main>
+  )
+}
+
+function AboutPage() {
+  usePageMeta({
+    title: 'About Marguerite Lyon | The Lyon Den',
+    description:
+      'Meet Marguerite Lyon, the storyteller at the heart of The Lyon Den, a living archive of memory, literature, reflection, and legacy.',
+    image: '/assets/portrait.png',
+  })
+
+  return (
+    <main className="site-shell blog-shell about-page">
+      <SiteHeader subtitle="The storyteller at the heart of The Lyon Den." />
+
+      <section className="about-hero section-shell" aria-labelledby="about-page-title">
+        <div className="portrait-bookplate">
+          <img
+            src="/assets/portrait.png"
+            alt="Portrait of Marguerite with silver hair, glasses, and a warm scarf"
+            loading="lazy"
+          />
+          <span>Marguerite Lyon</span>
+        </div>
+        <div>
+          <p className="eyebrow">About Marguerite</p>
+          <h1 id="about-page-title">The storyteller at the heart of The Lyon Den.</h1>
+          <p>
+            The Lyon Den exists to preserve memories, books, lessons, and reflections in a
+            form that can be returned to, shared, and treasured.
+          </p>
+        </div>
+      </section>
+
+      <section className="about-manifesto section-shell" aria-labelledby="about-manifesto-title">
+        <p className="eyebrow">Storytelling Philosophy</p>
+        <h2 id="about-manifesto-title">A life becomes legacy when its stories are preserved with care.</h2>
+        <div className="manifesto-columns">
+          <p>
+            Marguerite reflects on literature, teaching, memory, family, work, truth, love,
+            and money with the warmth of a conversation and the patience of a journal page.
+          </p>
+          <p>
+            ReNewTech Solutions produces, edits, designs, publishes, and manages the platform
+            so each story can become part of a beautiful living archive.
+          </p>
+        </div>
+      </section>
+
+      <section className="philosophy-section about-philosophy" aria-labelledby="about-values-title">
+        <div className="section-shell philosophy-layout">
+          <div>
+            <p className="eyebrow">Why It Exists</p>
+            <h2 id="about-values-title">Some lessons should not disappear with time.</h2>
+          </div>
+          <p>
+            The Lyon Den gathers stories, books, poetry, field notes, and keepsakes so wisdom
+            can be preserved beautifully, one chapter at a time.
+          </p>
+          <a className="button button-secondary" href="/archive">Enter the Archive</a>
+        </div>
+      </section>
+
+      <SiteFooter />
     </main>
   )
 }
@@ -2817,6 +3120,13 @@ function BlogPostPage({ post }) {
 }
 
 function PoetryPage() {
+  usePageMeta({
+    title: 'Poems That Stayed With Me | The Lyon Den Poetry',
+    description:
+      'A copyright-safe poetry reflection from The Lyon Den about poems, memory, teaching literature, and the ordinary moments that stay with us.',
+    image: '/assets/watermark-logo.png',
+  })
+
   return (
     <main className="site-shell poetry-shell">
       <header className="site-header blog-header" aria-label="TruthLoveMoney.com poetry header">
