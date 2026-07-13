@@ -209,6 +209,36 @@ const coverLibrary = {
     motif: 'character • influence • lived wisdom',
     alt: 'Editorial monogram card for What My Mother Already Knew with a lioness seal',
   },
+  'fill-days-stories': {
+    titleLines: ['FILL YOUR DAYS', 'WITH STORIES', 'THAT MAKE YOUR HEART WISER'],
+    subtitle: 'Reading, wonder, and lifelong learning.',
+    theme: 'window',
+    category: 'Journal',
+    icon: 'openBook',
+    variant: 'blog',
+    motif: 'stories • curiosity • wisdom',
+    alt: 'Editorial card for Fill Your Days With Stories That Make Your Heart Wiser',
+  },
+  'books-never-leave': {
+    titleLines: ['BOOKS THAT', 'NEVER REALLY', 'LEAVE US'],
+    subtitle: 'The pages that shape compassion.',
+    theme: 'glow-book',
+    category: 'From the Bookshelf',
+    icon: 'openBook',
+    variant: 'blog',
+    motif: 'Scarlet Letter • Anne Frank • compassion',
+    alt: 'Editorial card for Books That Never Really Leave Us',
+  },
+  'between-winter-spring': {
+    titleLines: ['BETWEEN', 'WINTER AND', 'SPRING'],
+    subtitle: 'What hope still teaches us.',
+    theme: 'poetry',
+    category: 'Daily Chapter',
+    icon: 'lantern',
+    variant: 'wisdom',
+    motif: 'Persephone • seasons • quiet hope',
+    alt: 'Editorial card for Between Winter and Spring',
+  },
 }
 
 const collectionDefinitions = [
@@ -270,7 +300,363 @@ const collectionDefinitions = [
   },
 ]
 
+function articleBlocks(blocks) {
+  return blocks.map((block) => (typeof block === 'string' ? { type: 'paragraph', text: block } : block))
+}
+
 const blogPosts = [
+  {
+    title: 'Fill Your Days With Stories That Make Your Heart Wiser',
+    subtitle: 'A Lyon Den reflection on reading, wonder, curiosity, and lifelong learning.',
+    author: 'Marguerite Lyon',
+    category: 'Stories From a Life',
+    featured: true,
+    date: 'July 11, 2026',
+    readingTime: '8 minutes',
+    path: '/blog/fill-your-days-with-stories-that-make-your-heart-wiser',
+    slug: 'fill-your-days-with-stories-that-make-your-heart-wiser',
+    seoTitle: 'Fill Your Days With Stories That Make Your Heart Wiser | The Lyon Den',
+    metaDescription:
+      'A cornerstone Lyon Den essay on reading, storytelling, curiosity, journaling, teaching, wonder, wisdom, and lifelong learning.',
+    ogDescription:
+      'Marguerite reflects on why stories, books, teaching, journaling, curiosity, and wonder make the heart wiser across a lifetime.',
+    twitterCard: 'summary_large_image',
+    primaryKeyword: 'stories that make your heart wiser',
+    secondaryKeywords: [
+      'lifelong learning',
+      'literary wisdom',
+      'reading and storytelling',
+      'journaling',
+      'teaching',
+      'curiosity',
+      'wonder',
+      'The Lyon Den',
+    ],
+    tags: ['stories', 'wisdom', 'reading', 'lifelong learning', 'journaling', 'teaching', 'wonder'],
+    collectionSlugs: ['legacy-lessons', 'teaching-wisdom', 'field-notes', 'conversations'],
+    ogImage: '/assets/lyon-den-storytelling-banner.png',
+    suggestedFeaturedImage: 'lyon-den-storytelling-banner.png',
+    pinterestDescription:
+      'Fill your days with stories that make your heart wiser. A warm Lyon Den reflection on reading, curiosity, journaling, teaching, and lifelong learning.',
+    facebookCaption:
+      'Some stories entertain us for an afternoon. Others make the heart wiser. This cornerstone Lyon Den reflection is about reading, wonder, and the kind of lifelong learning that keeps a person beautifully awake.',
+    instagramCaption:
+      'Fill your days with stories that make your heart wiser. Reading, journaling, teaching, curiosity, wonder, and the quiet work of lifelong learning.',
+    socialExcerpt:
+      'A cornerstone Lyon Den reflection on reading, storytelling, curiosity, journaling, teaching, wonder, wisdom, and lifelong learning.',
+    pullQuote: 'A wise story does not simply tell us what happened. It helps us notice what matters.',
+    customCover: '/assets/lyon-den-storytelling-banner.png',
+    displayMode: 'cover',
+    coverId: 'fill-days-stories',
+    excerpt:
+      'A cornerstone reflection on reading, storytelling, curiosity, journaling, teaching, wonder, and the stories that make the heart wiser.',
+    content: articleBlocks([
+      'Some days are filled before they truly begin. There are errands, messages, appointments, bills, questions, meals, lists, interruptions, and all the small duties that make a life practical. It is easy to reach evening and realize the day was full, but not necessarily nourishing.',
+      'That is why I keep returning to one simple thought: fill your days with stories that make your heart wiser.',
+      'Not every story needs to be grand. Not every book needs to be famous. Not every memory needs to arrive with a lesson already attached. But a life becomes richer when we give ourselves regular company with words, pages, conversations, memories, poems, journals, and reflections that ask us to notice more deeply.',
+      { type: 'quote', text: 'A wise story does not simply tell us what happened. It helps us notice what matters.' },
+      { type: 'heading', text: 'Reading as a Way of Staying Awake' },
+      'Reading has always felt to me like a way of keeping the inner life awake. A book can bring us into another house, another century, another conscience, another sorrow, another kind of courage. We may close the cover and return to our own kitchen, but we do not return quite unchanged.',
+      'A good story slows the world down long enough for us to recognize something. We recognize a fear we have carried privately. We recognize a tenderness we had almost dismissed. We recognize that other people have lived with questions that sound very much like our own.',
+      'That is one of the quiet gifts of literature. It enlarges compassion. It asks us to step outside the small room of our own assumptions. It teaches us that every person has a before, a context, a hidden page, a chapter we may not have been invited to read.',
+      { type: 'heading', text: 'Curiosity Keeps the Door Open' },
+      'Curiosity is one of the gentlest forms of hope. It says there is still something to learn. It says the world has not become flat, even if we are tired. It says a conversation may still surprise us, a memory may still teach us, a book may still open a window we did not know we needed.',
+      'The Lyon Den was built around that belief. Never Stop Learning is not a slogan for people collecting information. It is an invitation to remain alive to meaning. Learning can happen in a classroom, but it can also happen beside a creek, in a kitchen, through a poem, in a journal, in a hard conversation, or in a memory that returns at exactly the right time.',
+      'Wonder is not childish. Wonder is disciplined attention. It is the choice to look again at something ordinary and admit that it may still have more to offer.',
+      { type: 'heading', text: 'Journaling the Small Sparks' },
+      'A journal does not have to be impressive to be useful. It can hold a sentence from a book, a question from a conversation, a recipe that reminds you of someone, a line of poetry, a gratitude, a worry, a memory, or a small observation from the day.',
+      'Those little entries can become seeds. Later, a seed becomes a story. A story becomes a lesson. A lesson becomes something another person can carry. That is how private reflection becomes shared wisdom.',
+      'When we write something down, we are saying: this mattered enough to keep. We are refusing to let every meaningful thing disappear into the rush of ordinary time.',
+      { type: 'heading', text: 'Teaching, Even When the Classroom Changes' },
+      'Teaching gave me a lifelong respect for the way stories help people find words. A student might begin with confusion and slowly discover a thought. A reader might begin with a character and end with compassion. A family member might begin with an old memory and suddenly understand why it stayed.',
+      'The best teaching is not only instruction. It is invitation. It says, come closer. Think with me. Read this line again. Tell me what it reminds you of. Listen before you judge. Let the story become a place where understanding can begin.',
+      'We teach whenever we help someone notice. We teach when we preserve a memory honestly. We teach when we share a book that changed us. We teach when we admit that wisdom is still unfolding.',
+      { type: 'heading', text: 'A Heart Made Wiser' },
+      'A wiser heart is not a harder heart. Wisdom should not make us cold. It should make us more discerning, more compassionate, more patient with complexity, more careful with words, and more grateful for beauty when it appears.',
+      'Stories can do that. They can soften what has become brittle. They can strengthen what has become uncertain. They can remind us that every life contains more than one chapter, and that the page we are living now is not the only page that will ever be written.',
+      'So fill your days, when you can, with stories that make your heart wiser. Read a few pages. Write one sentence. Ask one better question. Remember one lesson. Share one story with love.',
+      'That is slow publishing. That is legacy storytelling. That is The Lyon Den.',
+      'Never Stop Learning.',
+    ]),
+  },
+  {
+    title: 'Books That Never Really Leave Us',
+    subtitle: 'Some books entertain us. Some books quietly become part of who we are.',
+    author: 'Marguerite Lyon',
+    category: 'From the Bookshelf',
+    featured: false,
+    date: 'July 11, 2026',
+    readingTime: '6 minutes',
+    path: '/blog/books-that-never-really-leave-us',
+    slug: 'books-that-never-really-leave-us',
+    seoTitle: 'Books That Never Really Leave Us | The Lyon Den',
+    metaDescription:
+      'A literary reflection on The Scarlet Letter, Anne Frank, compassion, memory, and the books that stay with us long after reading.',
+    ogDescription:
+      'Marguerite reflects on books that do more than entertain: The Scarlet Letter, Anne Frank, compassion, and the stories that quietly shape us.',
+    twitterCard: 'summary_large_image',
+    primaryKeyword: 'books that never leave us',
+    secondaryKeywords: ['The Scarlet Letter', 'Anne Frank', 'books that shape compassion', 'literary memories', 'reading wisdom'],
+    tags: ['books', 'The Scarlet Letter', 'Anne Frank', 'compassion', 'literature', 'reading'],
+    collectionSlugs: ['books-that-changed-me', 'teaching-wisdom', 'legacy-lessons'],
+    ogImage: '/assets/wildflowers-never-ask-permission.png',
+    suggestedFeaturedImage: 'wildflowers-never-ask-permission.png',
+    pinterestDescription:
+      'Some books entertain us. Some books quietly become part of who we are. A Lyon Den reflection on literature, compassion, The Scarlet Letter, and Anne Frank.',
+    facebookCaption:
+      'Some books never really leave us. They shape compassion, widen perspective, and stay close long after the last page.',
+    instagramCaption:
+      'What book quietly changed your life? A Lyon Den bookshelf reflection on the stories that stay.',
+    socialExcerpt:
+      'A bookshelf reflection on The Scarlet Letter, Anne Frank, compassion, and the books that remain part of who we become.',
+    pullQuote: 'The books that stay with us are often the ones that made us more compassionate.',
+    customCover: '',
+    coverId: 'books-never-leave',
+    excerpt:
+      'A reflection on The Scarlet Letter, Anne Frank, compassion, and the books that quietly become part of who we are.',
+    content: articleBlocks([
+      'Some books entertain us, and there is nothing wrong with that. A good story can be a welcome chair at the end of a long day. It can carry us away for an hour, give us a mystery to solve, a world to enter, or a character to follow.',
+      'But some books do something deeper. They do not simply pass the time. They quietly become part of who we are.',
+      'We may forget the exact chapter. We may forget the year we first read them. We may forget the cover, the classroom, or the edition. But something remains: a question, a character, a wound, a sentence, a new way of seeing another person.',
+      { type: 'quote', text: 'The books that stay with us are often the ones that made us more compassionate.' },
+      { type: 'heading', text: 'When a Book Changes the Room' },
+      'There are books that change the room we are standing in. The Scarlet Letter is one of those books for many readers. It asks us to look at judgment, shame, secrecy, public opinion, private pain, and the difference between what a community claims to value and how it treats a person standing alone.',
+      'A student may first approach it as an assignment. Later, with more life behind them, the story can feel different. We begin to understand that literature is rarely only about its plot. It is about the moral atmosphere around the plot. It is about how human beings behave when fear, pride, reputation, and punishment enter the room.',
+      'That is why a book can grow with us. We read it once and see the story. We read it later and see ourselves. We read it again and see society, family, silence, courage, and consequence.',
+      { type: 'heading', text: 'The Diary That Still Speaks' },
+      'Anne Frank’s diary remains with readers for another reason. It is intimate. It is young. It is observant. It carries ordinary thoughts under extraordinary pressure. The world around her was marked by danger and hatred, yet the diary preserves a human voice that refuses to become only a symbol.',
+      'That matters. Books like Anne Frank’s diary shape compassion because they do not allow us to keep suffering at a distance. They bring history into a room small enough for one person’s handwriting. They remind us that every large event is lived by individual hearts.',
+      'When young readers encounter a voice like Anne’s, they may begin to understand that history is not only dates. It is fear, hope, family, imagination, boredom, longing, and the desire to be seen. Literature makes the human face visible.',
+      { type: 'heading', text: 'Compassion Has to Be Practiced' },
+      'Compassion is not automatic. It has to be practiced. Books give us a place to practice before life asks it of us directly. We sit with a character we might not have understood. We listen to a narrator whose circumstances are not ours. We discover that a person can be flawed and still worthy of being understood.',
+      'That does not mean every story excuses every choice. It means a good reader learns to look for context before judgment. A good reader asks, what happened here? What did this person carry? What did fear do? What did love require? What would I have understood if I had listened longer?',
+      'That habit matters far beyond the page. It matters in families, classrooms, friendships, work, and communities. The person who has learned to read deeply may also learn to listen more carefully.',
+      { type: 'heading', text: 'The Books We Carry Forward' },
+      'The books that never leave us often become quiet companions. They do not follow us loudly. They simply appear when life gives us a reason to remember them.',
+      'A question about judgment may return us to The Scarlet Letter. A conversation about courage may return us to Anne Frank. A moment of misunderstanding may return us to a story that once taught us to slow down before deciding who someone is.',
+      'That is why The Lyon Den keeps a place for books. Literature is not decoration for a thoughtful life. It is part of how a thoughtful life is formed. Books give us language, imagination, sympathy, moral tension, and a way to consider what kind of people we are becoming.',
+      'Some books entertain us. Some books inform us. Some books challenge us. And some books quietly become part of the furniture of the soul.',
+      'What book quietly changed your life?',
+      'Never Stop Learning.',
+    ]),
+  },
+  {
+    title: 'Between Winter and Spring',
+    subtitle: 'What Persephone Still Teaches Us About Hope',
+    author: 'Marguerite Lyon',
+    category: 'Daily Chapter',
+    featured: false,
+    date: 'July 10, 2026',
+    readingTime: '8 minutes',
+    path: '/blog/between-winter-and-spring',
+    redirectPaths: ['/daily-chapters/one-bloom-at-a-time'],
+    canonicalPath: '/blog/between-winter-and-spring',
+    slug: 'between-winter-and-spring',
+    seoTitle: 'Between Winter and Spring | The Lyon Den',
+    metaDescription:
+      'A literary reflection on Persephone, the winters we endure, and the quiet ways hope and renewal return—one bloom at a time.',
+    ogDescription:
+      'A literary Lyon Den reflection on Persephone as symbolism for winter, spring, hope, becoming, resilience, ordinary joy, poetry, and quiet renewal.',
+    primaryKeyword: 'Persephone hope reflection',
+    secondaryKeywords: [
+      'Persephone and hope',
+      'seasons of life',
+      'winter and renewal',
+      'literary reflection',
+      'grief and growth',
+      'daily chapter',
+      'lifelong learning',
+    ],
+    tags: [
+      'Persephone',
+      'hope',
+      'renewal',
+      'winter',
+      'seasons of life',
+      'literary reflection',
+      'Daily Chapter',
+      'lifelong learning',
+    ],
+    collectionSlugs: ['poetry', 'legacy-lessons', 'field-notes', 'conversations'],
+    ogImage: '/assets/between-winter-and-spring-artwork.png',
+    suggestedFeaturedImage: 'between-winter-and-spring-artwork.png',
+    pinterestDescription:
+      'Between Winter and Spring: a literary reflection on Persephone, hope, resilience, ordinary joy, lemon cookies, poetry, laughter, and quiet renewal.',
+    facebookCaption:
+      'Most people are not living philosophically. We are living ordinary days, looking for small signs of hope. This Daily Chapter reflects on winter, spring, Persephone, and the quiet ways renewal returns.',
+    instagramCaption:
+      'Between winter and spring, hope often returns quietly. Lemon cookies. Poetry. Laughter. One small bloom at a time.',
+    socialExcerpt:
+      'Some stories continue to live because they continue to teach us. A Daily Chapter on Persephone, winter, and the quiet return of hope.',
+    pullQuote: 'Sometimes hope returns quietly—one bloom at a time.',
+    customCover: '/assets/between-winter-and-spring-artwork.png',
+    displayMode: 'contain',
+    coverId: 'between-winter-spring',
+    excerpt:
+      'The story of Persephone has endured not only because it explains the seasons, but because it gives language to the winters we carry within us—and the quiet ways hope returns.',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Some stories continue to live because they continue to teach us.',
+      },
+      {
+        type: 'paragraph',
+        text: 'They travel from one century to another not because every reader believes the same things about them, but because they keep offering language for the human condition. A story may begin in an ancient world and still meet us in a modern kitchen, a hospital waiting room, a quiet bedroom, a classroom, a garden, or a season of life we did not choose.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The story of Persephone is one of those enduring stories. I do not think of it here as a history lesson or as spiritual instruction. I think of it as literature: a symbolic language readers have used for generations to consider winter, return, waiting, grief, growth, and the mystery of renewal.',
+      },
+      {
+        type: 'quote',
+        text: 'Sometimes hope returns quietly—one bloom at a time.',
+      },
+      {
+        type: 'heading',
+        text: 'The Story Beneath the Story',
+      },
+      {
+        type: 'paragraph',
+        text: 'In the old story, Persephone becomes associated with the turning of the seasons. Her absence is linked with the barrenness of winter, and her return is linked with the renewal of spring. Across time, readers and artists have seen in that pattern more than an explanation of nature. They have seen descent and return, separation and reunion, sorrow and fertility, waiting and bloom.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is the part that continues to speak. Every life has seasons. We may not name them while we are living them, but later we can often see the weather of a chapter. There are spring seasons when energy returns. There are summer seasons full of warmth and gathering. There are autumn seasons of letting go. And there are winters, too.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Winter is part of life. That is not a harsh statement. It is an honest one. Every person eventually meets a season when life feels colder than expected, when something familiar is gone, when the old rhythm no longer works, or when hope feels as if it has stepped into another room.',
+      },
+      {
+        type: 'heading',
+        text: 'The Winters We Do Not Choose',
+      },
+      {
+        type: 'paragraph',
+        text: 'Some winters arrive through loss. Some through illness. Some through uncertainty, distance, caregiving, changing identity, or dreams placed on hold. Sometimes winter is the long waiting room of a life that has not yet begun again. Sometimes it is simply the quiet knowledge that we are not the person we were, but we do not yet know who we are becoming.',
+      },
+      {
+        type: 'paragraph',
+        text: 'It would be too simple to say that every hardship exists to teach us a lesson. Some pain is not tidy. Some grief does not become beautiful because we have found a sentence for it. A literary reflection should never demand that someone be grateful for suffering.',
+      },
+      {
+        type: 'paragraph',
+        text: 'But stories can keep us company inside those seasons. They can remind us that winter is real without insisting that winter is final. They can give us a way to say, “This is where I am right now,” while still leaving room for return.',
+      },
+      {
+        type: 'heading',
+        text: 'Hope Does Not Always Arrive Dramatically',
+      },
+      {
+        type: 'paragraph',
+        text: 'We sometimes expect renewal to announce itself. We imagine a door opening, music swelling, the answer arriving all at once. But much of real hope is quieter than that. It may begin with one phone call. One morning with a little more energy. One honest conversation. One page written. One seed planted. One small decision. One bloom.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Sometimes hope returns quietly—one bloom at a time. Not because everything has been fixed, and not because the past has disappeared, but because something living has begun to move again beneath the surface.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A person may not be able to change the whole season. But perhaps they can answer the phone. Perhaps they can open a book. Perhaps they can make lemon cookies, write three lines, sit in the sun for ten minutes, or laugh at something small and unexpected. These are not grand gestures. They are signs of life.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Most people are not living philosophically in a formal way. We are not walking through ordinary days trying to solve the meaning of life as though it were a puzzle hidden under a stone. We are making meals, keeping appointments, remembering loved ones, worrying, hoping, reading, working, listening, and trying to be decent to one another.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Perhaps we are not meant to find the meaning of life as a single answer. Perhaps we are invited to notice the meaning already surrounding us. Lemon cookies. Poetry. A good laugh. A favorite chair. A conversation that stays with us. A line in a book that seems to know exactly where we are.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Small joys are not small because they are unimportant. They are small because they are near. They are the pieces life allows us to hold. Over time, those pieces can become a meaningful life.',
+      },
+      {
+        type: 'heading',
+        text: 'Every Season Has Its Work',
+      },
+      {
+        type: 'paragraph',
+        text: 'Winter is not necessarily empty. Beneath the ground, roots may be holding. Seeds may be waiting. A tree may look still while it is protecting what it needs to survive. In a human life, winter can contain rest, grief, reflection, reassessment, preparation, and hidden growth.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That does not mean we should rush to make suffering useful. It means only that stillness is not always absence. Waiting is not always waste. The parts of us that are quiet may still be alive. The lesson may not be visible yet. The bloom may not have broken the surface.',
+      },
+      {
+        type: 'paragraph',
+        text: 'This is one reason The Lyon Den returns again and again to stories, books, poems, memories, and daily chapters. They help us pay attention. They do not hand us a formula for living. They help us notice what our own lives are already trying to teach us.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Every story has something to teach us, but not every lesson arrives in a lecture. Some lessons arrive as images. A girl returning from the underworld. A field beginning to green. A flower pushing through cold ground. A reader recognizing that she, too, has lived through a season and returned changed.',
+      },
+      {
+        type: 'heading',
+        text: 'The Return',
+      },
+      {
+        type: 'paragraph',
+        text: 'The return does not always mean life becomes exactly what it was before. Often it does not. Some returns are changed returns. We come back with new strength, new tenderness, new boundaries, new understanding, or a new sense of what matters.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is not a lesser hope. It may be the truest kind. The spring that follows winter is not the same as the spring before it. It carries memory. It carries weather. It carries the evidence of what was endured. And still, it blooms.',
+      },
+      {
+        type: 'paragraph',
+        text: 'When I think of Persephone, I think of literature as a lantern. Not a doctrine. Not a demand. A lantern. A story that lets us look at winter without surrendering to it, and lets us imagine spring without pretending that winter never happened.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Some stories continue to live because they continue to teach us. They teach us to notice the season we are in. They teach us to honor what has been lost without closing the door on what may yet return. They teach us that growth often begins beneath the surface.',
+      },
+      {
+        type: 'heading',
+        text: 'Becoming Is Often Quiet',
+      },
+      {
+        type: 'paragraph',
+        text: 'Becoming rarely looks impressive while it is happening. It can look like uncertainty. It can look like a person learning to speak more honestly, rest more faithfully, ask for help, release an old expectation, or choose a quieter kind of courage.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Resilience is not always dramatic either. Sometimes resilience is simply continuing to make breakfast. Answering one message. Reading one poem. Laughing at something small because laughter has finally found a little room again.',
+      },
+      {
+        type: 'paragraph',
+        text: 'That is why ordinary joys matter. Lemon cookies on a plate. A line of poetry copied into a notebook. The first warm breeze through a window. A good laugh at a table where people feel safe. These things do not solve every sorrow, but they remind us that sorrow is not the only thing in the room.',
+      },
+      {
+        type: 'paragraph',
+        text: 'And they teach us, gently, to keep learning. Even in winter. Even while waiting. Even when the first bloom is very small.',
+      },
+      {
+        type: 'heading',
+        text: 'Reader Reflection',
+      },
+      {
+        type: 'paragraph',
+        text: 'What season of life are you walking through today?',
+      },
+      {
+        type: 'paragraph',
+        text: '1. What has this season asked you to release?',
+      },
+      {
+        type: 'paragraph',
+        text: '2. What may be growing beneath the surface, even if you cannot see it yet?',
+      },
+      {
+        type: 'paragraph',
+        text: '3. What would one small bloom of hope look like this week?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Never Stop Learning.',
+      },
+    ],
+  },
   {
     title: 'What My Mother Already Knew',
     subtitle: 'Stephen Covey gave language to values my mother had already lived.',
@@ -546,7 +932,7 @@ const blogPosts = [
     title: 'The Notebook That Changed Everything',
     subtitle: 'How a seventh-grade poetry notebook became a lifelong thread through teaching, memory, and story.',
     author: 'Marguerite Lyon',
-    category: 'Poetry',
+    category: 'Poetry and Reflection',
     featured: false,
     date: 'July 5, 2026',
     readingTime: '6 minutes',
@@ -674,7 +1060,7 @@ const blogPosts = [
    title: 'Clear Grammar, Clear Thoughts',
     subtitle: 'Why words, listening, and careful expression still matter.',
     author: 'Marguerite Lyon',
-    category: 'Reflections',
+    category: 'Field Notes',
     featured: false,
     date: 'July 5, 2026',
     readingTime: '6 minutes',
@@ -819,7 +1205,7 @@ const blogPosts = [
     title: 'Stephen Covey Wrote What My Mother Lived',
     subtitle: 'A reflection on values, influence, courage, and the calling to keep growing.',
     author: 'Marguerite Lyon',
-    category: 'Books',
+    category: 'From the Bookshelf',
     featured: false,
     date: 'July 5, 2026',
     readingTime: '6 minutes',
@@ -956,7 +1342,7 @@ const blogPosts = [
     title: 'Freedom Is Found in the Small Things',
     subtitle: 'A warm Fourth of July reflection on summer memories, family traditions, and the quiet freedoms that shape a life.',
     author: 'Marguerite Lyon',
-    category: 'Reflections',
+    category: 'Daily Chapters',
     featured: true,
     date: 'July 4, 2026',
     readingTime: '6 minutes',
@@ -1121,7 +1507,7 @@ const blogPosts = [
     title: 'The Summer That Never Left Me',
     subtitle: 'How one poem reminded me that memories never really leave us.',
     author: 'Marguerite Lyon',
-    category: 'Stories',
+    category: 'Stories From a Life',
     featured: false,
     readingTime: '5 minutes',
     path: '/blog/the-summer-that-never-left-me',
@@ -1171,7 +1557,7 @@ const blogPosts = [
     title: 'Every Story Has Something to Teach Us',
     subtitle: 'Why I Created The Lyon Den',
     author: 'Marguerite Lyon',
-    category: 'Stories',
+    category: 'Stories From a Life',
     featured: false,
     readingTime: '4 minutes',
     path: '/blog/every-story-has-something-to-teach-us',
@@ -1200,7 +1586,7 @@ const featuredBlogPost = blogPosts.find((post) => post.featured) || blogPosts[0]
 const firstBlogPost = blogPosts.find((post) => post.path === '/blog/every-story-has-something-to-teach-us')
 
 function getPostByPath(path) {
-  return blogPosts.find((post) => post.path === path)
+  return blogPosts.find((post) => post.path === path || post.redirectPaths?.includes(path))
 }
 
 function getCollectionBySlug(slug) {
@@ -1334,6 +1720,30 @@ function setMetaContent(selector, attributes, content) {
   }
 }
 
+function setCanonicalHref(href) {
+  let canonical = document.querySelector('link[rel="canonical"]')
+  const previousHref = canonical?.getAttribute('href') || null
+  const created = !canonical
+
+  if (!canonical) {
+    canonical = document.createElement('link')
+    canonical.setAttribute('rel', 'canonical')
+    document.head.appendChild(canonical)
+  }
+
+  canonical.setAttribute('href', href)
+
+  return () => {
+    if (created) {
+      canonical.remove()
+    } else if (previousHref) {
+      canonical.setAttribute('href', previousHref)
+    } else {
+      canonical.removeAttribute('href')
+    }
+  }
+}
+
 function getPostContent(post) {
   if (post.content) return post.content
 
@@ -1408,54 +1818,14 @@ const youtubeVideosUrl = `${youtubeChannelUrl}/videos`
 
 const curatedChapters = [
   {
-    title: 'Broadway Dreams & The Shower Concert',
-    publishedAt: 'June 2026',
-    description: 'A warm chapter about private songs, unexpected stages, and the dreams that keep humming.',
-    customCover: '',
-    coverId: 'broadway-dreams',
-    displayMode: 'contain',
-    url: youtubeChannelUrl,
-    collectionSlugs: ['illustrated-pages', 'conversations'],
-  },
-  {
-    title: 'Every Story Has Something to Teach Us',
-    publishedAt: 'June 2026',
-    description: 'A first welcome to The Lyon Den and the stories, books, and lessons that shape this literary home.',
-    customCover: '',
-    coverId: 'every-story-video',
-    displayMode: 'contain',
-    url: youtubeChannelUrl,
-    collectionSlugs: ['illustrated-pages', 'field-notes', 'legacy-lessons'],
-  },
-  {
     title: 'The Summer That Never Left Me',
     publishedAt: 'June 2026',
     description: 'A nostalgic reflection on poetry, water, memory, and the summers that keep returning.',
-    customCover: '',
+    customCover: '/assets/summer-that-never-left-me.png',
     coverId: 'summer-memory',
-    displayMode: 'contain',
+    displayMode: 'cover',
     url: youtubeChannelUrl,
     collectionSlugs: ['summer-memories', 'poetry', 'illustrated-pages'],
-  },
-  {
-    title: 'Love Changes',
-    publishedAt: 'June 2026',
-    description: 'A reflective chapter on connection, change, courage, and the lessons love leaves behind.',
-    customCover: '',
-    coverId: 'love-changes',
-    displayMode: 'contain',
-    url: youtubeChannelUrl,
-    collectionSlugs: ['conversations', 'legacy-lessons'],
-  },
-  {
-    title: 'One Bite at a Time',
-    publishedAt: 'June 2026',
-    description: 'A gentle lesson about taking the long road slowly, faithfully, and one small step at a time.',
-    customCover: '',
-    coverId: 'one-bite-at-a-time',
-    displayMode: 'contain',
-    url: youtubeChannelUrl,
-    collectionSlugs: ['field-notes', 'legacy-lessons'],
   },
   {
     title: 'The Book That Changed My Life',
@@ -1466,16 +1836,6 @@ const curatedChapters = [
     displayMode: 'contain',
     url: youtubeChannelUrl,
     collectionSlugs: ['books-that-changed-me', 'illustrated-pages'],
-  },
-  {
-    title: 'The Seed Garden',
-    publishedAt: 'June 2026',
-    description: 'A look inside the place where ideas are planted before they bloom into stories.',
-    customCover: '',
-    coverId: 'seed-garden',
-    displayMode: 'contain',
-    url: youtubeChannelUrl,
-    collectionSlugs: ['field-notes', 'illustrated-pages'],
   },
 ]
 
@@ -1790,6 +2150,17 @@ function EditorialCard({ cover, className = '' }) {
 }
 
 function ChapterVisual({ item, className = '' }) {
+  if (item.customCover) {
+    return (
+      <img
+        className={`editorial-cover-image custom-cover-image ${className}`.trim()}
+        src={item.customCover}
+        alt={item.coverAlt || `Featured artwork for ${item.title}`}
+        loading="lazy"
+      />
+    )
+  }
+
   return <EditorialCard cover={getEditorialCover(item)} className={className} />
 }
 
@@ -2234,14 +2605,17 @@ function HomePage() {
   const chapters = useLatestChapters()
   const latestChapter = chapters.find((chapter) => chapter.title === 'The Summer That Never Left Me') || chapters[0] || curatedChapters[0]
   const summerStory = getPostByPath('/blog/the-summer-that-never-left-me') || featuredBlogPost
-  const writtenChapters = blogPosts.slice(0, 4)
+  const latestJournal = getPostByPath('/blog/fill-your-days-with-stories-that-make-your-heart-wiser') || blogPosts[0]
+  const booksArticle = getPostByPath('/blog/books-that-never-really-leave-us')
+  const winterArticle = getPostByPath('/blog/between-winter-and-spring')
+  const illustratedEntries = [winterArticle, getPostByPath('/blog/the-notebook-that-changed-everything')].filter(Boolean)
   const [newsletterStatus, setNewsletterStatus] = useState('')
 
   usePageMeta({
     title: 'The Lyon Den | Stories, Memory, Literature & Legacy',
     description:
       'Enter The Lyon Den, a living archive where Marguerite Lyon’s memories, reflections, books, and lessons become cinematic episodes, written stories, and lasting legacy.',
-    image: '/assets/hero.png',
+    image: '/assets/the-lyon-den-cinematic-banner.jpg',
   })
 
   function handleNewsletterSubmit(event) {
@@ -2252,30 +2626,35 @@ function HomePage() {
 
   return (
     <main className="site-shell heirloom-site" id="top">
-      <section className="cinematic-hero" aria-labelledby="hero-title">
+      <section className="cinematic-hero banner-hero" aria-labelledby="hero-title">
         <SiteHeader variant="dark" />
-        <div className="cinematic-hero-bg" aria-hidden="true">
-          <img src="/assets/hero.png" alt="" />
-        </div>
-        <div className="cinematic-hero-content section-shell">
-          <p className="eyebrow">A Living Archive of Story, Memory &amp; Wisdom</p>
-          <h1 id="hero-title">Every Story Has Something to Teach Us</h1>
-          <p>
-            Enter The Lyon Den, where memories become illustrated stories, meaningful books
-            open new conversations, and the lessons of a lifetime are preserved for generations.
-          </p>
-          <div className="hero-actions" aria-label="Primary actions">
-            <a className="button button-primary" href={latestChapter.url} {...youtubeLinkProps}>
-              Watch the Latest Chapter
-            </a>
-            <a className="story-link" href="/archive">
-              Enter the Story Archive
+        <div className="section-shell banner-hero-layout">
+          <figure className="banner-hero-art">
+            <img
+              src="/assets/the-lyon-den-cinematic-banner.jpg"
+              alt="The Lyon Den cinematic banner with Truth Love Money, Stories Wisdom Life Lessons, Marguerite by a creek, and the Never Stop Learning tagline"
+            />
+          </figure>
+          <div className="cinematic-hero-content banner-hero-copy">
+            <p className="eyebrow">A Living Archive of Story, Memory &amp; Wisdom</p>
+            <h1 id="hero-title">Every Story Has Something to Teach Us</h1>
+            <p>
+              Enter The Lyon Den, where memories become illustrated stories, meaningful books
+              open new conversations, and the lessons of a lifetime are preserved for generations.
+            </p>
+            <div className="hero-actions" aria-label="Primary actions">
+              <a className="button button-primary" href={latestChapter.url} {...youtubeLinkProps}>
+                Watch the Latest Chapter
+              </a>
+              <a className="story-link" href="/archive">
+                Enter the Story Archive
+              </a>
+            </div>
+            <a className="turn-page-cue" href="#featured-chapter">
+              <span aria-hidden="true" />
+              Turn the page
             </a>
           </div>
-          <a className="turn-page-cue" href="#featured-chapter">
-            <span aria-hidden="true" />
-            Turn the page
-          </a>
         </div>
       </section>
 
@@ -2307,104 +2686,95 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="storyteller-spread section-shell" id="about" aria-labelledby="storyteller-title">
-        <div className="portrait-bookplate">
+      <section className="written-chapters section-shell quiet-section" aria-labelledby="written-title">
+        <div className="section-heading">
+          <p className="eyebrow">Latest Journal</p>
+          <h2 id="written-title">Stories, reflection, books, poetry, and wisdom.</h2>
+        </div>
+        <article className="feature-spread feature-spread-journal">
+          <ChapterVisual item={latestJournal} className="feature-spread-art" />
+          <div>
+            <p className="chapter-kicker">{latestJournal.category}</p>
+            <h3>{latestJournal.title}</h3>
+            <p>{latestJournal.excerpt || latestJournal.subtitle}</p>
+            <a className="button button-secondary" href={latestJournal.path}>Read the Journal</a>
+          </div>
+        </article>
+      </section>
+
+      <section className="bookshelf-feature section-shell quiet-section" aria-labelledby="bookshelf-title">
+        <div className="section-heading">
+          <p className="eyebrow">Books That Changed Me</p>
+          <h2 id="bookshelf-title">The pages that never really leave us.</h2>
+        </div>
+        {booksArticle && (
+          <article className="feature-spread feature-spread-reverse">
+            <ChapterVisual item={booksArticle} className="feature-spread-art" />
+            <div>
+              <p className="chapter-kicker">{booksArticle.category}</p>
+              <h3>{booksArticle.title}</h3>
+              <p>{booksArticle.excerpt || booksArticle.subtitle}</p>
+              <a className="button button-secondary" href={booksArticle.path}>Open the Bookshelf</a>
+            </div>
+          </article>
+        )}
+      </section>
+
+      <section className="wildflower-feature section-shell quiet-section" aria-labelledby="wildflower-title">
+        <figure className="feature-artwork">
           <img
-            src="/assets/portrait.png"
-            alt="Portrait of Marguerite with silver hair, glasses, and a warm scarf"
+            src="/assets/wildflowers-never-ask-permission.png"
+            alt="Wildflowers Never Ask Permission To Bloom Lyon Den artwork with creek, books, flowers, lantern, and tea"
             loading="lazy"
           />
-          <span>Marguerite Lyon</span>
-        </div>
-        <div className="storyteller-copy">
-          <p className="eyebrow">Meet the Storyteller</p>
-          <h2 id="storyteller-title">Stories gathered over a lifetime deserve more than a passing moment.</h2>
+        </figure>
+        <div className="wildflower-copy">
+          <p className="eyebrow">Wildflowers &amp; Wisdom</p>
+          <h2 id="wildflower-title">The best stories grow like wildflowers.</h2>
           <p>
-            Marguerite Lyon reflects on childhood, literature, family, work, truth, love,
-            money, and the small memories that quietly shape a life. Through film, writing,
-            and illustrated storytelling, The Lyon Den preserves those reflections as a
-            living archive for generations to come.
+            Some lessons arrive quietly: in a poem, a memory, a conversation, a book,
+            or a small ordinary day that becomes meaningful only after time has passed.
           </p>
-          <blockquote>“Preserve wisdom through beautiful storytelling.”</blockquote>
-          <a className="text-link" href="/about">Meet Marguerite</a>
+          <a className="text-link" href="/poetry">Read Poetry &amp; Reflection</a>
         </div>
       </section>
 
-      <section className="story-world section-shell" aria-labelledby="story-world-title">
-        <div className="section-heading centered">
-          <p className="eyebrow">Explore the Story World</p>
-          <h2 id="story-world-title">Three doorways into the archive.</h2>
+      <section className="illustrated-pages section-shell quiet-section" aria-labelledby="illustrated-title">
+        <div className="section-heading">
+          <p className="eyebrow">Illustrated Pages</p>
+          <h2 id="illustrated-title">Visual chapters from the archive.</h2>
         </div>
-        <div className="pathway-layout">
-          <a className="pathway pathway-large" href="/collections/legacy-lessons">
-            <span className="pathway-number">01</span>
-            <h3>Stories From a Life</h3>
-            <p>Memoir, family, childhood, memory, work, and legacy.</p>
-          </a>
-          <a className="pathway" href="/collections/books-that-changed-me">
-            <span className="pathway-number">02</span>
-            <h3>From the Bookshelf</h3>
-            <p>Literature, poetry, beloved passages, and conversations worth continuing.</p>
-          </a>
-          <a className="pathway" href="/field-notes">
-            <span className="pathway-number">03</span>
-            <h3>Field Notes</h3>
-            <p>Short reflections, photographs, observations, fragments, and lessons gathered along the way.</p>
-          </a>
-        </div>
-      </section>
-
-      <section className="philosophy-section" aria-labelledby="philosophy-title">
-        <div className="section-shell philosophy-layout">
-          <div>
-            <p className="eyebrow">Truth • Love • Money</p>
-            <h2 id="philosophy-title">Three words. A lifetime of questions.</h2>
-          </div>
-          <div className="philosophy-lines">
-            <p><strong>Truth</strong> asks us to look closely.</p>
-            <p><strong>Love</strong> asks us to remember.</p>
-            <p><strong>Money</strong> asks us what we value.</p>
-          </div>
-          <p>
-            These themes shape stories about family, identity, books, work, choices,
-            relationships, memory, responsibility, and legacy.
-          </p>
-        </div>
-      </section>
-
-      <section className="living-archive section-shell" aria-labelledby="archive-title">
-        <div className="archive-intro">
-          <p className="eyebrow">The Living Archive</p>
-          <h2 id="archive-title">A Story Preserved Becomes a Legacy</h2>
-          <p>
-            Every chapter becomes part of a growing archive of films, written stories,
-            photographs, reflections, companion journals, and collected wisdom.
-          </p>
-        </div>
-        <div className="archive-shelf">
-          {['Episodes', 'Written Chapters', 'Companion Journal', 'Seed Garden', 'Volume I', 'Photographs and Keepsakes'].map((item, index) => (
-            <a className="archive-volume" href={index === 3 ? '/vault' : '/archive'} key={item}>
-              <span>Vol. {String(index + 1).padStart(2, '0')}</span>
-              {item}
+        <div className="illustrated-grid">
+          {illustratedEntries.map((post) => (
+            <a className="illustrated-card" href={post.path} key={post.path}>
+              <ChapterVisual item={post} className="illustrated-card-art" />
+              <span className="chapter-kicker">{post.category}</span>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt || post.subtitle}</p>
             </a>
           ))}
         </div>
       </section>
 
-      <section className="written-chapters section-shell" aria-labelledby="written-title">
-        <div className="section-heading">
-          <p className="eyebrow">Latest Written Chapters</p>
-          <h2 id="written-title">Recent entries from the Journal.</h2>
+      <section className="storyteller-spread section-shell quiet-section" id="about" aria-labelledby="storyteller-title">
+        <div className="portrait-bookplate">
+          <img
+            src="/assets/marguerite-lyon-creekside-portrait.png"
+            alt="Portrait of Marguerite Lyon seated by a creek with books, tea, flowers, and a lantern"
+            loading="lazy"
+          />
+          <span>Marguerite Lyon</span>
         </div>
-        <div className="magazine-layout">
-          {writtenChapters.map((post, index) => (
-            <article className={index === 0 ? 'magazine-story magazine-story-featured' : 'magazine-story'} key={post.path}>
-              <p className="chapter-kicker">{String(index + 1).padStart(2, '0')} • {post.category}</p>
-              <h3>{post.title}</h3>
-              <p>{post.excerpt || post.subtitle}</p>
-              <a className="text-link" href={post.path}>Continue Reading</a>
-            </article>
-          ))}
+        <div className="storyteller-copy">
+          <p className="eyebrow">About Marguerite</p>
+          <h2 id="storyteller-title">Stories gathered over a lifetime deserve more than a passing moment.</h2>
+          <p>
+            Marguerite Lyon reflects on literature, family, truth, love, money, poetry,
+            and the small memories that quietly shape a life. The Lyon Den preserves those
+            reflections as written chapters, illustrated pages, and gentle video stories.
+          </p>
+          <blockquote>“Preserve wisdom through beautiful storytelling.”</blockquote>
+          <a className="text-link" href="/about">Meet Marguerite</a>
         </div>
       </section>
 
@@ -2423,14 +2793,6 @@ function HomePage() {
           </form>
           <small>Quiet updates only. No clutter, no noise.</small>
           {newsletterStatus && <p className="form-success" role="status">{newsletterStatus}</p>}
-        </div>
-      </section>
-
-      <section className="closing-bookend" aria-labelledby="closing-title">
-        <img src="/assets/cta.png" alt="Illustrated journal, flowers, and creekside Lyon Den keepsake scene" loading="lazy" />
-        <div className="closing-copy section-shell">
-          <p className="eyebrow">The Story Continues</p>
-          <h2 id="closing-title">Come back when you are ready for the next chapter.</h2>
         </div>
       </section>
 
@@ -2848,7 +3210,7 @@ function AboutPage() {
     title: 'About Marguerite Lyon | The Lyon Den',
     description:
       'Meet Marguerite Lyon, the storyteller at the heart of The Lyon Den, a living archive of memory, literature, reflection, and legacy.',
-    image: '/assets/portrait.png',
+    image: '/assets/marguerite-lyon-creekside-portrait.png',
   })
 
   return (
@@ -2858,8 +3220,8 @@ function AboutPage() {
       <section className="about-hero section-shell" aria-labelledby="about-page-title">
         <div className="portrait-bookplate">
           <img
-            src="/assets/portrait.png"
-            alt="Portrait of Marguerite with silver hair, glasses, and a warm scarf"
+            src="/assets/marguerite-lyon-creekside-portrait.png"
+            alt="Portrait of Marguerite Lyon seated by a creek with books, tea, flowers, and a lantern"
             loading="lazy"
           />
           <span>Marguerite Lyon</span>
@@ -2928,13 +3290,17 @@ function BlogPostPage({ post }) {
       document.head.appendChild(Object.assign(document.createElement('meta'), { name: 'description' }))
     const previousDescription = description.getAttribute('content')
     const cleanDescription = post.metaDescription || post.excerpt || post.subtitle
+    const cleanOgDescription = post.ogDescription || cleanDescription
     const cleanTitle = post.seoTitle || `${post.title} | The Lyon Den Journal`
+    const canonicalPath = post.canonicalPath || post.path
+    const canonicalHref = `${window.location.origin}${canonicalPath}`
     const cleanupMeta = [
       setMetaContent('meta[property="og:title"]', { property: 'og:title' }, cleanTitle),
-      setMetaContent('meta[property="og:description"]', { property: 'og:description' }, cleanDescription),
+      setMetaContent('meta[property="og:description"]', { property: 'og:description' }, cleanOgDescription),
       setMetaContent('meta[property="og:type"]', { property: 'og:type' }, 'article'),
       setMetaContent('meta[property="og:image"]', { property: 'og:image' }, getPostOgImage(post)),
       setMetaContent('meta[name="keywords"]', { name: 'keywords' }, getPostTags(post).join(', ')),
+      setCanonicalHref(canonicalHref),
     ]
 
     document.title = cleanTitle
@@ -2990,7 +3356,14 @@ function BlogPostPage({ post }) {
           <h1 id="blog-title">{post.title}</h1>
           <p className="blog-subtitle">{post.subtitle}</p>
           <div className="blog-meta" aria-label="Article details">
-            <span>By {post.author}</span>
+            <span className="author-meta">
+              <img
+                src="/assets/marguerite-lyon-creekside-portrait.png"
+                alt=""
+                loading="lazy"
+              />
+              By {post.author}
+            </span>
             {(post.date || post.publishedAt) && <span>{post.date || post.publishedAt}</span>}
             <span>{post.readingTime}</span>
             {post.featured && <span>Featured Story</span>}
