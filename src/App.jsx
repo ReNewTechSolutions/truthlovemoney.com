@@ -278,6 +278,27 @@ const collectionDefinitions = [
     coverId: 'clear-grammar',
   },
   {
+    title: 'Daily Chapters',
+    slug: 'daily-chapters',
+    description: 'Brief seasonal reflections, small joys, and meaning gathered from ordinary days.',
+    icon: 'feather',
+    coverId: 'between-winter-spring',
+  },
+  {
+    title: 'Wildflowers & Wisdom',
+    slug: 'wildflowers-wisdom',
+    description: 'Illustrated reminders, gentle observations, and the joy that blooms in small places.',
+    icon: 'wildflower',
+    coverId: 'fill-days-stories',
+  },
+  {
+    title: 'Living Places',
+    slug: 'living-places',
+    description: 'Pools, porches, libraries, kitchens, creeks, and rooms that keep memory alive.',
+    icon: 'creek',
+    coverId: 'summer-memory',
+  },
+  {
     title: 'Illustrated Pages',
     slug: 'illustrated-pages',
     description: 'Visual chapters, editorial covers, and page-like pieces for the growing Lyon Den archive.',
@@ -335,8 +356,8 @@ const blogPosts = [
     ],
     tags: ['memoir', 'memory', 'caregiving', 'marriage', 'George', 'The Long Goodbye', 'legacy'],
     collectionSlugs: ['the-long-goodbye', 'stories-from-a-life', 'legacy-lessons'],
-    ogImage: '/assets/marguerite-lyon-creekside-portrait.png',
-    suggestedFeaturedImage: 'marguerite-lyon-creekside-portrait.png',
+    ogImage: '/assets/marguerite-library-selfie.png',
+    suggestedFeaturedImage: 'marguerite-library-selfie.png',
     pinterestDescription:
       'Before the Forgetting: a respectful Lyon Den memoir about love, memory, thirty-two years together, and the person George was before illness entered the story.',
     facebookCaption:
@@ -1687,6 +1708,9 @@ function getPostCollections(post) {
   if (post.collectionSlugs?.length) return post.collectionSlugs
 
   const fallbackCollections = {
+    '/blog/between-winter-and-spring': ['daily-chapters', 'poetry', 'wildflowers-wisdom'],
+    '/blog/fill-your-days-with-stories-that-make-your-heart-wiser': ['wildflowers-wisdom', 'legacy-lessons', 'field-notes'],
+    '/blog/books-that-never-really-leave-us': ['books-that-changed-me', 'legacy-lessons', 'conversations'],
     '/blog/clear-grammar-clear-thoughts': ['field-notes', 'teaching-wisdom', 'conversations'],
     '/blog/stephen-covey-wrote-what-my-mother-lived': ['books-that-changed-me', 'legacy-lessons', 'teaching-wisdom'],
     '/blog/freedom-is-found-in-the-small-things': ['summer-memories', 'legacy-lessons', 'conversations'],
@@ -2091,6 +2115,65 @@ function ChapterVisual({ item, className = '' }) {
   return <EditorialCard cover={getEditorialCover(item)} className={className} />
 }
 
+function JournalCollageArticle({ post, variant = 'standard' }) {
+  if (!post) return null
+
+  return (
+    <article className={`journal-collage-item journal-collage-${variant}`.trim()}>
+      <a className="journal-collage-link" href={post.path}>
+        <div className="journal-collage-visual" aria-hidden="true">
+          <ChapterVisual item={post} className="journal-collage-art" />
+        </div>
+        <div className="journal-collage-copy">
+          <p className="chapter-kicker">{post.series || post.category}</p>
+          <h3>{post.title}</h3>
+          <p>{post.excerpt || post.subtitle}</p>
+          <span className="text-link">Read the Chapter</span>
+        </div>
+      </a>
+    </article>
+  )
+}
+
+function JournalQuoteTile({ children, icon = 'lantern', tone = 'cream' }) {
+  return (
+    <aside className={`journal-collage-quote journal-collage-quote-${tone}`}>
+      <LyonDenIcon name={icon} />
+      <p>{children}</p>
+    </aside>
+  )
+}
+
+function JournalArtworkTile() {
+  return (
+    <a className="journal-collage-artwork" href="/collections/wildflowers-wisdom">
+      <img
+        src="/assets/carry-love-forward-comic.png"
+        alt="Illustrated Lyon Den comic about carrying love forward and continuing to find joy in life."
+        loading="lazy"
+        decoding="async"
+      />
+      <span>Illustrated Page</span>
+      <strong>Carry love forward.</strong>
+    </a>
+  )
+}
+
+function JournalAuthorTile() {
+  return (
+    <a className="journal-collage-author" href="/about">
+      <img
+        src="/assets/marguerite-library-selfie.png"
+        alt="Marguerite Lyon seated in a warm library surrounded by books."
+        loading="lazy"
+        decoding="async"
+      />
+      <span>Marguerite Lyon</span>
+      <p>Stories are not only what we remember. They are how we understand what remains.</p>
+    </a>
+  )
+}
+
 function BookCover({ cover, className = '' }) {
   return <EditorialCard cover={cover} className={className} />
 }
@@ -2481,8 +2564,9 @@ function RetiredCreatorPage() {
       </section>
       <section className="social-invitation section-shell quiet-section" aria-labelledby="retired-social-title">
         <div className="section-heading centered">
-          <p className="eyebrow">Find The Lyon Den</p>
-          <h2 id="retired-social-title">Follow the story across the social shelves.</h2>
+          <p className="eyebrow">Continue the Story</p>
+          <h2 id="retired-social-title">CONTINUE THE STORY</h2>
+          <p>Read here. Reflect with us. Then follow The Lyon Den wherever stories continue.</p>
         </div>
         <div className="social-platform-grid">
           {socialPlatforms.map((platform) => (
@@ -2499,86 +2583,127 @@ function HomePage() {
   const chapters = useLatestChapters()
   const latestChapter = chapters.find((chapter) => chapter.title === 'The Summer That Never Left Me') || chapters[0] || curatedChapters[0]
   const summerStory = getPostByPath('/blog/the-summer-that-never-left-me') || featuredBlogPost
-  const latestJournal = blogPosts[0]
-  const latestJournalLabel = latestJournal.series && latestJournal.seriesPart
-    ? latestJournal.series + ' • ' + latestJournal.seriesPart
-    : latestJournal.category
-  const featuredCollections = ['the-long-goodbye', 'books-that-changed-me', 'poetry', 'field-notes']
+  const beforePost = getPostByPath('/journal/before-the-forgetting') || blogPosts[0]
+  const betweenPost = getPostByPath('/blog/between-winter-and-spring')
+  const fillPost = getPostByPath('/blog/fill-your-days-with-stories-that-make-your-heart-wiser')
+  const booksPost = getPostByPath('/blog/books-that-never-really-leave-us')
+  const pillarCollections = [
+    'stories-from-a-life',
+    'field-notes',
+    'illustrated-pages',
+    'books-that-changed-me',
+    'living-places',
+    'daily-chapters',
+    'wildflowers-wisdom',
+    'the-long-goodbye',
+  ]
     .map(getCollectionBySlug)
     .filter(Boolean)
-  const aroundItems = [
-    getPostByPath('/blog/between-winter-and-spring'),
-    getPostByPath('/blog/books-that-never-really-leave-us'),
-    getPostByPath('/blog/the-notebook-that-changed-everything'),
-  ].filter(Boolean)
 
   usePageMeta({
     title: 'The Lyon Den | Stories, Memory, Literature & Legacy',
     description:
       'Enter The Lyon Den, a living archive where Marguerite Lyon’s memories, reflections, books, and lessons become cinematic episodes, written stories, and lasting legacy.',
-    image: '/assets/the-lyon-den-cinematic-banner.jpg',
+    image: '/assets/carry-love-forward-comic.png',
   })
 
   return (
     <main className="site-shell heirloom-site" id="top">
-      <section className="cinematic-hero banner-hero" aria-labelledby="hero-title">
+      <section className="editorial-hero" aria-labelledby="hero-title">
         <SiteHeader variant="dark" />
-        <div className="section-shell banner-hero-layout">
-          <figure className="banner-hero-art parallax-drift">
-            <img
-              src="/assets/the-lyon-den-cinematic-banner.jpg"
-              alt="The Lyon Den cinematic banner with Truth Love Money, Stories Wisdom Life Lessons, Marguerite by a creek, and the Never Stop Learning tagline"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </figure>
-          <div className="cinematic-hero-content banner-hero-copy">
+        <div className="section-shell editorial-hero-layout">
+          <div className="editorial-hero-copy">
             <p className="eyebrow">A Living Archive of Story, Memory &amp; Wisdom</p>
-            <h1 id="hero-title">Every Story Has Something to Teach Us</h1>
+            <h1 id="hero-title">THE LYON DEN</h1>
+            <p className="hero-deck">Stories. Memory. Reflection. Wonder.</p>
             <p>
-              Enter The Lyon Den, where memories become illustrated stories, meaningful books
-              open new conversations, and the lessons of a lifetime are preserved for generations.
+              A literary home for the stories that shape us, the memories that remain,
+              and the wisdom we carry forward.
             </p>
             <div className="hero-actions" aria-label="Primary actions">
               <a className="button button-primary" href="/blog">
-                Read the Journal
+                READ THE JOURNAL
               </a>
-              <a className="story-link" href={latestChapter.url} {...youtubeLinkProps}>
-                Watch the Latest Chapter
+              <a className="story-link" href="#social-platforms">
+                FOLLOW THE STORY
               </a>
             </div>
             <a className="turn-page-cue" href="#latest-journal">
               <span aria-hidden="true" />
-              Turn the page
+              Open the Journal
             </a>
           </div>
+          <div className="hero-collage" aria-label="Editorial collage for The Lyon Den">
+            <div className="hero-paper hero-paper-note parallax-drift" aria-hidden="true">
+              <LyonDenIcon name="fountainPen" />
+              <span>Letters, books, memory, and wonder.</span>
+            </div>
+            <figure className="hero-portrait-card">
+              <img
+                src="/assets/marguerite-library-selfie.png"
+                alt="Marguerite Lyon seated in a warm library surrounded by books."
+                fetchPriority="high"
+                decoding="async"
+              />
+            </figure>
+            <figure className="hero-comic-card parallax-drift">
+              <img
+                src="/assets/carry-love-forward-comic.png"
+                alt="Illustrated Lyon Den comic about carrying love forward and continuing to find joy in life."
+                loading="eager"
+                decoding="async"
+              />
+            </figure>
+            <div className="hero-paper hero-paper-quote" aria-hidden="true">
+              <LyonDenIcon name="lantern" />
+              <span>Carry love forward.</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="written-chapters section-shell quiet-section" id="latest-journal" aria-labelledby="written-title">
+      <section className="journal-collage-section section-shell quiet-section" id="latest-journal" aria-labelledby="written-title">
         <div className="section-heading">
           <p className="eyebrow">Latest Journal</p>
-          <h2 id="written-title">The newest written chapter.</h2>
+          <h2 id="written-title">A living shelf of stories, books, and memory.</h2>
+          <p>
+            Begin with the newest memoir chapter, then wander into seasonal reflections,
+            literary essays, illustrated pages, and the quieter notes that keep wisdom alive.
+          </p>
         </div>
-        <article className="feature-spread feature-spread-journal feature-spread-reverse">
-          <ChapterVisual item={latestJournal} className="feature-spread-art" />
-          <div>
-            <p className="chapter-kicker">{latestJournalLabel}</p>
-            <h3>{latestJournal.title}</h3>
-            <p>{latestJournal.excerpt || latestJournal.subtitle}</p>
-            {latestJournal.note && <p className="article-note-inline">{latestJournal.note}</p>}
-            <a className="button button-secondary" href={latestJournal.path}>Read the Journal</a>
-          </div>
-        </article>
+        <div className="journal-collage-grid">
+          <JournalCollageArticle post={beforePost} variant="featured" />
+          <JournalCollageArticle post={betweenPost} variant="tall" />
+          <JournalQuoteTile icon="hourglass" tone="ink">
+            Before the forgetting, there was a lifetime of remembering.
+          </JournalQuoteTile>
+          <JournalCollageArticle post={fillPost} variant="wide" />
+          <JournalArtworkTile />
+          <JournalCollageArticle post={booksPost} variant="standard" />
+          <a className="journal-collage-wildflower" href="/collections/wildflowers-wisdom">
+            <img
+              src="/assets/wildflowers-never-ask-permission.png"
+              alt="Illustrated Wildflowers and Wisdom artwork about blooming without asking permission."
+              loading="lazy"
+              decoding="async"
+            />
+            <span>Wildflowers &amp; Wisdom</span>
+            <strong>Never cease to find some joy in life.</strong>
+          </a>
+          <JournalAuthorTile />
+          <JournalQuoteTile icon="openBook" tone="gold">
+            Some chapters end quietly. Others deserve to be sung at full volume.
+          </JournalQuoteTile>
+        </div>
       </section>
 
-      <section className="collections section-shell quiet-section" aria-labelledby="home-collections-title">
+      <section className="collections section-shell quiet-section archive-pillars" aria-labelledby="home-collections-title">
         <div className="section-heading">
-          <p className="eyebrow">Featured Literary Collections</p>
-          <h2 id="home-collections-title">Shelves inside the archive.</h2>
+          <p className="eyebrow">The Archive</p>
+          <h2 id="home-collections-title">Pillars of The Lyon Den.</h2>
         </div>
         <div className="collection-grid featured-collection-grid">
-          {featuredCollections.map((collection) => (
+          {pillarCollections.map((collection) => (
             <a className="collection-card" href={getCollectionPath(collection.slug)} key={collection.slug}>
               <div className="collection-seal" aria-hidden="true">
                 <LyonDenIcon name={collection.icon} />
@@ -2622,28 +2747,11 @@ function HomePage() {
 
       <QuoteInterlude quote={homepageQuotes[0]} className="section-shell" />
 
-      <section className="illustrated-pages section-shell quiet-section" aria-labelledby="around-title">
-        <div className="section-heading">
-          <p className="eyebrow">From Around The Lyon Den</p>
-          <h2 id="around-title">Stories, books, poetry, and wisdom.</h2>
-        </div>
-        <div className="illustrated-grid">
-          {aroundItems.map((post) => (
-            <a className="illustrated-card" href={post.path} key={post.path}>
-              <ChapterVisual item={post} className="illustrated-card-art" />
-              <span className="chapter-kicker">{post.category}</span>
-              <h3>{post.title}</h3>
-              <p>{post.excerpt || post.subtitle}</p>
-            </a>
-          ))}
-        </div>
-      </section>
-
       <section className="storyteller-spread section-shell quiet-section" id="about" aria-labelledby="storyteller-title">
         <div className="portrait-bookplate">
           <img
-            src="/assets/marguerite-lyon-creekside-portrait.png"
-            alt="Portrait of Marguerite Lyon seated by a creek with books, tea, flowers, and a lantern"
+            src="/assets/marguerite-library-selfie.png"
+            alt="Marguerite Lyon seated in a warm library surrounded by books."
             loading="lazy"
             decoding="async"
           />
@@ -2662,13 +2770,12 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="social-invitation section-shell quiet-section" aria-labelledby="social-title">
+      <section className="social-invitation section-shell quiet-section" id="social-platforms" aria-labelledby="social-title">
         <div className="section-heading centered">
           <p className="eyebrow">Continue the Story</p>
-          <h2 id="social-title">Find The Lyon Den wherever stories are unfolding.</h2>
+          <h2 id="social-title">CONTINUE THE STORY</h2>
           <p>
-            Follow The Lyon Den for new stories, literary reflections, videos, and questions
-            worth carrying with you.
+            Read here. Reflect with us. Then follow The Lyon Den wherever stories continue.
           </p>
         </div>
         <div className="social-platform-grid">
@@ -2830,24 +2937,39 @@ function JournalPage() {
             placeholder="Search poetry, teaching, summer memories..."
           />
         </form>
-        <div className="story-grid archive-grid">
-          {filteredPosts.map((post) => (
-            <article className="story-card" key={post.path}>
-              <ChapterVisual item={post} className="story-cover" />
-              <p className="eyebrow">{post.category}</p>
-              <h3>{post.title}</h3>
-              <p>{post.excerpt || post.subtitle}</p>
-              <div className="entry-tags" aria-label={`${post.title} collections`}>
-                {getPostCollections(post).slice(0, 2).map((slug) => (
-                  <a href={getCollectionPath(slug)} key={slug}>
-                    {getCollectionBySlug(slug)?.title || slug}
-                  </a>
-                ))}
-              </div>
-              <a className="text-link" href={post.path}>Continue Reading</a>
-            </article>
-          ))}
-        </div>
+        {normalizedSearch ? (
+          <div className="story-grid archive-grid">
+            {filteredPosts.map((post) => (
+              <article className="story-card" key={post.path}>
+                <ChapterVisual item={post} className="story-cover" />
+                <p className="eyebrow">{post.category}</p>
+                <h3>{post.title}</h3>
+                <p>{post.excerpt || post.subtitle}</p>
+                <div className="entry-tags" aria-label={`${post.title} collections`}>
+                  {getPostCollections(post).slice(0, 2).map((slug) => (
+                    <a href={getCollectionPath(slug)} key={slug}>
+                      {getCollectionBySlug(slug)?.title || slug}
+                    </a>
+                  ))}
+                </div>
+                <a className="text-link" href={post.path}>Continue Reading</a>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="journal-collage-grid journal-collage-grid-archive">
+            {filteredPosts.map((post, index) => (
+              <JournalCollageArticle
+                post={post}
+                variant={index === 0 ? 'featured' : index === 1 ? 'tall' : index === 2 ? 'wide' : 'standard'}
+                key={post.path}
+              />
+            ))}
+            <JournalQuoteTile icon="wildflower" tone="gold">
+              Fill your days with stories that make your heart wiser.
+            </JournalQuoteTile>
+          </div>
+        )}
         {filteredPosts.length === 0 && (
           <p className="archive-empty" role="status">
             No Journal entries matched that search. Try a collection like poetry, teaching, or summer memories.
@@ -3089,7 +3211,7 @@ function AboutPage() {
     title: 'About Marguerite Lyon | The Lyon Den',
     description:
       'Meet Marguerite Lyon, the storyteller at the heart of The Lyon Den, a living archive of memory, literature, reflection, and legacy.',
-    image: '/assets/marguerite-lyon-creekside-portrait.png',
+    image: '/assets/marguerite-library-selfie.png',
   })
 
   return (
@@ -3099,8 +3221,8 @@ function AboutPage() {
       <section className="about-hero section-shell" aria-labelledby="about-page-title">
         <div className="portrait-bookplate">
           <img
-            src="/assets/marguerite-lyon-creekside-portrait.png"
-            alt="Portrait of Marguerite Lyon seated by a creek with books, tea, flowers, and a lantern"
+            src="/assets/marguerite-library-selfie.png"
+            alt="Marguerite Lyon seated in a warm library surrounded by books"
             loading="lazy"
           />
           <span>Marguerite Lyon</span>
@@ -3238,7 +3360,7 @@ function BlogPostPage({ post }) {
           <div className="blog-meta" aria-label="Article details">
             <span className="author-meta">
               <img
-                src="/assets/marguerite-lyon-creekside-portrait.png"
+                src="/assets/marguerite-library-selfie.png"
                 alt=""
                 loading="lazy"
               />
@@ -3349,8 +3471,7 @@ function BlogPostPage({ post }) {
           <p className="eyebrow">Keep Growing</p>
           <h2 id="blog-next-title">Carry the next question with you.</h2>
           <p>
-            Follow The Lyon Den for new stories, poems, videos, and reflections as
-            each chapter finds its place in the archive.
+            Read here. Reflect with us. Then follow The Lyon Den wherever stories continue.
           </p>
         </div>
         <a className="button button-primary" href="/archive">
