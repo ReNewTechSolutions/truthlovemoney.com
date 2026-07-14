@@ -2,7 +2,7 @@
 
 Audit date: July 13, 2026
 
-This audit covers the current repository sources for TruthLoveMoney.com after the homepage curation pass. Public written content is code-driven in `src/App.jsx`; no Markdown, MDX, CMS export, public database seed, sitemap, or robots file is currently present. Supabase remains limited to the private Seed Garden portal.
+This audit covers the current repository sources for TruthLoveMoney.com after the homepage curation pass. Public written content is code-driven in `src/App.jsx`; no Markdown, MDX, CMS export, public database seed, sitemap, or robots file is currently present. The previous Supabase-backed creator portal has been removed from the maintained public application.
 
 ## Content Sources Reviewed
 
@@ -10,7 +10,7 @@ This audit covers the current repository sources for TruthLoveMoney.com after th
 - `public/assets/`: brand imagery, article artwork, editorial covers, and approved portrait/banner assets.
 - `public/assets/covers/README.md`: cover workflow notes only.
 - `content/episodes/episode-001-the-summer-that-never-left-me/`: HeyGen episode production files and scripts, not public article routes.
-- `README.md`, `vercel.json`, `supabase/schema.sql`, and migrations.
+- `README.md` and `vercel.json`.
 
 ## Normalized Taxonomy
 
@@ -28,6 +28,7 @@ Use this restrained taxonomy for public content:
 
 | Title | Slug / Route | Content Type | Source | Status | Date | Featured Image / Cover | Canonical URL | Duplicate Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Before the Forgetting | `/journal/before-the-forgetting` | Stories From a Life / The Long Goodbye | `src/App.jsx` `blogPosts` | Published / Part I | July 13, 2026 | `coverId: before-the-forgetting` | `/journal/before-the-forgetting` | New Long Goodbye memoir entry; no duplicate found |
 | Fill Your Days With Stories That Make Your Heart Wiser | `/blog/fill-your-days-with-stories-that-make-your-heart-wiser` | Daily Chapters | `src/App.jsx` `blogPosts` | Published / cornerstone | July 11, 2026 | `/assets/lyon-den-storytelling-banner.png` | `/blog/fill-your-days-with-stories-that-make-your-heart-wiser` | No duplicate found |
 | Books That Never Really Leave Us | `/blog/books-that-never-really-leave-us` | From the Bookshelf | `src/App.jsx` `blogPosts` | Published | July 11, 2026 | `coverId: books-never-leave`; social fallback `/assets/wildflowers-never-ask-permission.png` | `/blog/books-that-never-really-leave-us` | No duplicate found |
 | Between Winter and Spring | `/blog/between-winter-and-spring` | Poetry and Reflection | `src/App.jsx` `blogPosts` | Published | July 11, 2026 | `/assets/between-winter-and-spring-artwork.png` | `/blog/between-winter-and-spring` | Canonical replacement for the earlier Persephone route |
@@ -100,6 +101,8 @@ Canonical recommendation:
 - Preserved existing Journal/blog routes and added route aliases where older preview paths could otherwise break.
 - Added the newest article artwork assets to `public/assets/` with production-ready filenames.
 - Published three cornerstone Journal entries with SEO, Open Graph, Twitter, social caption, category, tag, excerpt, and related-reading data in `src/App.jsx`.
+- Added `Before the Forgetting` as Part I of The Long Goodbye collection and preserved `/blog/before-the-forgetting` as a route alias.
+- Removed the previous Supabase-backed creator portal from the maintained public app so the site operates as a static literary publication.
 
 No previously verified public article was deleted.
 

@@ -1,5 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { isSupabaseConfigured, supabase, supabaseConfig } from './lib/supabaseClient'
+import { useEffect, useRef, useState } from 'react'
+import { QuoteInterlude } from './components/QuoteInterlude'
+import { SocialPlatformCard } from './components/SocialPlatformCard'
+import { homepageQuotes } from './data/quotes'
+import { socialPlatforms } from './data/socialPlatforms'
+import { LyonDenIcon } from './icons/LyonIcons'
 
 const exploreCards = [
   {
@@ -43,25 +47,7 @@ const configuredYoutubeFeedUrl = import.meta.env.VITE_YOUTUBE_FEED_URL || ''
 const youtubeFeedUrl =
   configuredYoutubeFeedUrl ||
   (youtubeChannelId ? `https://www.youtube.com/feeds/videos.xml?channel_id=${youtubeChannelId}` : '')
-const facebookUrl = import.meta.env.VITE_FACEBOOK_URL || ''
-const instagramUrl = import.meta.env.VITE_INSTAGRAM_URL || ''
-const socialLinks = [
-  {
-    label: 'YouTube',
-    href: youtubeChannelUrl,
-    icon: 'play',
-  },
-  {
-    label: 'Facebook',
-    href: facebookUrl,
-    icon: 'f',
-  },
-  {
-    label: 'Instagram',
-    href: instagramUrl,
-    icon: 'camera',
-  },
-].filter((link) => link.href)
+const socialLinks = socialPlatforms
 
 const coverLibrary = {
   'broadway-dreams': {
@@ -128,16 +114,6 @@ const coverLibrary = {
     variant: 'blog',
     motif: 'antique books • gold light • discovery',
     alt: 'Editorial monogram card for The Book That Changed Me with an open book seal',
-  },
-  'seed-garden': {
-    titleLines: ['THE SEED', 'GARDEN'],
-    subtitle: 'Where ideas begin to bloom.',
-    theme: 'garden',
-    category: 'Field Notes',
-    icon: 'journal',
-    variant: 'field',
-    motif: 'open journal • seedling • botanical border',
-    alt: 'Editorial monogram card for The Seed Garden with a journal and seed seal',
   },
   'freedom-small-things': {
     titleLines: ['FREEDOM IS', 'FOUND IN THE', 'SMALL THINGS'],
@@ -239,9 +215,26 @@ const coverLibrary = {
     motif: 'Persephone • seasons • quiet hope',
     alt: 'Editorial card for Between Winter and Spring',
   },
+  'before-the-forgetting': {
+    titleLines: ['BEFORE THE', 'FORGETTING'],
+    subtitle: 'Love, memory, and thirty-two years.',
+    theme: 'legacy',
+    category: 'The Long Goodbye',
+    icon: 'hourglass',
+    variant: 'legacy',
+    motif: 'memory • staying • quiet love',
+    alt: 'Editorial card for Before the Forgetting with an hourglass seal',
+  },
 }
 
 const collectionDefinitions = [
+  {
+    title: 'Chapters',
+    slug: 'stories-from-a-life',
+    description: 'Long-form memoir and documentary storytelling from The Lyon Den.',
+    icon: 'lion',
+    coverId: 'summer-memory',
+  },
   {
     title: 'Summer Memories',
     slug: 'summer-memories',
@@ -298,6 +291,13 @@ const collectionDefinitions = [
     icon: 'lioness',
     coverId: 'covey-mother',
   },
+  {
+    title: 'The Long Goodbye',
+    slug: 'the-long-goodbye',
+    description: 'Love, memory, caregiving, and the life that existed before illness.',
+    icon: 'hourglass',
+    coverId: 'before-the-forgetting',
+  },
 ]
 
 function articleBlocks(blocks) {
@@ -305,6 +305,92 @@ function articleBlocks(blocks) {
 }
 
 const blogPosts = [
+  {
+    title: 'Before the Forgetting',
+    series: 'The Long Goodbye',
+    seriesPart: 'Part I',
+    subtitle: 'Love, Memory, Caregiving, and Thirty-Two Years with George',
+    author: 'Marguerite Lyon',
+    category: 'Stories From a Life',
+    featured: true,
+    date: 'July 13, 2026',
+    readingTime: '9 minutes',
+    path: '/journal/before-the-forgetting',
+    redirectPaths: ['/blog/before-the-forgetting'],
+    slug: 'before-the-forgetting',
+    seoTitle: 'Before the Forgetting | The Long Goodbye | The Lyon Den',
+    metaDescription:
+      'A respectful Lyon Den memoir essay about Marguerite and George, thirty-two years together, quiet love, memory, caregiving, and the life that existed before illness.',
+    ogDescription:
+      'Part I of The Long Goodbye: Marguerite remembers George as a friend, teammate, husband, and the kind of person who stayed.',
+    twitterCard: 'summary_large_image',
+    primaryKeyword: 'love memory caregiving memoir',
+    secondaryKeywords: [
+      'The Long Goodbye',
+      'caregiving memoir',
+      'memory and love',
+      'thirty-two years together',
+      'George and Marguerite',
+      'legacy storytelling',
+    ],
+    tags: ['memoir', 'memory', 'caregiving', 'marriage', 'George', 'The Long Goodbye', 'legacy'],
+    collectionSlugs: ['the-long-goodbye', 'stories-from-a-life', 'legacy-lessons'],
+    ogImage: '/assets/marguerite-lyon-creekside-portrait.png',
+    suggestedFeaturedImage: 'marguerite-lyon-creekside-portrait.png',
+    pinterestDescription:
+      'Before the Forgetting: a respectful Lyon Den memoir about love, memory, thirty-two years together, and the person George was before illness entered the story.',
+    facebookCaption:
+      'Part I of The Long Goodbye remembers George as a person before he was a patient: honest, loyal, funny, dependable, and the kind of man who stayed.',
+    instagramCaption:
+      'Before the forgetting, there was a lifetime of remembering. Part I of The Long Goodbye begins with George: the laughter, the loyalty, the pool, the years, and the quiet love that stayed.',
+    socialExcerpt:
+      'George was a person before he was a patient. Alzheimer’s became part of their story. It was never their whole story.',
+    pullQuote: 'He made her laugh. He showed up. He stayed.',
+    customCover: '',
+    coverId: 'before-the-forgetting',
+    excerpt:
+      'Part I of The Long Goodbye remembers George as a person before he was a patient: a friend, husband, teammate, and the kind of man who stayed.',
+    note:
+      'This essay is part of The Long Goodbye, a Lyon Den memoir series about love, memory, caregiving, and the life that existed before illness.',
+    content: articleBlocks([
+      'Before the forgetting, there was a lifetime of remembering.',
+      'There were jokes and restaurants, swimming pools and late-night television, trips and family gatherings, stock conversations and ordinary Saturdays. There was a marriage that lasted thirty-two years, but before it was a span of time, it was a daily life. It was two people learning one another’s rhythms. It was friendship. It was teamwork. It was the slow blending of two different personalities until, as Marguerite once said, they blended.',
+      'This is where The Long Goodbye begins. Not with illness. Not with a chart. Not with a diagnosis. It begins with George.',
+      { type: 'quote', text: 'He made her laugh. He showed up. He stayed.' },
+      { type: 'heading', text: 'The Strong, Silent Type' },
+      'Marguerite’s father called George “the strong, silent type,” and the phrase fits him in the best sense. George did not need to fill a room to be present in it. He was honest, dependable, loyal, and sweet. He was the kind of person whose steadiness became part of the atmosphere. You might not always notice it loudly, but you felt it.',
+      'He studied history and psychology, although Marguerite laughed remembering that he hated writing papers. There is something tender in that detail: a man drawn to the study of people and time, but not especially eager to turn his thoughts into assignments. She also laughed that he never quite knew what he wanted to be when he grew up. Some people carry a little uncertainty without making it dramatic. George seems to have carried his with a kind of practical humor.',
+      'He eventually worked for the IRS for approximately thirty years. It was steady work, and steadiness was one of his gifts. Yet there was more to their life than routine. George and Marguerite enjoyed trading stocks together. Their planning, their investing, and their shared attention to money helped them retire unusually young. Money, in that part of their story, was not about display. It was about choices, partnership, and the freedom to build a life with intention.',
+      { type: 'heading', text: 'A Wonderful Team' },
+      'Marguerite remembers them as close friends who made a wonderful team. That is no small thing. Friendship inside marriage has its own quiet architecture. It is built from shared jokes, private shorthand, errands, habits, loyalties, compromises, and the simple knowledge that the other person is beside you.',
+      'They were different in some ways. Most couples are. But difference does not have to become distance. Over time, when two people keep choosing one another, difference can soften into balance. One person brings one kind of strength. The other brings another. One has a habit the other learns to smile at. One worries where the other steadies. One talks while the other listens. Slowly, a household develops its own language.',
+      'George came from a family where teaching mattered. His mother and sisters were teachers, and perhaps that shaped the way family, loyalty, and service gathered around him. He stayed beside loved ones when they were sick. He showed up not as performance, but as character. Some people make speeches about devotion. Others simply sit in the chair, drive the car, make the call, wait beside the bed, and do the next faithful thing.',
+      { type: 'heading', text: 'The Laughter They Shared' },
+      'One of the most important things to know about George is that he made Marguerite laugh. That may sound ordinary until we remember how much ordinary laughter carries. A marriage is not sustained only by grand declarations. It is sustained by moments when one person knows how to lighten the room for the other.',
+      'They loved Saturday Night Live and jokes. George deliberately pronounced words incorrectly to make her laugh. There is a sweetness in deliberate silliness, especially from someone remembered as strong and quiet. It means he was willing to be playful. It means he knew her laughter was worth inviting. It means humor was part of their companionship, not an accessory to it.',
+      'He was also a good sport when the Kansas City Chiefs were losing. That kind of detail belongs in a memoir because it tells us more than a summary ever could. We learn the texture of a person through what they loved, endured, teased about, and returned to. We learn them through the small domestic rituals that become memory only later.',
+      { type: 'heading', text: 'Beside the Water' },
+      'The pool memory feels like a small window into the heart of their marriage.',
+      'George could not swim very well. And still, he went to the pool with Marguerite at night. He sat beside the water while she swam. He did not have to be the swimmer to be part of the evening. He did not need to turn the moment into something centered on himself. He could simply be there.',
+      'That is quiet love. A person does not always show love by sharing the same ability or desire. Sometimes love is sitting beside the water because the person you love wants to swim. Sometimes love is presence without performance. Sometimes it is the willingness to accompany another person into a place where their joy is easier than yours.',
+      'The image stays with me: night air, water, the soft sounds of swimming, George nearby. Not dramatic. Not cinematic in the obvious sense. But deeply cinematic in the way real memory often is. A small light. A still figure. A woman moving through the water. A husband keeping company from the edge.',
+      'So many marriages are made of moments like that. They do not announce themselves as symbols while they are happening. They become symbols later, when memory has had time to gather them and say, look closely. This mattered.',
+      { type: 'heading', text: 'The Life Before Illness' },
+      'George and Marguerite loved meals, restaurants, cruises, vineyards, travel, Lake Tahoe, and Las Vegas. Those details matter because they remind us that a life is never only its hardest chapter. Their story had movement, appetite, humor, scenery, family, planning, and pleasure. It had trips and tables and places they returned to in conversation. It had the ordinary luxury of enjoying something together.',
+      'Their families loved one another, too. That kind of family affection becomes part of the shelter around a marriage. It gives the relationship a larger home. When families love one another, memories spread beyond two people. They become shared stories, repeated at gatherings, carried by siblings, parents, nieces, nephews, cousins, and friends. They become part of the family archive.',
+      'To remember George only through what came later would be unfair to the fullness of who he was. He was not merely someone who became ill. He was a husband, friend, worker, investor, traveler, son, brother, family member, joke-maker, sports fan, and companion beside the pool. He had preferences and habits. He had a history. He had loyalties. He had a personality before illness ever entered the story.',
+      'George was a person before he was a patient. Alzheimer’s became part of their story. It was never their whole story.',
+      { type: 'heading', text: 'The Kind of Person Who Stayed' },
+      'There are people whose love is best understood through staying. They may not always have the most polished words. They may not turn tenderness into speeches. But they remain. They sit nearby. They do what needs doing. They become dependable in a world that often is not.',
+      'George seems to have been that kind of person. Honest. Loyal. Sweet. Dependable. Able to laugh. Able to make someone laugh. Able to sit beside the water. Able to stand by family when they were sick. Able to build a life one practical, faithful act at a time.',
+      'In legacy storytelling, we often look for the dramatic turning point. But sometimes the deepest truth is simpler. A person stayed. A person showed up. A person made life steadier and funnier and more companionable. A person shared thirty-two years, and the years were not merely counted. They were lived.',
+      'The Long Goodbye will eventually include harder chapters. There are parts of the story that belong to caregiving, change, recognition, grief, and the ache of memory becoming unreliable. But this first chapter belongs to George before that. It belongs to the man Marguerite loved, the friend and teammate, the one who could make her laugh by saying a word wrong on purpose, the one who sat beside the pool because she wanted to swim.',
+      'That is where the story deserves to begin.',
+      'George had always been the kind of person who stayed beside the people he loved.',
+      'Neither of us knew then that one day, it would be my turn to stay beside him.',
+      'Never Stop Learning.',
+    ]),
+  },
   {
     title: 'Fill Your Days With Stories That Make Your Heart Wiser',
     subtitle: 'A Lyon Den reflection on reading, wonder, curiosity, and lifelong learning.',
@@ -1854,79 +1940,6 @@ const bookshelfItems = [
   },
 ]
 
-const entryTypes = [
-  { label: 'Story or Memory', value: 'story_memory', icon: '📝' },
-  { label: 'Book Recommendation', value: 'book_recommendation', icon: '📚' },
-  { label: 'Poetry', value: 'poetry', icon: '✍️' },
-  { label: 'Random Thought', value: 'random_thought', icon: '💭' },
-  { label: 'Relationship Lesson', value: 'relationship_lesson', icon: '❤️' },
-  { label: 'Money Lesson', value: 'money_lesson', icon: '💰' },
-  { label: 'Future Video Idea', value: 'future_video_idea', icon: '🎥' },
-  { label: 'Reminder For Felicia', value: 'reminder_for_felicia', icon: '⭐' },
-]
-
-const statusLabels = {
-  new: 'Newly Planted',
-  used: 'Harvested',
-  planned: 'Growing',
-  published: 'Bloomed',
-}
-
-const VAULT_USER_EMAIL = 'cmargu@yahoo.com'
-const ADMIN_EMAIL = 'frj816@gmail.com'
-const allowedEmails = [VAULT_USER_EMAIL, ADMIN_EMAIL]
-const vaultNextStorageKey = 'tlm-story-vault-next'
-
-function normalizeEmail(email = '') {
-  return email.trim().toLowerCase()
-}
-
-function isAllowedEmail(email) {
-  return allowedEmails.includes(normalizeEmail(email))
-}
-
-function isAdminEmail(email) {
-  return normalizeEmail(email) === ADMIN_EMAIL
-}
-
-function isVaultUserEmail(email) {
-  return normalizeEmail(email) === VAULT_USER_EMAIL
-}
-
-function canRequestMagicLink(email, admin) {
-  return admin ? isAdminEmail(email) : isAllowedEmail(email)
-}
-
-function getLoginBlockMessage(email, admin) {
-  if (admin && isVaultUserEmail(email)) {
-    return 'This area is reserved for Felicia.'
-  }
-
-  return 'This private garden is currently reserved for Marguerite.'
-}
-
-function getLoginErrorMessage(error) {
-  const message = error?.message || 'Supabase did not provide an error message.'
-  const status = error?.status || error?.statusCode
-  const isRateLimited =
-    status === 429 ||
-    /rate limit|too many|security purposes|wait|after/i.test(message)
-
-  if (isRateLimited) {
-    return 'A garden gate link was already sent. Please wait a minute, then use the newest email.'
-  }
-
-  if (/failed to fetch|networkerror|load failed/i.test(message)) {
-    return `The site could not reach Supabase (${supabaseConfig.host || 'missing Supabase URL'}). In Vercel, VITE_SUPABASE_URL should be https://eyirlvsqrusyngrvswsw.supabase.co. Browser message: ${message}`
-  }
-
-  return message
-}
-
-function getReadableError(error, fallback = 'Something went wrong.') {
-  return error?.message || error?.error_description || fallback
-}
-
 function stripHtml(value = '') {
   return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
 }
@@ -2032,92 +2045,6 @@ function EditorialCover({ cover, className = '' }) {
   )
 }
 
-function LyonDenIcon({ name = 'lion' }) {
-  const commonProps = {
-    viewBox: '0 0 64 64',
-    fill: 'none',
-    xmlns: 'http://www.w3.org/2000/svg',
-    'aria-hidden': 'true',
-    focusable: 'false',
-  }
-
-  if (name === 'lioness') {
-    return (
-      <svg className="lyon-icon" {...commonProps}>
-        <path d="M16 42c4-15 14-25 31-27" />
-        <path d="M24 50c-2-10 0-18 7-24 5-5 12-7 21-7-3 6-7 10-13 12" />
-        <path d="M40 31c7 1 11 5 13 11-8 2-15 1-21-4" />
-        <path d="M27 47c7 2 15 1 23-4" />
-        <path d="M33 26c-2 4-3 8-3 13" />
-      </svg>
-    )
-  }
-
-  if (name === 'cub') {
-    return (
-      <svg className="lyon-icon" {...commonProps}>
-        <path d="M18 43c3-11 10-18 22-21" />
-        <path d="M25 50c-2-8 0-15 6-20 4-4 10-6 17-6-2 5-5 8-10 10" />
-        <path d="M39 34c5 1 8 4 10 9-6 1-11 0-16-3" />
-        <path d="M19 35c-3-2-5-5-5-9 5 0 9 2 12 6" />
-        <path d="M30 47c5 1 11 0 17-3" />
-      </svg>
-    )
-  }
-
-  if (name === 'openBook') {
-    return (
-      <svg className="lyon-icon" {...commonProps}>
-        <path d="M10 18c7-3 15-2 22 3v29c-7-5-15-6-22-3V18Z" />
-        <path d="M54 18c-7-3-15-2-22 3v29c7-5 15-6 22-3V18Z" />
-        <path d="M32 21v29M16 27c4-1 8 0 12 2M16 35c4-1 8 0 12 2M48 27c-4-1-8 0-12 2M48 35c-4-1-8 0-12 2" />
-      </svg>
-    )
-  }
-
-  if (name === 'lantern') {
-    return (
-      <svg className="lyon-icon" {...commonProps}>
-        <path d="M25 12h14M28 12c0 5-5 7-5 13v21c0 4 4 7 9 7s9-3 9-7V25c0-6-5-8-5-13" />
-        <path d="M23 26h18M23 45h18M32 25c-5 7-5 14 0 20 5-6 5-13 0-20Z" />
-        <path d="M18 53h28M32 8v4" />
-      </svg>
-    )
-  }
-
-  if (name === 'journal') {
-    return (
-      <svg className="lyon-icon" {...commonProps}>
-        <path d="M18 12h25c4 0 7 3 7 7v33H23c-5 0-9-4-9-9V16c0-2 2-4 4-4Z" />
-        <path d="M23 12v40M30 22h12M30 30h12M30 38h9" />
-        <path d="M18 52c2-3 5-4 10-4h22" />
-      </svg>
-    )
-  }
-
-  if (name === 'creek') {
-    return (
-      <svg className="lyon-icon" {...commonProps}>
-        <path d="M8 40c9-8 16-8 24 0s15 8 24 0" />
-        <path d="M10 29c8-6 15-6 22 0s14 6 22 0" />
-        <path d="M17 18c5-4 10-4 15 0s10 4 15 0" />
-        <path d="M20 49h24" />
-      </svg>
-    )
-  }
-
-  return (
-    <svg className="lyon-icon" {...commonProps}>
-      <path d="M14 45c2-14 9-25 22-32" />
-      <path d="M21 53c-2-12 1-22 9-30 6-6 15-9 27-9-3 8-8 14-16 18" />
-      <path d="M43 32c8 1 13 6 16 14-10 2-18 0-25-6" />
-      <path d="M27 19c-7-2-13-1-18 4 6 1 11 4 15 8" />
-      <path d="M28 50c8 2 17 0 27-5" />
-      <path d="M33 24c-3 6-4 12-3 18" />
-    </svg>
-  )
-}
-
 function EditorialCard({ cover, className = '' }) {
   const title = cover.title || cover.titleLines.join(' ')
   const variant = cover.variant || cover.theme || 'blog'
@@ -2176,74 +2103,12 @@ function ChapterCardVisual({ item }) {
   )
 }
 
-function getSafeNextPath(nextPath, fallbackPath = '/vault') {
-  if (nextPath === '/') return '/'
-  if (nextPath === '/vault-admin') return '/vault-admin'
-  if (nextPath === '/vault') return '/vault'
-  if (fallbackPath === '/') return '/'
-  return fallbackPath === '/vault-admin' ? '/vault-admin' : '/vault'
-}
-
-function getAuthRedirectDetails() {
-  const currentUrl = new URL(window.location.href)
-  const hashParams = new URLSearchParams(currentUrl.hash.replace(/^#/, ''))
-
-  return {
-    currentUrl,
-    hashParams,
-    hasAuthParams: Boolean(
-      currentUrl.searchParams.get('code') ||
-        currentUrl.searchParams.get('error') ||
-        currentUrl.searchParams.get('error_description') ||
-        currentUrl.searchParams.get('error_code') ||
-        hashParams.get('access_token') ||
-        hashParams.get('refresh_token') ||
-        hashParams.get('token_hash') ||
-        hashParams.get('error') ||
-        hashParams.get('error_description') ||
-        hashParams.get('error_code'),
-    ),
-  }
-}
-
-function saveIntendedVaultPath(path) {
-  try {
-    window.localStorage.setItem(vaultNextStorageKey, path)
-  } catch {
-    // Private browsing or storage limits should not block login.
-  }
-}
-
-function readIntendedVaultPath() {
-  try {
-    return window.localStorage.getItem(vaultNextStorageKey)
-  } catch {
-    return null
-  }
-}
-
-function clearIntendedVaultPath() {
-  try {
-    window.localStorage.removeItem(vaultNextStorageKey)
-  } catch {
-    // Storage may be unavailable.
-  }
-}
-
-function getTypeLabel(value) {
-  return entryTypes.find((entry) => entry.value === value)?.label || value
-}
-
 function SocialIcon({ type }) {
-  if (type === 'play') {
-    return <span className="social-icon" aria-hidden="true">▶</span>
-  }
-
-  if (type === 'camera') {
-    return <span className="social-icon" aria-hidden="true">◎</span>
-  }
-
-  return <span className="social-icon" aria-hidden="true">{type}</span>
+  return (
+    <span className="social-icon" aria-hidden="true">
+      <LyonDenIcon name={type} />
+    </span>
+  )
 }
 
 function SocialLinks({ className = '' }) {
@@ -2314,7 +2179,6 @@ function SiteFooter() {
         <p>Never Stop Learning</p>
         <SocialLinks />
         <div className="footer-quiet-links">
-          <a href="/vault">Creator Login</a>
           <a href="/archive">Archive</a>
         </div>
       </div>
@@ -2532,7 +2396,6 @@ function LatestChaptersCarousel({ chapters }) {
 
 function App() {
   const [path, setPath] = useState(window.location.pathname)
-  const { hasAuthParams } = getAuthRedirectDetails()
 
   useEffect(() => {
     const handleNavigation = () => setPath(window.location.pathname)
@@ -2542,16 +2405,8 @@ function App() {
 
   const normalizedPath = path.replace(/\/+$/, '') || '/'
 
-  if (normalizedPath === '/vault') {
-    return <VaultApp admin={false} />
-  }
-
-  if (normalizedPath === '/vault-admin') {
-    return <VaultApp admin />
-  }
-
-  if (normalizedPath === '/auth/callback' || hasAuthParams) {
-    return <AuthCallback />
+  if (normalizedPath === '/vault' || normalizedPath === '/vault-admin' || normalizedPath === '/auth/callback') {
+    return <RetiredCreatorPage />
   }
 
   const selectedPost = getPostByPath(normalizedPath)
@@ -2601,15 +2456,61 @@ function App() {
   return <HomePage />
 }
 
+function RetiredCreatorPage() {
+  usePageMeta({
+    title: 'The Lyon Den | Continue the Story',
+    description:
+      'The Lyon Den public site now focuses on Journal articles, literary collections, episodes, and social storytelling.',
+    image: '/assets/watermark-logo.png',
+  })
+
+  return (
+    <main className="site-shell blog-shell">
+      <SiteHeader subtitle="A literary archive of story, memory, and wisdom." />
+      <section className="archive-hero section-shell creator-retired" aria-labelledby="creator-retired-title">
+        <p className="eyebrow">Continue the Story</p>
+        <h1 id="creator-retired-title">The public site is now a literary archive.</h1>
+        <p>
+          The former private creator tools are no longer maintained here. Explore the Journal,
+          browse the collections, or follow The Lyon Den for new stories, reflections, and videos.
+        </p>
+        <div className="inline-actions">
+          <a className="button button-primary" href="/blog">Read the Journal</a>
+          <a className="button button-secondary" href="/archive">Enter the Archive</a>
+        </div>
+      </section>
+      <section className="social-invitation section-shell quiet-section" aria-labelledby="retired-social-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">Find The Lyon Den</p>
+          <h2 id="retired-social-title">Follow the story across the social shelves.</h2>
+        </div>
+        <div className="social-platform-grid">
+          {socialPlatforms.map((platform) => (
+            <SocialPlatformCard platform={platform} key={platform.label} />
+          ))}
+        </div>
+      </section>
+      <SiteFooter />
+    </main>
+  )
+}
+
 function HomePage() {
   const chapters = useLatestChapters()
   const latestChapter = chapters.find((chapter) => chapter.title === 'The Summer That Never Left Me') || chapters[0] || curatedChapters[0]
   const summerStory = getPostByPath('/blog/the-summer-that-never-left-me') || featuredBlogPost
-  const latestJournal = getPostByPath('/blog/fill-your-days-with-stories-that-make-your-heart-wiser') || blogPosts[0]
-  const booksArticle = getPostByPath('/blog/books-that-never-really-leave-us')
-  const winterArticle = getPostByPath('/blog/between-winter-and-spring')
-  const illustratedEntries = [winterArticle, getPostByPath('/blog/the-notebook-that-changed-everything')].filter(Boolean)
-  const [newsletterStatus, setNewsletterStatus] = useState('')
+  const latestJournal = blogPosts[0]
+  const latestJournalLabel = latestJournal.series && latestJournal.seriesPart
+    ? latestJournal.series + ' • ' + latestJournal.seriesPart
+    : latestJournal.category
+  const featuredCollections = ['the-long-goodbye', 'books-that-changed-me', 'poetry', 'field-notes']
+    .map(getCollectionBySlug)
+    .filter(Boolean)
+  const aroundItems = [
+    getPostByPath('/blog/between-winter-and-spring'),
+    getPostByPath('/blog/books-that-never-really-leave-us'),
+    getPostByPath('/blog/the-notebook-that-changed-everything'),
+  ].filter(Boolean)
 
   usePageMeta({
     title: 'The Lyon Den | Stories, Memory, Literature & Legacy',
@@ -2618,21 +2519,17 @@ function HomePage() {
     image: '/assets/the-lyon-den-cinematic-banner.jpg',
   })
 
-  function handleNewsletterSubmit(event) {
-    event.preventDefault()
-    setNewsletterStatus('Welcome to the Story Circle. The next chapter will find its way to you.')
-    event.currentTarget.reset()
-  }
-
   return (
     <main className="site-shell heirloom-site" id="top">
       <section className="cinematic-hero banner-hero" aria-labelledby="hero-title">
         <SiteHeader variant="dark" />
         <div className="section-shell banner-hero-layout">
-          <figure className="banner-hero-art">
+          <figure className="banner-hero-art parallax-drift">
             <img
               src="/assets/the-lyon-den-cinematic-banner.jpg"
               alt="The Lyon Den cinematic banner with Truth Love Money, Stories Wisdom Life Lessons, Marguerite by a creek, and the Never Stop Learning tagline"
+              fetchPriority="high"
+              decoding="async"
             />
           </figure>
           <div className="cinematic-hero-content banner-hero-copy">
@@ -2643,18 +2540,54 @@ function HomePage() {
               open new conversations, and the lessons of a lifetime are preserved for generations.
             </p>
             <div className="hero-actions" aria-label="Primary actions">
-              <a className="button button-primary" href={latestChapter.url} {...youtubeLinkProps}>
+              <a className="button button-primary" href="/blog">
+                Read the Journal
+              </a>
+              <a className="story-link" href={latestChapter.url} {...youtubeLinkProps}>
                 Watch the Latest Chapter
               </a>
-              <a className="story-link" href="/archive">
-                Enter the Story Archive
-              </a>
             </div>
-            <a className="turn-page-cue" href="#featured-chapter">
+            <a className="turn-page-cue" href="#latest-journal">
               <span aria-hidden="true" />
               Turn the page
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="written-chapters section-shell quiet-section" id="latest-journal" aria-labelledby="written-title">
+        <div className="section-heading">
+          <p className="eyebrow">Latest Journal</p>
+          <h2 id="written-title">The newest written chapter.</h2>
+        </div>
+        <article className="feature-spread feature-spread-journal feature-spread-reverse">
+          <ChapterVisual item={latestJournal} className="feature-spread-art" />
+          <div>
+            <p className="chapter-kicker">{latestJournalLabel}</p>
+            <h3>{latestJournal.title}</h3>
+            <p>{latestJournal.excerpt || latestJournal.subtitle}</p>
+            {latestJournal.note && <p className="article-note-inline">{latestJournal.note}</p>}
+            <a className="button button-secondary" href={latestJournal.path}>Read the Journal</a>
+          </div>
+        </article>
+      </section>
+
+      <section className="collections section-shell quiet-section" aria-labelledby="home-collections-title">
+        <div className="section-heading">
+          <p className="eyebrow">Featured Literary Collections</p>
+          <h2 id="home-collections-title">Shelves inside the archive.</h2>
+        </div>
+        <div className="collection-grid featured-collection-grid">
+          {featuredCollections.map((collection) => (
+            <a className="collection-card" href={getCollectionPath(collection.slug)} key={collection.slug}>
+              <div className="collection-seal" aria-hidden="true">
+                <LyonDenIcon name={collection.icon} />
+              </div>
+              <h3>{collection.title}</h3>
+              <p>{collection.description}</p>
+              <span className="text-link">{getCollectionEntries(collection.slug).length} entries</span>
+            </a>
+          ))}
         </div>
       </section>
 
@@ -2665,10 +2598,11 @@ function HomePage() {
               src="/assets/summer-that-never-left-me.png"
               alt="Painterly summer chapter artwork for The Summer That Never Left Me"
               loading="lazy"
+              decoding="async"
             />
           </figure>
           <div className="premiere-copy">
-            <p className="chapter-kicker">Chapter One</p>
+            <p className="chapter-kicker">Latest Chapter</p>
             <h2 id="featured-chapter-title">The Summer That Never Left Me</h2>
             <p>
               A warm, reflective story about childhood, memory, summer, and the moments that
@@ -2686,66 +2620,15 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="written-chapters section-shell quiet-section" aria-labelledby="written-title">
-        <div className="section-heading">
-          <p className="eyebrow">Latest Journal</p>
-          <h2 id="written-title">Stories, reflection, books, poetry, and wisdom.</h2>
-        </div>
-        <article className="feature-spread feature-spread-journal">
-          <ChapterVisual item={latestJournal} className="feature-spread-art" />
-          <div>
-            <p className="chapter-kicker">{latestJournal.category}</p>
-            <h3>{latestJournal.title}</h3>
-            <p>{latestJournal.excerpt || latestJournal.subtitle}</p>
-            <a className="button button-secondary" href={latestJournal.path}>Read the Journal</a>
-          </div>
-        </article>
-      </section>
+      <QuoteInterlude quote={homepageQuotes[0]} className="section-shell" />
 
-      <section className="bookshelf-feature section-shell quiet-section" aria-labelledby="bookshelf-title">
+      <section className="illustrated-pages section-shell quiet-section" aria-labelledby="around-title">
         <div className="section-heading">
-          <p className="eyebrow">Books That Changed Me</p>
-          <h2 id="bookshelf-title">The pages that never really leave us.</h2>
-        </div>
-        {booksArticle && (
-          <article className="feature-spread feature-spread-reverse">
-            <ChapterVisual item={booksArticle} className="feature-spread-art" />
-            <div>
-              <p className="chapter-kicker">{booksArticle.category}</p>
-              <h3>{booksArticle.title}</h3>
-              <p>{booksArticle.excerpt || booksArticle.subtitle}</p>
-              <a className="button button-secondary" href={booksArticle.path}>Open the Bookshelf</a>
-            </div>
-          </article>
-        )}
-      </section>
-
-      <section className="wildflower-feature section-shell quiet-section" aria-labelledby="wildflower-title">
-        <figure className="feature-artwork">
-          <img
-            src="/assets/wildflowers-never-ask-permission.png"
-            alt="Wildflowers Never Ask Permission To Bloom Lyon Den artwork with creek, books, flowers, lantern, and tea"
-            loading="lazy"
-          />
-        </figure>
-        <div className="wildflower-copy">
-          <p className="eyebrow">Wildflowers &amp; Wisdom</p>
-          <h2 id="wildflower-title">The best stories grow like wildflowers.</h2>
-          <p>
-            Some lessons arrive quietly: in a poem, a memory, a conversation, a book,
-            or a small ordinary day that becomes meaningful only after time has passed.
-          </p>
-          <a className="text-link" href="/poetry">Read Poetry &amp; Reflection</a>
-        </div>
-      </section>
-
-      <section className="illustrated-pages section-shell quiet-section" aria-labelledby="illustrated-title">
-        <div className="section-heading">
-          <p className="eyebrow">Illustrated Pages</p>
-          <h2 id="illustrated-title">Visual chapters from the archive.</h2>
+          <p className="eyebrow">From Around The Lyon Den</p>
+          <h2 id="around-title">Stories, books, poetry, and wisdom.</h2>
         </div>
         <div className="illustrated-grid">
-          {illustratedEntries.map((post) => (
+          {aroundItems.map((post) => (
             <a className="illustrated-card" href={post.path} key={post.path}>
               <ChapterVisual item={post} className="illustrated-card-art" />
               <span className="chapter-kicker">{post.category}</span>
@@ -2762,6 +2645,7 @@ function HomePage() {
             src="/assets/marguerite-lyon-creekside-portrait.png"
             alt="Portrait of Marguerite Lyon seated by a creek with books, tea, flowers, and a lantern"
             loading="lazy"
+            decoding="async"
           />
           <span>Marguerite Lyon</span>
         </div>
@@ -2778,21 +2662,19 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="story-circle section-shell" aria-labelledby="story-circle-title">
-        <div className="letter-panel">
-          <p className="eyebrow">Story Circle</p>
-          <h2 id="story-circle-title">Join the Story Circle</h2>
+      <section className="social-invitation section-shell quiet-section" aria-labelledby="social-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">Continue the Story</p>
+          <h2 id="social-title">Find The Lyon Den wherever stories are unfolding.</h2>
           <p>
-            Receive each new chapter, occasional letters from The Lyon Den, reading reflections,
-            and quiet reminders of the stories that matter.
+            Follow The Lyon Den for new stories, literary reflections, videos, and questions
+            worth carrying with you.
           </p>
-          <form className="story-circle-form" onSubmit={handleNewsletterSubmit}>
-            <label className="sr-only" htmlFor="story-circle-email">Your email address</label>
-            <input id="story-circle-email" type="email" placeholder="Your email address" required />
-            <button className="button button-primary" type="submit">Take Your Place by the Fire</button>
-          </form>
-          <small>Quiet updates only. No clutter, no noise.</small>
-          {newsletterStatus && <p className="form-success" role="status">{newsletterStatus}</p>}
+        </div>
+        <div className="social-platform-grid">
+          {socialPlatforms.map((platform) => (
+            <SocialPlatformCard platform={platform} key={platform.label} />
+          ))}
         </div>
       </section>
 
@@ -2870,7 +2752,6 @@ function EpisodesPage() {
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
           <SocialLinks />
-          <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
     </main>
@@ -3000,7 +2881,6 @@ function JournalPage() {
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
           <SocialLinks />
-          <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
     </main>
@@ -3108,7 +2988,6 @@ function CollectionPage({ collection }) {
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
           <SocialLinks />
-          <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
     </main>
@@ -3355,6 +3234,7 @@ function BlogPostPage({ post }) {
           <p className="eyebrow">{post.category}</p>
           <h1 id="blog-title">{post.title}</h1>
           <p className="blog-subtitle">{post.subtitle}</p>
+          {post.note && <p className="article-note-inline">{post.note}</p>}
           <div className="blog-meta" aria-label="Article details">
             <span className="author-meta">
               <img
@@ -3467,14 +3347,14 @@ function BlogPostPage({ post }) {
       <section className="blog-next section-shell" aria-labelledby="blog-next-title">
         <div>
           <p className="eyebrow">Keep Growing</p>
-          <h2 id="blog-next-title">Plant a thought for a future chapter.</h2>
+          <h2 id="blog-next-title">Carry the next question with you.</h2>
           <p>
-            The Seed Garden is where ideas begin before they bloom into stories, poems,
-            videos, and lessons.
+            Follow The Lyon Den for new stories, poems, videos, and reflections as
+            each chapter finds its place in the archive.
           </p>
         </div>
-        <a className="button button-primary" href={youtubeChannelUrl} {...youtubeLinkProps}>
-          Watch on YouTube
+        <a className="button button-primary" href="/archive">
+          Explore the Archive
         </a>
       </section>
 
@@ -3485,7 +3365,6 @@ function BlogPostPage({ post }) {
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
           <SocialLinks />
-          <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
     </main>
@@ -3615,790 +3494,9 @@ function PoetryPage() {
           <p>The Lyon Den • Hosted by Marguerite</p>
           <p>Never Stop Learning</p>
           <SocialLinks />
-          <a className="creator-login-link" href="/vault">Creator Login</a>
         </div>
       </footer>
     </main>
-  )
-}
-
-function VaultApp({ admin }) {
-  const [session, setSession] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (!isSupabaseConfigured) {
-      setLoading(false)
-      return undefined
-    }
-
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session)
-      setLoading(false)
-    })
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      setSession(nextSession)
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
-
-  if (!isSupabaseConfigured) {
-    return <VaultConfigNotice />
-  }
-
-  if (loading) {
-    return (
-      <VaultShell>
-        <p className="vault-loading">Opening The Seed Garden...</p>
-      </VaultShell>
-    )
-  }
-
-  if (!session) {
-    return <VaultLogin admin={admin} />
-  }
-
-  const userEmail = normalizeEmail(session.user?.email)
-
-  if (!isAllowedEmail(userEmail)) {
-    return (
-      <RestrictedVaultMessage
-        session={session}
-        message="This private garden is currently reserved for Marguerite."
-      />
-    )
-  }
-
-  if (admin && !isAdminEmail(userEmail)) {
-    return <RestrictedVaultMessage session={session} message="This area is reserved for Felicia." />
-  }
-
-  return admin ? <VaultAdmin session={session} /> : <VaultSubmissionPortal session={session} />
-}
-
-function VaultShell({ children, session }) {
-  const showAdminLink = isAdminEmail(session?.user?.email)
-
-  async function handleSignOut() {
-    if (!supabase) return
-    await supabase.auth.signOut()
-    window.location.href = '/vault'
-  }
-
-  return (
-    <main className="vault-shell">
-      <header className="vault-header">
-        <a className="brand" href="/" aria-label="TruthLoveMoney.com home">
-          <img src="/assets/watermark-logo.png" alt="" className="brand-logo" />
-          <span>
-            <strong>The Seed Garden</strong>
-            <small>The Lyon Den • Private Journal of Ideas</small>
-          </span>
-        </a>
-        <div className="vault-header-actions">
-          <a className="vault-home-link" href="/">Home</a>
-          {showAdminLink && (
-            <a className="vault-home-link" href="/vault-admin">
-              Admin
-            </a>
-          )}
-          {session && (
-            <button className="vault-home-link sign-out-button" type="button" onClick={handleSignOut}>
-              Sign Out
-            </button>
-          )}
-        </div>
-      </header>
-      {children}
-    </main>
-  )
-}
-
-function VaultConfigNotice() {
-  return (
-    <VaultShell>
-      <section className="vault-panel narrow-panel">
-        <p className="eyebrow">Setup Needed</p>
-        <h1>Connect Supabase to open The Seed Garden.</h1>
-        <p>
-          Place `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the deployment
-          environment. Those are the exact Vercel variable names this site reads.
-          The table SQL is included in `supabase/schema.sql`.
-        </p>
-        <p>
-          Current config check: URL {supabaseConfig.hasUrl ? 'present' : 'missing'},
-          key {supabaseConfig.hasAnonKey ? 'present' : 'missing'}, URL format{' '}
-          {supabaseConfig.urlIsValid ? 'valid' : 'invalid'}.
-        </p>
-      </section>
-    </VaultShell>
-  )
-}
-
-function AuthCallback() {
-  const [message, setMessage] = useState('Opening The Seed Garden...')
-  const [error, setError] = useState('')
-  const [showDebug, setShowDebug] = useState(false)
-  const [debug, setDebug] = useState({
-    currentPath: '/auth/callback',
-    hasCode: 'checking',
-    hasHashTokens: 'checking',
-    nextPath: '/vault',
-    exchange: 'not started',
-    sessionExists: 'checking',
-    supabaseError: 'none',
-  })
-
-  useEffect(() => {
-    async function handleCallback() {
-      const markFailure = (updates, errorMessage) => {
-        setDebug((currentDebug) => ({
-          ...currentDebug,
-          ...updates,
-          supabaseError: errorMessage || 'none',
-        }))
-        setShowDebug(true)
-        setError(errorMessage || 'That login link may have expired. Please request a new one.')
-      }
-
-      if (!isSupabaseConfigured) {
-        markFailure(
-          {
-            currentPath: window.location.pathname,
-            exchange: 'skipped',
-            sessionExists: 'no',
-          },
-          'Connect Supabase to finish opening The Seed Garden.',
-        )
-        return
-      }
-
-      const { currentUrl, hashParams } = getAuthRedirectDetails()
-      const requestedNext = currentUrl.searchParams.get('next')
-      const nextPath = getSafeNextPath(requestedNext)
-      const accessToken = hashParams.get('access_token')
-      const refreshToken = hashParams.get('refresh_token')
-      const authError =
-        currentUrl.searchParams.get('error_description') ||
-        hashParams.get('error_description') ||
-        currentUrl.searchParams.get('error_code') ||
-        hashParams.get('error_code') ||
-        currentUrl.searchParams.get('error') ||
-        hashParams.get('error')
-      const code = currentUrl.searchParams.get('code')
-
-      setDebug({
-        currentPath: window.location.pathname,
-        hasCode: code ? 'yes' : 'no',
-        hasHashTokens: accessToken && refreshToken ? 'yes' : 'no',
-        nextPath,
-        exchange: code ? 'pending' : 'not needed',
-        sessionExists: 'checking',
-        supabaseError: 'none',
-      })
-
-      if (authError) {
-        markFailure(
-          {
-            exchange: 'failed',
-            sessionExists: 'no',
-          },
-          authError,
-        )
-        return
-      }
-
-      if (code) {
-        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
-
-        if (exchangeError) {
-          markFailure(
-            {
-              exchange: 'failed',
-              sessionExists: 'no',
-            },
-            getReadableError(exchangeError, 'That login link may have expired. Please request a new one.'),
-          )
-          return
-        }
-
-        setDebug((currentDebug) => ({
-          ...currentDebug,
-          exchange: 'success',
-        }))
-      } else if (accessToken && refreshToken) {
-        const { error: setSessionError } = await supabase.auth.setSession({
-          access_token: accessToken,
-          refresh_token: refreshToken,
-        })
-
-        if (setSessionError) {
-          markFailure(
-            {
-              exchange: 'hash session failed',
-              sessionExists: 'no',
-            },
-            getReadableError(setSessionError, 'That login link may have expired. Please request a new one.'),
-          )
-          return
-        }
-
-        setDebug((currentDebug) => ({
-          ...currentDebug,
-          exchange: 'hash session success',
-        }))
-      }
-
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession()
-
-      if (sessionError) {
-        markFailure(
-          {
-            sessionExists: 'no',
-          },
-          getReadableError(sessionError, 'Could not read The Seed Garden session.'),
-        )
-        return
-      }
-
-      setDebug((currentDebug) => ({
-        ...currentDebug,
-        sessionExists: session ? 'yes' : 'no',
-      }))
-
-      if (session) {
-        setMessage('You are signed in. Taking you to The Seed Garden...')
-        clearIntendedVaultPath()
-        window.location.replace(nextPath || '/vault')
-        return
-      }
-
-      const storedNext = readIntendedVaultPath()
-      if (!requestedNext && storedNext) {
-        setDebug((currentDebug) => ({
-          ...currentDebug,
-          nextPath: getSafeNextPath(storedNext),
-        }))
-      }
-
-      markFailure(
-        {
-          exchange: code ? 'success' : accessToken && refreshToken ? 'hash session success' : 'not started',
-          sessionExists: 'no',
-        },
-        'No Seed Garden session was found yet. Please use the newest email link.',
-      )
-    }
-
-    handleCallback()
-  }, [])
-
-  return (
-    <VaultShell>
-      <section className="vault-panel narrow-panel login-panel" aria-labelledby="callback-title">
-        <p className="eyebrow">Secure Login</p>
-        <h1 id="callback-title">Seed Garden Login</h1>
-        <p>{error || message}</p>
-        {showDebug && (
-          <dl className="callback-debug" aria-label="Seed Garden login debug">
-            <div>
-              <dt>Current path</dt>
-              <dd>{debug.currentPath}</dd>
-            </div>
-            <div>
-              <dt>Has code?</dt>
-              <dd>{debug.hasCode}</dd>
-            </div>
-            <div>
-              <dt>Has hash tokens?</dt>
-              <dd>{debug.hasHashTokens}</dd>
-            </div>
-            <div>
-              <dt>Next route</dt>
-              <dd>{debug.nextPath}</dd>
-            </div>
-            <div>
-              <dt>Session found?</dt>
-              <dd>{debug.sessionExists}</dd>
-            </div>
-            <div>
-              <dt>Supabase error</dt>
-              <dd>{debug.supabaseError}</dd>
-            </div>
-          </dl>
-        )}
-        {error && (
-          <a className="button button-primary large-action" href="/vault">
-            Request a New Garden Link
-          </a>
-        )}
-      </section>
-    </VaultShell>
-  )
-}
-
-function RestrictedVaultMessage({ message, session }) {
-  return (
-    <VaultShell session={session}>
-      <section className="vault-panel narrow-panel restricted-panel" aria-labelledby="restricted-title">
-        <p className="eyebrow">Private Area</p>
-        <h1 id="restricted-title">{message}</h1>
-      </section>
-    </VaultShell>
-  )
-}
-
-function VaultLogin({ admin }) {
-  const [email, setEmail] = useState(admin ? ADMIN_EMAIL : VAULT_USER_EMAIL)
-  const [message, setMessage] = useState('')
-  const [busy, setBusy] = useState(false)
-
-  async function handleLogin(event) {
-    event.preventDefault()
-    const cleanEmail = normalizeEmail(email)
-
-    if (!canRequestMagicLink(cleanEmail, admin)) {
-      setMessage(getLoginBlockMessage(cleanEmail, admin))
-      return
-    }
-
-    setBusy(true)
-    setMessage('')
-
-    const redirectPath = admin ? '/vault-admin' : '/vault'
-    saveIntendedVaultPath(redirectPath)
-    let error = null
-
-    try {
-      const response = await supabase.auth.signInWithOtp({
-        email: cleanEmail,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=${redirectPath}`,
-        },
-      })
-
-      error = response.error
-    } catch (requestError) {
-      error = requestError
-    }
-
-    setBusy(false)
-    if (error) {
-      console.error('Seed Garden magic link error:', {
-        message: error.message,
-        name: error.name,
-        status: error.status || error.statusCode,
-      })
-      setMessage(getLoginErrorMessage(error))
-      return
-    }
-
-    setMessage(
-      'Check your email for the secure garden gate link. It may take a minute. If you don’t see it, check spam or junk.',
-    )
-  }
-
-  return (
-    <VaultShell>
-      <section className="vault-panel login-panel" aria-labelledby="vault-login-title">
-        <p className="eyebrow">Private Garden</p>
-        <h1 id="vault-login-title">
-          {admin ? 'Seed Garden Studio Login' : 'Welcome to The Lyon Den Seed Garden'}
-        </h1>
-        <p>Enter your email and we’ll send you a secure garden gate link.</p>
-        <form className="vault-form" onSubmit={handleLogin}>
-          <label>
-            Email
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              autoComplete="email"
-              required
-            />
-          </label>
-          <button className="button button-primary large-action" type="submit" disabled={busy}>
-            {busy ? 'Sending...' : 'Send My Garden Link'}
-          </button>
-          {message && (
-            <p
-              className={`form-message ${
-                message.startsWith('Check your email') ? 'success-message' : 'error-message'
-              }`}
-              role="status"
-            >
-              {message}
-            </p>
-          )}
-        </form>
-      </section>
-    </VaultShell>
-  )
-}
-
-function VaultSubmissionPortal({ session }) {
-  const [selectedType, setSelectedType] = useState(null)
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [message, setMessage] = useState('')
-  const [busy, setBusy] = useState(false)
-  const [draftSavedAt, setDraftSavedAt] = useState('')
-
-  const draftKey = selectedType ? `tlm-vault-draft-${selectedType.value}` : null
-
-  useEffect(() => {
-    if (!draftKey) return
-    const savedDraft = window.localStorage.getItem(draftKey)
-    if (!savedDraft) {
-      setTitle('')
-      setContent('')
-      return
-    }
-
-    try {
-      const parsed = JSON.parse(savedDraft)
-      setTitle(parsed.title || '')
-      setContent(parsed.content || '')
-    } catch {
-      window.localStorage.removeItem(draftKey)
-    }
-  }, [draftKey])
-
-  useEffect(() => {
-    if (!draftKey) return undefined
-
-    const saveDraft = () => {
-      window.localStorage.setItem(draftKey, JSON.stringify({ title, content }))
-      setDraftSavedAt(new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }))
-    }
-
-    const interval = window.setInterval(saveDraft, 30000)
-    return () => window.clearInterval(interval)
-  }, [content, draftKey, title])
-
-  function chooseType(entryType) {
-    setMessage('')
-    setSelectedType(entryType)
-  }
-
-  function clearForm() {
-    setTitle('')
-    setContent('')
-    setMessage('')
-    if (draftKey) window.localStorage.removeItem(draftKey)
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault()
-    if (!selectedType) return
-
-    setBusy(true)
-    setMessage('')
-
-    const { error } = await supabase.from('vault_entries').insert({
-      entry_type: selectedType.value,
-      title,
-      content,
-      status: 'new',
-    })
-
-    setBusy(false)
-    if (error) {
-      console.error('Seed Garden save error:', {
-        message: error.message,
-        code: error.code,
-        details: error.details,
-      })
-      setMessage(`This seed did not save: ${getReadableError(error, 'Please try again.')}`)
-      return
-    }
-
-    if (draftKey) window.localStorage.removeItem(draftKey)
-    setTitle('')
-    setContent('')
-    setSelectedType(null)
-    setMessage('Your seed has been planted. We’ll help it grow into something beautiful.')
-  }
-
-  return (
-    <VaultShell session={session}>
-      <section className="vault-welcome" aria-labelledby="vault-title">
-        <p className="eyebrow">Welcome Back, Marguerite</p>
-        <h1 id="vault-title">What would you like to plant today?</h1>
-        {message && <p className="form-message success-message">{message}</p>}
-      </section>
-
-      {!selectedType && (
-        <section className="entry-type-grid" aria-label="Seed Garden seed types">
-          {entryTypes.map((entryType) => (
-            <button
-              className="entry-type-card"
-              type="button"
-              key={entryType.value}
-              onClick={() => chooseType(entryType)}
-            >
-              <span aria-hidden="true">{entryType.icon}</span>
-              {entryType.label}
-            </button>
-          ))}
-        </section>
-      )}
-
-      {selectedType && (
-        <section className="vault-panel" aria-labelledby="entry-form-title">
-          <button className="back-button" type="button" onClick={() => setSelectedType(null)}>
-            Back to seed choices
-          </button>
-          <p className="eyebrow">{selectedType.icon} {selectedType.label}</p>
-          <h2 id="entry-form-title">Plant this seed</h2>
-          <form className="vault-form" onSubmit={handleSubmit}>
-            <label>
-              Seed title
-              <input
-                type="text"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Seed notes
-              <textarea
-                value={content}
-                onChange={(event) => setContent(event.target.value)}
-                rows="8"
-                required
-              />
-            </label>
-            <div className="upload-placeholders" aria-label="Future enhancements">
-              <span>Voice note upload coming later</span>
-              <span>Photo upload coming later</span>
-            </div>
-            {draftSavedAt && <p className="draft-note">Seed draft saved at {draftSavedAt}</p>}
-            {message && <p className="form-message error-message">{message}</p>}
-            <div className="form-actions">
-              <button className="button button-secondary" type="button" onClick={clearForm}>
-                Clear Seed
-              </button>
-              <button className="button button-primary large-action" type="submit" disabled={busy}>
-                {busy ? 'Saving seed...' : 'Save Seed'}
-              </button>
-            </div>
-          </form>
-        </section>
-      )}
-    </VaultShell>
-  )
-}
-
-function VaultAdmin({ session }) {
-  const [entries, setEntries] = useState([])
-  const [entryType, setEntryType] = useState('all')
-  const [status, setStatus] = useState('all')
-  const [date, setDate] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [message, setMessage] = useState('')
-  const [connectionMessage, setConnectionMessage] = useState('')
-  const [connectionOk, setConnectionOk] = useState(false)
-  const [connectionBusy, setConnectionBusy] = useState(false)
-  const [selectedEntry, setSelectedEntry] = useState(null)
-
-  useEffect(() => {
-    loadEntries()
-  }, [])
-
-  async function loadEntries() {
-    setLoading(true)
-    const { data, error } = await supabase
-      .from('vault_entries')
-      .select('*')
-      .order('created_at', { ascending: false })
-
-    setLoading(false)
-    if (error) {
-      console.error('Seed Garden admin read error:', {
-        message: error.message,
-        code: error.code,
-        details: error.details,
-      })
-      setMessage(`Could not gather today’s seeds: ${getReadableError(error)}`)
-      return
-    }
-    setEntries(data || [])
-  }
-
-  async function testSupabaseConnection() {
-    setConnectionBusy(true)
-    setConnectionMessage('')
-    setConnectionOk(false)
-
-    const { error } = await supabase.from('vault_entries').select('id').limit(1)
-
-    setConnectionBusy(false)
-    if (error) {
-      console.error('Seed Garden connection test error:', {
-        message: error.message,
-        code: error.code,
-        details: error.details,
-      })
-      setConnectionMessage(`The garden connection needs attention: ${getReadableError(error)}`)
-      return
-    }
-
-    setConnectionOk(true)
-    setConnectionMessage('The garden connection is working. Seeds are readable.')
-  }
-
-  async function updateStatus(id, status) {
-    setMessage('')
-    const { error } = await supabase.from('vault_entries').update({ status }).eq('id', id)
-
-    if (error) {
-      console.error('Seed Garden growth stage update error:', {
-        message: error.message,
-        code: error.code,
-        details: error.details,
-      })
-      setMessage(`That growth stage did not update: ${getReadableError(error)}`)
-      return
-    }
-
-    setEntries((currentEntries) =>
-      currentEntries.map((entry) => (entry.id === id ? { ...entry, status } : entry)),
-    )
-    setSelectedEntry((entry) => (entry?.id === id ? { ...entry, status } : entry))
-  }
-
-  const filteredEntries = useMemo(() => {
-    return entries.filter((entry) => {
-      const matchesType = entryType === 'all' || entry.entry_type === entryType
-      const matchesStatus = status === 'all' || entry.status === status
-      const matchesDate = !date || entry.created_at.slice(0, 10) === date
-      return matchesType && matchesStatus && matchesDate
-    })
-  }, [date, entries, entryType, status])
-
-  return (
-    <VaultShell session={session}>
-      <section className="vault-welcome" aria-labelledby="admin-title">
-        <p className="eyebrow">Seed Garden Studio</p>
-        <h1 id="admin-title">Review Today’s Seeds</h1>
-      </section>
-
-      <section className="admin-filters" aria-label="Filter Seed Garden seeds">
-        <label>
-          Seed type
-          <select value={entryType} onChange={(event) => setEntryType(event.target.value)}>
-            <option value="all">All types</option>
-            {entryTypes.map((type) => (
-              <option value={type.value} key={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Growth stage
-          <select value={status} onChange={(event) => setStatus(event.target.value)}>
-            <option value="all">All growth stages</option>
-            {Object.entries(statusLabels).map(([value, label]) => (
-              <option value={value} key={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Date
-          <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
-        </label>
-        <button className="button button-secondary" type="button" onClick={loadEntries}>
-          Refresh Garden
-        </button>
-        <button
-          className="button button-secondary"
-          type="button"
-          onClick={testSupabaseConnection}
-          disabled={connectionBusy}
-        >
-          {connectionBusy ? 'Checking...' : 'Check Garden Connection'}
-        </button>
-      </section>
-
-      {message && <p className="form-message error-message">{message}</p>}
-      {connectionMessage && (
-        <p className={`form-message ${connectionOk ? 'success-message' : 'error-message'}`}>
-          {connectionMessage}
-        </p>
-      )}
-      {loading && <p className="vault-loading">Gathering seeds...</p>}
-
-      {selectedEntry && (
-        <section className="vault-panel admin-detail-card" aria-labelledby="entry-detail-title">
-          <button className="back-button" type="button" onClick={() => setSelectedEntry(null)}>
-            Close seed
-          </button>
-          <div className="entry-meta">
-            <span><b>Seed Type</b>{getTypeLabel(selectedEntry.entry_type)}</span>
-            <span><b>Date Planted</b>{new Date(selectedEntry.created_at).toLocaleDateString()}</span>
-            <span><b>Growth Stage</b>{statusLabels[selectedEntry.status] || selectedEntry.status}</span>
-          </div>
-          <h2 id="entry-detail-title">{selectedEntry.title}</h2>
-          <p>{selectedEntry.content}</p>
-          <div className="status-actions">
-            <button type="button" onClick={() => updateStatus(selectedEntry.id, 'planned')}>
-              Mark as Growing
-            </button>
-            <button type="button" onClick={() => updateStatus(selectedEntry.id, 'used')}>
-              Mark as Harvested
-            </button>
-            <button type="button" onClick={() => updateStatus(selectedEntry.id, 'published')}>
-              Mark as Bloomed
-            </button>
-          </div>
-        </section>
-      )}
-
-      <section className="entry-list" aria-label="Seed Garden seeds">
-        {!loading && filteredEntries.length === 0 && (
-          <article className="vault-entry-card">
-            <p>The garden is quiet today.<br />New ideas will bloom here soon.</p>
-          </article>
-        )}
-        {filteredEntries.map((entry) => (
-          <article className="vault-entry-card" key={entry.id}>
-            <div className="entry-meta">
-              <span><b>Seed Type</b>{getTypeLabel(entry.entry_type)}</span>
-              <span><b>Date Planted</b>{new Date(entry.created_at).toLocaleDateString()}</span>
-              <span><b>Growth Stage</b>{statusLabels[entry.status] || entry.status}</span>
-            </div>
-            <h2>{entry.title}</h2>
-            <p>{entry.content}</p>
-            <button className="read-entry-button" type="button" onClick={() => setSelectedEntry(entry)}>
-              Read Full Seed
-            </button>
-            <div className="status-actions">
-              <button type="button" onClick={() => updateStatus(entry.id, 'planned')}>
-                Mark as Growing
-              </button>
-              <button type="button" onClick={() => updateStatus(entry.id, 'used')}>
-                Mark as Harvested
-              </button>
-              <button type="button" onClick={() => updateStatus(entry.id, 'published')}>
-                Mark as Bloomed
-              </button>
-            </div>
-          </article>
-        ))}
-      </section>
-    </VaultShell>
   )
 }
 

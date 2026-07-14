@@ -17,12 +17,7 @@ https://www.youtube.com/@TheLyonDen-Marguerite
 
 ## Social Links
 
-The official YouTube link is built into the site. Optional Facebook and Instagram links appear automatically when these Vite environment variables are set:
-
-```bash
-VITE_FACEBOOK_URL=https://www.facebook.com/your-official-page
-VITE_INSTAGRAM_URL=https://www.instagram.com/your-official-profile
-```
+The official social links are maintained in `src/data/socialPlatforms.js` so the public site works without backend or deployment environment variables.
 
 To enable automatic chapter loading, add either of these Vite environment variables:
 
@@ -90,7 +85,7 @@ If a chapter needs to appear before the YouTube feed is configured, add it to `c
   publishedAt: 'Month Year',
   description: 'Short editorial description.',
   customCover: '/assets/covers/episode-title.png',
-  coverId: 'seed-garden',
+  coverId: 'every-story-video',
   url: 'https://www.youtube.com/@TheLyonDen-Marguerite',
 }
 ```
