@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Component, useEffect, useRef, useState } from 'react'
 import { QuoteInterlude } from './components/QuoteInterlude'
 import { SocialPlatformCard } from './components/SocialPlatformCard'
 import { homepageQuotes } from './data/quotes'
@@ -2221,15 +2221,65 @@ function SocialLinks({ className = '' }) {
   )
 }
 
+class RouteErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error, info) {
+    if (import.meta.env.DEV) {
+      console.error('The Lyon Den route failed to render:', error, info)
+    }
+  }
+
+  componentDidUpdate(previousProps) {
+    if (previousProps.routeKey !== this.props.routeKey && this.state.hasError) {
+      this.setState({ hasError: false })
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <main className="site-shell blog-shell route-error-page">
+          <section className="section-shell route-error-card" aria-labelledby="route-error-title">
+            <p className="eyebrow">The Lyon Den</p>
+            <h1 id="route-error-title">This chapter needs a fresh turn of the page.</h1>
+            <p>
+              Something optional on this page did not load correctly, but the story is still here.
+              Please try the page again, or return to the Journal.
+            </p>
+            <div className="inline-actions">
+              <a className="button button-primary" href={window.location.pathname}>
+                Try Again
+              </a>
+              <a className="button button-secondary" href="/blog">
+                Enter the Journal
+              </a>
+            </div>
+          </section>
+        </main>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
 const publicNavItems = [
   { label: 'Home', href: '/' },
-  { label: 'Stories', href: '/collections/legacy-lessons' },
-  { label: 'Watch', href: '/episodes' },
-  { label: 'From the Bookshelf', href: '/collections/books-that-changed-me' },
-  { label: 'Field Notes', href: '/field-notes' },
-  { label: 'About Marguerite', href: '/about' },
-  { label: 'The Archive', href: '/archive' },
   { label: 'Journal', href: '/blog' },
+  { label: 'Watch', href: '/episodes' },
+  { label: 'Bookshelf', href: '/collections/books-that-changed-me' },
+  { label: 'Field Notes', href: '/field-notes' },
+  { label: 'Poetry', href: '/poetry' },
+  { label: 'About', href: '/about' },
+  { label: 'Free Gift', href: '/free-coloring-page' },
 ]
 
 function SiteHeader({ variant = 'light', subtitle = 'Preserving wisdom through beautiful storytelling.' }) {
@@ -2242,8 +2292,8 @@ function SiteHeader({ variant = 'light', subtitle = 'Preserving wisdom through b
           <small>{subtitle}</small>
         </span>
       </a>
-      <a className="mobile-youtube-link heirloom-mobile-link" href="/archive">
-        The Archive
+      <a className="mobile-youtube-link heirloom-mobile-link" href="/free-coloring-page">
+        Free Gift
       </a>
       <nav className="site-nav heirloom-nav" aria-label="Primary navigation">
         {publicNavItems.map((item) => (
@@ -2277,6 +2327,7 @@ function SiteFooter() {
         <SocialLinks />
         <div className="footer-quiet-links">
           <a href="/archive">Archive</a>
+          <a href="/free-coloring-page">Free Coloring Page</a>
         </div>
       </div>
     </footer>
@@ -2551,6 +2602,14 @@ function App() {
 
   const normalizedPath = path.replace(/\/+$/, '') || '/'
 
+  return (
+    <RouteErrorBoundary routeKey={normalizedPath}>
+      <AppRoute normalizedPath={normalizedPath} />
+    </RouteErrorBoundary>
+  )
+}
+
+function AppRoute({ normalizedPath }) {
   if (normalizedPath === '/vault' || normalizedPath === '/vault-admin' || normalizedPath === '/auth/callback') {
     return <RetiredCreatorPage />
   }
@@ -2901,18 +2960,9 @@ function HomePage() {
   const betweenPost = getPostByPath('/blog/between-winter-and-spring')
   const fillPost = getPostByPath('/blog/fill-your-days-with-stories-that-make-your-heart-wiser')
   const booksPost = getPostByPath('/blog/books-that-never-really-leave-us')
-  const pillarCollections = [
-    'stories-from-a-life',
-    'field-notes',
-    'illustrated-pages',
-    'books-that-changed-me',
-    'living-places',
-    'daily-chapters',
-    'wildflowers-wisdom',
-    'the-long-goodbye',
-  ]
-    .map(getCollectionBySlug)
-    .filter(Boolean)
+  const journalPost = beforePost || betweenPost || blogPosts[0]
+  const booksFeature = booksPost || getCollectionEntries('books-that-changed-me')[0]
+  const wildflowerFeature = fillPost || getCollectionEntries('wildflowers-wisdom')[0]
 
   usePageMeta({
     title: 'The Lyon Den | Stories, Memory, Literature & Legacy',
@@ -2923,114 +2973,41 @@ function HomePage() {
 
   return (
     <main className="site-shell heirloom-site" id="top">
-      <section className="editorial-hero" aria-labelledby="hero-title">
+      <section className="creek-hero section-chapter" aria-labelledby="hero-title">
         <SiteHeader variant="dark" />
-        <div className="section-shell editorial-hero-layout">
-          <div className="editorial-hero-copy">
-            <p className="eyebrow">A Living Archive of Story, Memory &amp; Wisdom</p>
-            <h1 id="hero-title">THE LYON DEN</h1>
-            <p className="hero-deck">Stories. Memory. Reflection. Wonder.</p>
+        <div className="section-shell creek-hero-layout">
+          <div className="creek-hero-copy">
+            <p className="eyebrow">Stories • Reflection • Books • Poetry • Wisdom</p>
+            <h1 id="hero-title">A literary home for stories that stay.</h1>
             <p>
-              A literary home for the stories that shape us, the memories that remain,
-              and the wisdom we carry forward.
+              Walk beside the creek with The Lyon Den, where memory becomes story,
+              beloved books open new conversations, and quiet wisdom is gathered one chapter at a time.
             </p>
             <div className="hero-actions" aria-label="Primary actions">
               <a className="button button-primary" href="/blog">
-                READ THE JOURNAL
+                Enter the Journal
               </a>
-              <a className="story-link" href="#social-platforms">
-                FOLLOW THE STORY
+              <a className="story-link" href="#featured-chapter">
+                Watch the Latest Chapter
               </a>
             </div>
-            <a className="turn-page-cue" href="#latest-journal">
+            <a className="turn-page-cue" href="#featured-chapter">
               <span aria-hidden="true" />
-              Open the Journal
+              Follow the creek
             </a>
           </div>
-          <div className="hero-collage" aria-label="Editorial collage for The Lyon Den">
-            <div className="hero-paper hero-paper-note parallax-drift" aria-hidden="true">
-              <LyonDenIcon name="fountainPen" />
-              <span>Letters, books, memory, and wonder.</span>
-            </div>
-            <figure className="hero-portrait-card">
-              <img
-                src="/assets/marguerite-library-selfie.png"
-                alt="Marguerite Lyon seated in a warm library surrounded by books."
-                fetchPriority="high"
-                decoding="async"
-              />
-            </figure>
-            <figure className="hero-comic-card parallax-drift">
-              <img
-                src="/assets/carry-love-forward-comic.png"
-                alt="Illustrated Lyon Den comic about carrying love forward and continuing to find joy in life."
-                loading="eager"
-                decoding="async"
-              />
-            </figure>
-            <div className="hero-paper hero-paper-quote" aria-hidden="true">
-              <LyonDenIcon name="lantern" />
-              <span>Carry love forward.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="journal-collage-section section-shell quiet-section" id="latest-journal" aria-labelledby="written-title">
-        <div className="section-heading">
-          <p className="eyebrow">Latest Journal</p>
-          <h2 id="written-title">A living shelf of stories, books, and memory.</h2>
-          <p>
-            Begin with the newest memoir chapter, then wander into seasonal reflections,
-            literary essays, illustrated pages, and the quieter notes that keep wisdom alive.
-          </p>
-        </div>
-        <div className="journal-collage-grid">
-          <JournalCollageArticle post={beforePost} variant="featured" />
-          <JournalCollageArticle post={betweenPost} variant="tall" />
-          <JournalQuoteTile icon="hourglass" tone="ink">
-            Before the forgetting, there was a lifetime of remembering.
-          </JournalQuoteTile>
-          <JournalCollageArticle post={fillPost} variant="wide" />
-          <JournalArtworkTile />
-          <JournalCollageArticle post={booksPost} variant="standard" />
-          <a className="journal-collage-wildflower" href="/collections/wildflowers-wisdom">
+          <figure className="creek-hero-art">
             <img
-              src="/assets/wildflowers-never-ask-permission.png"
-              alt="Illustrated Wildflowers and Wisdom artwork about blooming without asking permission."
-              loading="lazy"
+              src="/assets/the-lyon-den-cinematic-banner.jpg"
+              alt="The Lyon Den cinematic creekside banner with Marguerite, books, flowers, and the themes Stories, Wisdom, Life Lessons, Poetry, and Legacy."
+              fetchPriority="high"
               decoding="async"
             />
-            <span>Wildflowers &amp; Wisdom</span>
-            <strong>Never cease to find some joy in life.</strong>
-          </a>
-          <JournalAuthorTile />
-          <JournalQuoteTile icon="openBook" tone="gold">
-            Some chapters end quietly. Others deserve to be sung at full volume.
-          </JournalQuoteTile>
+          </figure>
         </div>
       </section>
 
-      <section className="collections section-shell quiet-section archive-pillars" aria-labelledby="home-collections-title">
-        <div className="section-heading">
-          <p className="eyebrow">The Archive</p>
-          <h2 id="home-collections-title">Pillars of The Lyon Den.</h2>
-        </div>
-        <div className="collection-grid featured-collection-grid">
-          {pillarCollections.map((collection) => (
-            <a className="collection-card" href={getCollectionPath(collection.slug)} key={collection.slug}>
-              <div className="collection-seal" aria-hidden="true">
-                <LyonDenIcon name={collection.icon} />
-              </div>
-              <h3>{collection.title}</h3>
-              <p>{collection.description}</p>
-              <span className="text-link">{getCollectionEntries(collection.slug).length} entries</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="premiere-section" id="featured-chapter" aria-labelledby="featured-chapter-title">
+      <section className="premiere-section section-chapter" id="featured-chapter" aria-labelledby="featured-chapter-title">
         <div className="section-shell premiere-layout">
           <figure className="cinematic-poster">
             <img
@@ -3059,13 +3036,117 @@ function HomePage() {
         </div>
       </section>
 
+      <section className="section-shell editorial-river-section" id="latest-journal" aria-labelledby="latest-journal-title">
+        <div className="section-heading">
+          <p className="eyebrow">Latest Journal</p>
+          <h2 id="latest-journal-title">Written chapters for slower reading.</h2>
+        </div>
+        <a className="feature-spread feature-spread-journal parchment-panel" href={journalPost.path}>
+          <div>
+            <p className="chapter-kicker">{journalPost.series || journalPost.category}</p>
+            <h3>{journalPost.title}</h3>
+            <p>{journalPost.excerpt || journalPost.subtitle}</p>
+            <span className="text-link">Read the Journal</span>
+          </div>
+          <ChapterVisual item={journalPost} className="feature-spread-art" />
+        </a>
+      </section>
+
+      <section className="section-shell editorial-river-section" id="bookshelf" aria-labelledby="bookshelf-title">
+        <div className="feature-spread parchment-panel">
+          <div>
+            <p className="eyebrow">Books That Changed Me</p>
+            <h3 id="bookshelf-title">The pages that keep teaching.</h3>
+            <p>
+              Some books entertain us. Some books quietly become part of who we are.
+              The Lyon Den keeps a shelf for the literature, poems, memoirs, and passages
+              that shape compassion.
+            </p>
+            <a className="text-link" href={booksFeature?.path || '/collections/books-that-changed-me'}>
+              Enter the Bookshelf
+            </a>
+          </div>
+          <ChapterVisual item={booksFeature || { title: 'Books That Never Really Leave Us', coverId: 'books-never-leave' }} className="feature-spread-art" />
+        </div>
+      </section>
+
+      <section className="section-shell editorial-river-section" id="wildflowers" aria-labelledby="wildflowers-title">
+        <div className="wildflower-feature dark-literary-panel">
+          <figure className="feature-artwork">
+            <img
+              src="/assets/wildflowers-never-ask-permission.png"
+              alt="Wildflowers and Wisdom illustration with the reminder that wildflowers never ask permission to bloom."
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div className="wildflower-copy">
+            <p className="eyebrow">Wildflowers &amp; Wisdom</p>
+            <h2 id="wildflowers-title">Quiet reminders from small blooming things.</h2>
+            <p>
+              Reflections on resilience, ordinary joy, seasonal hope, and the gentle
+              courage to keep becoming.
+            </p>
+            <a className="text-link" href={wildflowerFeature?.path || '/collections/wildflowers-wisdom'}>
+              Wander Through Wildflowers
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="illustrated-pages section-shell editorial-river-section" id="illustrated-pages" aria-labelledby="illustrated-title">
+        <div className="section-heading">
+          <p className="eyebrow">Illustrated Pages</p>
+          <h2 id="illustrated-title">Gentle visual chapters from the archive.</h2>
+        </div>
+        <div className="illustrated-grid">
+          <a className="illustrated-card parchment-panel" href="/collections/illustrated-pages">
+            <img
+              className="illustrated-card-art"
+              src="/assets/carry-love-forward-comic.png"
+              alt="Illustrated Lyon Den page about carrying love forward and continuing to find joy in life."
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <h3>Carry Love Forward</h3>
+              <p>Illustrated pages preserve the small sentences, keepsakes, and reminders that feel worth returning to.</p>
+              <span className="text-link">View Illustrated Pages</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section className="section-shell editorial-river-section" id="free-gift" aria-labelledby="free-gift-title">
+        <a className="free-gift-feature parchment-panel" href="/free-coloring-page">
+          <figure>
+            <img
+              src={coloringPageAssets.hero}
+              alt="Free Lyon Den coloring page gift preview with books, wildflowers, lantern light, and colored pencils."
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div>
+            <p className="eyebrow">A Little Gift From The Lyon Den</p>
+            <h2 id="free-gift-title">Color a Quiet Moment</h2>
+            <p>
+              Download a complimentary literary coloring page filled with books,
+              wildflowers, lantern light, and a gentle reminder to live your story.
+            </p>
+            <span className="button button-primary">Download the Free Coloring Page</span>
+            <small>No email required.</small>
+          </div>
+        </a>
+      </section>
+
       <QuoteInterlude quote={homepageQuotes[0]} className="section-shell" />
 
-      <section className="storyteller-spread section-shell quiet-section" id="about" aria-labelledby="storyteller-title">
+      <section className="storyteller-spread section-shell editorial-river-section" id="about" aria-labelledby="storyteller-title">
         <div className="portrait-bookplate">
           <img
-            src="/assets/marguerite-library-selfie.png"
-            alt="Marguerite Lyon seated in a warm library surrounded by books."
+            src="/assets/marguerite-lyon-creekside-portrait.png"
+            alt="Portrait of Marguerite Lyon for The Lyon Den."
             loading="lazy"
             decoding="async"
           />
@@ -3084,12 +3165,13 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="social-invitation section-shell quiet-section" id="social-platforms" aria-labelledby="social-title">
+      <section className="social-invitation section-shell editorial-river-section" id="social-platforms" aria-labelledby="social-title">
         <div className="section-heading centered">
-          <p className="eyebrow">Continue the Story</p>
-          <h2 id="social-title">CONTINUE THE STORY</h2>
+          <p className="eyebrow">Newsletter</p>
+          <h2 id="social-title">Join the Story Circle</h2>
           <p>
-            Read here. Reflect with us. Then follow The Lyon Den wherever stories continue.
+            Receive quiet notes, new chapters, reading reflections, and small gifts from
+            The Lyon Den as the public letter list opens.
           </p>
         </div>
         <div className="social-platform-grid">

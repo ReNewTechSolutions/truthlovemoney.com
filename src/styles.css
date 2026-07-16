@@ -4518,6 +4518,249 @@ p {
   line-height: 1.65;
 }
 
+.heirloom-header {
+  border: 1px solid rgba(169, 139, 84, 0.2);
+  background:
+    linear-gradient(180deg, rgba(251, 247, 238, 0.9), rgba(232, 221, 201, 0.72));
+  box-shadow: 0 14px 36px rgba(17, 36, 44, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.heirloom-header-dark {
+  border-color: rgba(211, 168, 63, 0.24);
+  background:
+    linear-gradient(180deg, rgba(17, 36, 44, 0.72), rgba(17, 36, 44, 0.42));
+  box-shadow: 0 18px 44px rgba(3, 22, 29, 0.18);
+}
+
+.heirloom-header-dark .brand small {
+  color: rgba(244, 239, 228, 0.78);
+}
+
+.heirloom-header .site-nav {
+  color: var(--creek-deep);
+}
+
+.heirloom-header-dark .site-nav {
+  color: var(--ivory-soft);
+}
+
+.heirloom-mobile-link {
+  background: rgba(17, 56, 71, 0.92);
+  color: var(--ivory-soft);
+}
+
+.heirloom-header-dark .heirloom-mobile-link {
+  border-color: rgba(211, 168, 63, 0.48);
+  background: rgba(244, 239, 228, 0.94);
+  color: var(--creek-deep);
+}
+
+.heirloom-site {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(17, 36, 44, 0.08), rgba(244, 239, 228, 0.84) 24%, rgba(232, 221, 201, 0.82) 100%);
+  isolation: isolate;
+}
+
+.heirloom-site::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 75% 10%, rgba(211, 168, 63, 0.18), transparent 22rem),
+    radial-gradient(ellipse at 12% 26%, rgba(120, 134, 107, 0.2), transparent 25rem),
+    radial-gradient(ellipse at 88% 58%, rgba(111, 137, 144, 0.18), transparent 27rem),
+    linear-gradient(165deg, transparent 0 19%, rgba(111, 137, 144, 0.24) 20%, rgba(23, 56, 71, 0.2) 32%, transparent 43%),
+    linear-gradient(180deg, #11242c 0, #173847 13%, #e8ddc9 36%, #f4efe4 72%, #e8ddc9 100%);
+}
+
+.heirloom-site::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  background:
+    radial-gradient(circle at 8% 38%, rgba(211, 168, 63, 0.24) 0 0.18rem, transparent 0.22rem),
+    radial-gradient(circle at 92% 48%, rgba(120, 134, 107, 0.22) 0 0.22rem, transparent 0.26rem),
+    radial-gradient(circle at 18% 74%, rgba(211, 168, 63, 0.18) 0 0.16rem, transparent 0.2rem),
+    linear-gradient(rgba(80, 61, 48, 0.04) 1px, transparent 1px);
+  background-size: auto, auto, auto, 4rem 4rem;
+}
+
+.section-chapter,
+.editorial-river-section {
+  position: relative;
+}
+
+.editorial-river-section {
+  padding-block: clamp(4.5rem, 12vw, 8rem);
+}
+
+.parchment-panel,
+.dark-literary-panel {
+  position: relative;
+  border: 1px solid rgba(169, 139, 84, 0.26);
+  background:
+    linear-gradient(145deg, rgba(251, 247, 238, 0.96), rgba(232, 221, 201, 0.72));
+  box-shadow: 0 30px 80px rgba(17, 36, 44, 0.12);
+}
+
+.dark-literary-panel {
+  border-color: rgba(211, 168, 63, 0.28);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(211, 168, 63, 0.16), transparent 18rem),
+    linear-gradient(145deg, rgba(17, 36, 44, 0.98), rgba(23, 56, 71, 0.94));
+  color: var(--ivory-soft);
+}
+
+.dark-literary-panel .eyebrow,
+.dark-literary-panel .text-link {
+  color: var(--gold-soft);
+}
+
+.dark-literary-panel h2,
+.dark-literary-panel p {
+  color: var(--ivory-soft);
+}
+
+.creek-hero {
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--ivory-soft);
+  background:
+    radial-gradient(circle at 76% 18%, rgba(211, 168, 63, 0.2), transparent 25rem),
+    linear-gradient(160deg, rgba(17, 36, 44, 0.98), rgba(23, 56, 71, 0.93) 48%, rgba(77, 97, 77, 0.88));
+}
+
+.creek-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 12rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(244, 239, 228, 0.92));
+}
+
+.creek-hero-layout {
+  display: grid;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+  padding-block: clamp(3rem, 10vw, 7rem) clamp(5rem, 12vw, 8rem);
+}
+
+.creek-hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 48rem;
+}
+
+.creek-hero-copy .eyebrow {
+  color: rgba(232, 221, 201, 0.84);
+}
+
+.creek-hero-copy h1 {
+  max-width: 11ch;
+  margin: 0 0 1.2rem;
+  color: var(--ivory-soft);
+  font-size: clamp(3.6rem, 13vw, 8rem);
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+.creek-hero-copy p:not(.eyebrow) {
+  max-width: 42rem;
+  color: rgba(244, 239, 228, 0.86);
+  font-family: var(--serif);
+  font-size: clamp(1.08rem, 3vw, 1.36rem);
+  line-height: 1.76;
+}
+
+.creek-hero-art {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  border: 1px solid rgba(211, 168, 63, 0.32);
+  padding: clamp(0.45rem, 1.6vw, 0.8rem);
+  background: rgba(244, 239, 228, 0.1);
+  box-shadow: 0 32px 90px rgba(3, 22, 29, 0.32);
+}
+
+.creek-hero-art img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.free-gift-feature {
+  display: grid;
+  gap: clamp(1.4rem, 5vw, 3rem);
+  align-items: center;
+  padding: clamp(1rem, 4vw, 1.4rem);
+  color: inherit;
+}
+
+.free-gift-feature figure {
+  margin: 0;
+  border: 1px solid rgba(169, 139, 84, 0.22);
+  padding: clamp(0.45rem, 2vw, 0.75rem);
+  background: rgba(244, 239, 228, 0.82);
+}
+
+.free-gift-feature img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  background: #f8f5ee;
+}
+
+.free-gift-feature h2 {
+  max-width: 11ch;
+  margin: 0 0 0.9rem;
+  color: var(--creek-deep);
+  font-size: clamp(2.8rem, 10vw, 5.8rem);
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.free-gift-feature p {
+  max-width: 40rem;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 3vw, 1.28rem);
+  line-height: 1.75;
+}
+
+.free-gift-feature small {
+  display: block;
+  margin-top: 0.85rem;
+  color: var(--warm-walnut);
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.route-error-page {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(211, 168, 63, 0.16), transparent 20rem),
+    linear-gradient(180deg, var(--warm-cream), var(--parchment));
+}
+
+.route-error-card {
+  border: 1px solid rgba(169, 139, 84, 0.28);
+  padding: clamp(1.5rem, 6vw, 3rem);
+  background: rgba(251, 247, 238, 0.92);
+}
+
 .creator-retired {
   min-height: auto;
 }
@@ -4542,13 +4785,38 @@ p {
   .journal-collage-item,
   .journal-collage-artwork,
   .journal-collage-author,
-  .journal-collage-wildflower {
+  .journal-collage-wildflower,
+  .heirloom-site::before,
+  .heirloom-site::after {
     animation: none;
     transition: none;
   }
 }
 
 @media (min-width: 820px) {
+  .creek-hero-layout,
+  .feature-spread,
+  .wildflower-feature,
+  .free-gift-feature {
+    grid-template-columns: minmax(0, 0.92fr) minmax(22rem, 1.08fr);
+  }
+
+  .creek-hero-art,
+  .feature-spread > .feature-spread-art,
+  .wildflower-feature .feature-artwork,
+  .free-gift-feature figure {
+    order: 2;
+  }
+
+  .illustrated-card {
+    grid-template-columns: minmax(16rem, 0.44fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .social-platform-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .coloring-hero,
   .coloring-download,
   .coloring-newsletter {
@@ -4631,6 +4899,71 @@ p {
     border: 1px solid rgba(169, 139, 84, 0.22);
     padding: clamp(1rem, 2vw, 1.35rem);
     background: rgba(251, 247, 238, 0.52);
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header {
+    gap: 0.65rem;
+  }
+
+  .brand-logo {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .mobile-youtube-link {
+    min-height: 2.5rem;
+    padding-inline: 0.75rem;
+    font-size: 0.76rem;
+  }
+
+  .creek-hero {
+    min-height: auto;
+  }
+
+  .creek-hero-layout {
+    padding-block: 2.5rem 5rem;
+  }
+
+  .creek-hero-copy h1,
+  .coloring-hero-copy h1 {
+    font-size: clamp(3.2rem, 18vw, 4.8rem);
+  }
+
+  .hero-actions,
+  .inline-actions,
+  .coloring-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .button,
+  .story-link,
+  .text-link {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .story-link,
+  .text-link {
+    padding-block: 0.8rem;
+  }
+
+  .free-gift-feature,
+  .feature-spread {
+    padding: clamp(0.85rem, 4vw, 1.1rem);
+  }
+
+  .free-gift-feature img,
+  .creek-hero-art img {
+    max-height: none;
   }
 }
 
