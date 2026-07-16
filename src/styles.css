@@ -4026,6 +4026,254 @@ p {
   box-shadow: 0 18px 48px rgba(30, 37, 38, 0.08);
 }
 
+.coloring-page {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(232, 197, 77, 0.18), transparent 19rem),
+    radial-gradient(circle at 3% 36%, rgba(111, 137, 144, 0.16), transparent 22rem),
+    linear-gradient(180deg, var(--warm-cream), var(--parchment) 52%, var(--warm-cream));
+}
+
+.coloring-hero {
+  display: grid;
+  gap: clamp(2rem, 8vw, 4.5rem);
+  align-items: center;
+  padding-block: clamp(2rem, 8vw, 6rem) clamp(3rem, 10vw, 7rem);
+}
+
+.coloring-hero-copy {
+  max-width: 48rem;
+}
+
+.coloring-hero-copy h1,
+.coloring-download-copy h2,
+.coloring-newsletter h2 {
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.coloring-hero-copy h1 {
+  max-width: 9ch;
+  margin-bottom: 1rem;
+  font-size: clamp(4.1rem, 17vw, 8.8rem);
+  line-height: 0.88;
+}
+
+.coloring-hero-copy > p:not(.eyebrow):not(.coloring-reassurance),
+.coloring-download-copy > p,
+.coloring-newsletter > div > p {
+  max-width: 42rem;
+  color: #46534f;
+  font-size: clamp(1.04rem, 3vw, 1.25rem);
+  line-height: 1.78;
+}
+
+.coloring-actions {
+  margin-top: clamp(1.25rem, 4vw, 1.9rem);
+}
+
+.coloring-reassurance {
+  width: fit-content;
+  margin-top: 0.9rem;
+  border-left: 2px solid var(--gold);
+  padding-left: 0.9rem;
+  color: var(--warm-walnut);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+.coloring-hero-frame,
+.coloring-print-preview {
+  position: relative;
+  margin: 0;
+  border: 1px solid rgba(214, 163, 59, 0.32);
+  padding: clamp(0.65rem, 2.5vw, 1rem);
+  background:
+    linear-gradient(145deg, rgba(255, 248, 234, 0.96), rgba(243, 231, 207, 0.74));
+  box-shadow: 0 30px 90px rgba(30, 37, 38, 0.13);
+}
+
+.coloring-hero-frame::after,
+.coloring-print-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0.7rem;
+  border: 1px solid rgba(214, 163, 59, 0.17);
+  pointer-events: none;
+}
+
+.coloring-hero-frame img,
+.coloring-print-preview img {
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--warm-cream);
+}
+
+.coloring-hero-frame img {
+  aspect-ratio: 1;
+}
+
+.coloring-gift,
+.coloring-social {
+  padding-block: clamp(3.75rem, 10vw, 7rem);
+}
+
+.coloring-benefits {
+  display: grid;
+  gap: 1rem;
+}
+
+.coloring-benefit {
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(214, 163, 59, 0.34);
+  padding: clamp(1.1rem, 4vw, 1.5rem) 0 0;
+}
+
+.coloring-benefit span {
+  color: var(--soft-terracotta);
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.coloring-benefit h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.45rem, 6vw, 2.05rem);
+}
+
+.coloring-benefit p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.coloring-download,
+.coloring-newsletter {
+  display: grid;
+  gap: clamp(1.5rem, 6vw, 3.5rem);
+  align-items: center;
+  border-top: 1px solid rgba(214, 163, 59, 0.22);
+  border-bottom: 1px solid rgba(214, 163, 59, 0.18);
+  padding-block: clamp(3.5rem, 10vw, 7rem);
+}
+
+.coloring-print-preview {
+  max-width: 42rem;
+}
+
+.coloring-print-preview img {
+  aspect-ratio: 8.5 / 11;
+}
+
+.coloring-file-details {
+  display: grid;
+  gap: 1rem;
+  margin: clamp(1.3rem, 4vw, 1.8rem) 0 0;
+}
+
+.coloring-file-details div {
+  border-left: 2px solid rgba(214, 163, 59, 0.48);
+  padding-left: 1rem;
+}
+
+.coloring-file-details dt {
+  color: var(--deep-forest);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.coloring-file-details dd {
+  margin: 0.25rem 0 0;
+  color: var(--warm-walnut);
+  line-height: 1.6;
+}
+
+.coloring-social {
+  border-bottom: 1px solid rgba(214, 163, 59, 0.16);
+}
+
+.coloring-social-grid {
+  max-width: 58rem;
+  margin-inline: auto;
+}
+
+.coloring-newsletter {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(232, 197, 77, 0.18), transparent 15rem),
+    linear-gradient(145deg, rgba(255, 248, 234, 0.88), rgba(243, 231, 207, 0.6));
+}
+
+.coloring-newsletter-card {
+  display: grid;
+  gap: 0.8rem;
+  border: 1px solid rgba(214, 163, 59, 0.24);
+  padding: clamp(1rem, 4vw, 1.4rem);
+  background: rgba(255, 248, 234, 0.76);
+  box-shadow: 0 18px 48px rgba(30, 37, 38, 0.08);
+}
+
+.coloring-newsletter-card .lyon-icon {
+  width: 3rem;
+  color: var(--gold);
+}
+
+.coloring-newsletter-card p {
+  margin: 0;
+  color: var(--warm-walnut);
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 4vw, 1.45rem);
+  line-height: 1.38;
+}
+
+.coloring-closing {
+  display: grid;
+  justify-items: center;
+  gap: 0.85rem;
+  padding-block: clamp(3.5rem, 10vw, 7rem);
+  text-align: center;
+}
+
+.coloring-closing > p {
+  max-width: 14ch;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(2.35rem, 10vw, 5.2rem);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.coloring-closing > span {
+  color: var(--warm-walnut);
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 4vw, 1.5rem);
+  font-style: italic;
+}
+
+.coloring-closing div {
+  display: grid;
+  gap: 0.25rem;
+  border-top: 1px solid rgba(214, 163, 59, 0.42);
+  padding-top: 1rem;
+}
+
+.coloring-closing strong {
+  color: var(--deep-forest);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.coloring-closing small {
+  color: var(--warm-walnut);
+}
+
 .premiere-section,
 .written-chapters {
   padding-block: clamp(4rem, 12vw, 8rem);
@@ -4301,6 +4549,20 @@ p {
 }
 
 @media (min-width: 820px) {
+  .coloring-hero,
+  .coloring-download,
+  .coloring-newsletter {
+    grid-template-columns: minmax(0, 0.92fr) minmax(22rem, 1.08fr);
+  }
+
+  .coloring-download .coloring-print-preview {
+    order: 2;
+  }
+
+  .coloring-benefits {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .editorial-hero-layout {
     grid-template-columns: minmax(0, 0.86fr) minmax(24rem, 1.14fr);
   }

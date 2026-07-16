@@ -48,6 +48,20 @@ const youtubeFeedUrl =
   configuredYoutubeFeedUrl ||
   (youtubeChannelId ? `https://www.youtube.com/feeds/videos.xml?channel_id=${youtubeChannelId}` : '')
 const socialLinks = socialPlatforms
+const coloringPageAssets = {
+  hero: '/images/free-coloring-page-gift-preview.jpg',
+  preview: '/images/free-coloring-page-preview.jpg',
+  pdf: '/downloads/the-lyon-den-live-your-story-coloring-page.pdf',
+  png: '/downloads/the-lyon-den-live-your-story-coloring-page.png',
+}
+const coloringSocialPlatforms = socialPlatforms.filter((platform) =>
+  ['Facebook', 'Instagram', 'Pinterest'].includes(platform.label),
+)
+const coloringSocialEventNames = {
+  Facebook: 'coloring_page_social_facebook',
+  Instagram: 'coloring_page_social_instagram',
+  Pinterest: 'coloring_page_social_pinterest',
+}
 
 const coverLibrary = {
   'broadway-dreams': {
@@ -2269,7 +2283,44 @@ function SiteFooter() {
   )
 }
 
-function usePageMeta({ title, description, image = '/assets/watermark-logo.png', type = 'website' }) {
+function trackColoringPageEvent(eventName, details = {}) {
+  if (typeof window === 'undefined') return
+
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', eventName, details)
+  }
+
+  if (typeof window.plausible === 'function') {
+    window.plausible(eventName, { props: details })
+  }
+
+  if (Array.isArray(window.dataLayer)) {
+    window.dataLayer.push({ event: eventName, ...details })
+  }
+}
+
+function useStructuredData(id, data) {
+  useEffect(() => {
+    if (!data) return undefined
+
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.id = id
+    script.textContent = JSON.stringify(data)
+    document.head.appendChild(script)
+
+    return () => script.remove()
+  }, [id, data])
+}
+
+function usePageMeta({
+  title,
+  description,
+  image = '/assets/watermark-logo.png',
+  type = 'website',
+  canonicalPath,
+  keywords,
+}) {
   useEffect(() => {
     const previousTitle = document.title
     const descriptionMeta =
@@ -2285,8 +2336,18 @@ function usePageMeta({ title, description, image = '/assets/watermark-logo.png',
       setMetaContent('meta[property="og:description"]', { property: 'og:description' }, cleanDescription),
       setMetaContent('meta[property="og:type"]', { property: 'og:type' }, type),
       setMetaContent('meta[property="og:image"]', { property: 'og:image' }, image),
+      setMetaContent('meta[name="twitter:title"]', { name: 'twitter:title' }, cleanTitle),
+      setMetaContent('meta[name="twitter:description"]', { name: 'twitter:description' }, cleanDescription),
+      setMetaContent('meta[name="twitter:image"]', { name: 'twitter:image' }, image),
       setMetaContent('meta[name="twitter:card"]', { name: 'twitter:card' }, 'summary_large_image'),
     ]
+    const cleanupCanonical =
+      canonicalPath && typeof window !== 'undefined'
+        ? setCanonicalHref(`${window.location.origin}${canonicalPath}`)
+        : undefined
+    const cleanupKeywords = keywords
+      ? setMetaContent('meta[name="keywords"]', { name: 'keywords' }, keywords)
+      : undefined
 
     document.title = cleanTitle
     descriptionMeta.setAttribute('content', cleanDescription)
@@ -2294,13 +2355,15 @@ function usePageMeta({ title, description, image = '/assets/watermark-logo.png',
     return () => {
       document.title = previousTitle
       cleanupMeta.forEach((cleanup) => cleanup())
+      cleanupCanonical?.()
+      cleanupKeywords?.()
       if (previousDescription === null) {
         descriptionMeta.removeAttribute('content')
       } else {
         descriptionMeta.setAttribute('content', previousDescription)
       }
     }
-  }, [title, description, image, type])
+  }, [title, description, image, type, canonicalPath, keywords])
 }
 
 function useChapterVisibleCount() {
@@ -2492,6 +2555,10 @@ function App() {
     return <RetiredCreatorPage />
   }
 
+  if (normalizedPath === '/free-coloring-page') {
+    return <FreeColoringPage />
+  }
+
   const selectedPost = getPostByPath(normalizedPath)
 
   if (normalizedPath === '/blog') {
@@ -2537,6 +2604,253 @@ function App() {
   }
 
   return <HomePage />
+}
+
+function FreeColoringPage() {
+  const facebookPlatform = coloringSocialPlatforms.find((platform) => platform.label === 'Facebook')
+  const pinterestPlatform = coloringSocialPlatforms.find((platform) => platform.label === 'Pinterest')
+  const keywords =
+    'free printable coloring page, adult coloring page, literary coloring page, book lover printable, wildflower coloring page, mindful coloring activity, The Lyon Den'
+
+  usePageMeta({
+    title: 'Free Printable Literary Coloring Page | The Lyon Den',
+    description:
+      'Download a free printable Lyon Den coloring page featuring books, wildflowers, lantern light, and the reminder to live your story.',
+    image: coloringPageAssets.hero,
+    canonicalPath: '/free-coloring-page',
+    keywords,
+  })
+
+  useStructuredData('coloring-page-structured-data', {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: 'Color a Quiet Moment',
+    headline: 'Free Printable Literary Coloring Page',
+    description:
+      'A complimentary printable Lyon Den coloring page with books, wildflowers, lantern light, and a gentle reminder to live your story.',
+    image: coloringPageAssets.hero,
+    author: {
+      '@type': 'Organization',
+      name: 'The Lyon Den',
+      url: 'https://truthlovemoney.com/',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'The Lyon Den',
+      url: 'https://truthlovemoney.com/',
+    },
+    isAccessibleForFree: true,
+    encodingFormat: ['application/pdf', 'image/png'],
+    url: typeof window !== 'undefined' ? `${window.location.origin}/free-coloring-page` : '/free-coloring-page',
+  })
+
+  useEffect(() => {
+    trackColoringPageEvent('coloring_page_view', { page: 'free-coloring-page' })
+  }, [])
+
+  return (
+    <main className="site-shell blog-shell coloring-page">
+      <SiteHeader subtitle="A literary archive of story, memory, and quiet gifts." />
+
+      <section className="coloring-hero section-shell" aria-labelledby="coloring-hero-title">
+        <div className="coloring-hero-copy">
+          <p className="eyebrow">A Little Gift From The Lyon Den</p>
+          <h1 id="coloring-hero-title">Color a Quiet Moment</h1>
+          <p>
+            Download a complimentary literary coloring page filled with books, wildflowers,
+            lantern light, and a gentle reminder to live your story.
+          </p>
+          <div className="inline-actions coloring-actions">
+            <a
+              className="button button-primary"
+              href={coloringPageAssets.pdf}
+              download
+              onClick={() => trackColoringPageEvent('coloring_page_download_pdf', { location: 'hero' })}
+            >
+              Download the Free Coloring Page
+            </a>
+            <a className="button button-secondary" href="#coloring-preview">
+              Preview the Page
+            </a>
+          </div>
+          <p className="coloring-reassurance">Free to download. No email required.</p>
+        </div>
+        <figure className="coloring-hero-frame">
+          <img
+            src={coloringPageAssets.hero}
+            alt="A polished Lyon Den gift preview showing a free coloring page with books, wildflowers, lantern light, and colored pencils."
+            fetchPriority="high"
+            decoding="async"
+          />
+        </figure>
+      </section>
+
+      <section className="coloring-gift section-shell" aria-labelledby="coloring-gift-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">A Meaningful Pause</p>
+          <h2 id="coloring-gift-title">A Page Made for Slower Moments</h2>
+          <p>
+            Put on a favorite song, pour a cup of tea, and spend a few peaceful
+            minutes adding your own colors to the story.
+          </p>
+        </div>
+        <div className="coloring-benefits" aria-label="Coloring page details">
+          {[
+            ['Print at Home', 'Designed for standard US Letter paper.'],
+            ['Made for All Ages', 'Detailed enough for adults and welcoming for younger artists.'],
+            ['A Meaningful Pause', 'A simple creative activity for reflection, rest, or time together.'],
+          ].map(([title, text], index) => (
+            <article className="coloring-benefit" key={title}>
+              <span aria-hidden="true">0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        className="coloring-download section-shell"
+        id="coloring-preview"
+        aria-labelledby="coloring-download-title"
+      >
+        <figure className="coloring-print-preview">
+          <img
+            src={coloringPageAssets.preview}
+            alt="Black-and-white printable Lyon Den coloring page with books, flowers, a teacup, a lantern, journals, and the words Live Your Story."
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div className="coloring-download-copy">
+          <p className="eyebrow">Instant Download</p>
+          <h2 id="coloring-download-title">Your Free Lyon Den Coloring Page</h2>
+          <p>
+            A printer-friendly black-and-white page made for standard US Letter paper.
+            Download the PDF for the simplest printing experience, or save the PNG for
+            flexible use.
+          </p>
+          <dl className="coloring-file-details">
+            <div>
+              <dt>Format</dt>
+              <dd>US Letter, black-and-white, printer friendly</dd>
+            </div>
+            <div>
+              <dt>Printing suggestion</dt>
+              <dd>For best results, print at 100% scale on standard white paper or light cardstock.</dd>
+            </div>
+          </dl>
+          <div className="inline-actions coloring-actions">
+            <a
+              className="button button-primary"
+              href={coloringPageAssets.pdf}
+              download
+              onClick={() => trackColoringPageEvent('coloring_page_download_pdf', { location: 'download-section' })}
+            >
+              Download PDF
+            </a>
+            <a
+              className="button button-secondary"
+              href={coloringPageAssets.png}
+              download
+              onClick={() => trackColoringPageEvent('coloring_page_download_png', { location: 'download-section' })}
+            >
+              Download PNG
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="coloring-social section-shell quiet-section" aria-labelledby="coloring-social-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">Continue the Story</p>
+          <h2 id="coloring-social-title">Keep Walking Through the Story With Us</h2>
+          <p>
+            Follow The Lyon Den for new stories, reflections, illustrated pages,
+            literary inspiration, and future complimentary printables.
+          </p>
+        </div>
+        <div className="social-platform-grid coloring-social-grid">
+          {coloringSocialPlatforms.map((platform) => (
+            <a
+              className="social-platform-card"
+              href={platform.href}
+              key={platform.label}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Follow The Lyon Den on ${platform.label}`}
+              onClick={() =>
+                trackColoringPageEvent(coloringSocialEventNames[platform.label], {
+                  platform: platform.label,
+                })
+              }
+            >
+              <span className="social-platform-seal" aria-hidden="true">
+                <LyonDenIcon name={platform.icon} />
+              </span>
+              <span>
+                <strong>{platform.label}</strong>
+                <small>{platform.description}</small>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="coloring-newsletter section-shell" aria-labelledby="coloring-newsletter-title">
+        <div>
+          <p className="eyebrow">Optional</p>
+          <h2 id="coloring-newsletter-title">Receive the Next Little Gift</h2>
+          <p>
+            Occasional stories, journal pages, and printable gifts from The Lyon Den—sent
+            thoughtfully, never noisily.
+          </p>
+        </div>
+        <div className="coloring-newsletter-card">
+          <LyonDenIcon name="bookmark" />
+          <p>
+            The public newsletter connection is not active in this codebase yet. Until
+            the letter list opens, follow The Lyon Den below for the next little gift.
+          </p>
+          <div className="inline-actions coloring-actions">
+            {facebookPlatform && (
+              <a
+                className="button button-secondary"
+                href={facebookPlatform.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackColoringPageEvent('coloring_page_social_facebook', { location: 'newsletter' })}
+              >
+                Follow on Facebook
+              </a>
+            )}
+            {pinterestPlatform && (
+              <a
+                className="button button-secondary"
+                href={pinterestPlatform.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackColoringPageEvent('coloring_page_social_pinterest', { location: 'newsletter' })}
+              >
+                Save on Pinterest
+              </a>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="coloring-closing section-shell" aria-labelledby="coloring-closing-title">
+        <p id="coloring-closing-title">“May you always leave a little room for wonder.”</p>
+        <span>— Marguerite</span>
+        <div>
+          <strong>The Lyon Den</strong>
+          <small>Stories. Wisdom. Life. • Never Stop Learning.</small>
+        </div>
+      </section>
+
+      <SiteFooter />
+    </main>
+  )
 }
 
 function RetiredCreatorPage() {

@@ -13,6 +13,10 @@ The site references these production image files:
 - `lyon-den-storytelling-banner.png` - newest storytelling banner used for the cornerstone Journal feature
 - `wildflowers-never-ask-permission.png` - Wildflowers & Wisdom artwork for homepage and Journal/social previews
 - `between-winter-and-spring-artwork.png` - featured artwork for the Persephone-inspired winter/spring reflection
+- `/images/free-coloring-page-preview.jpg` - black-and-white printable coloring page preview
+- `/images/free-coloring-page-gift-preview.jpg` - polished social/hero preview for the free coloring page landing page
+- `/downloads/the-lyon-den-live-your-story-coloring-page.pdf` - downloadable printable PDF
+- `/downloads/the-lyon-den-live-your-story-coloring-page.png` - downloadable print-quality PNG
 - `lifelessons.png` - Life Lessons Gallery image
 - `lessonsthatlast.png` - Teaching & Speaking image
 - `cta.png` - final call-to-action image before the footer
@@ -30,6 +34,10 @@ Referenced paths:
 - `/assets/lyon-den-storytelling-banner.png`
 - `/assets/wildflowers-never-ask-permission.png`
 - `/assets/between-winter-and-spring-artwork.png`
+- `/images/free-coloring-page-preview.jpg`
+- `/images/free-coloring-page-gift-preview.jpg`
+- `/downloads/the-lyon-den-live-your-story-coloring-page.pdf`
+- `/downloads/the-lyon-den-live-your-story-coloring-page.png`
 - `/assets/lifelessons.png`
 - `/assets/lessonsthatlast.png`
 - `/assets/cta.png`
