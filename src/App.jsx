@@ -54,6 +54,8 @@ const coloringPageAssets = {
 }
 const homepageArt = {
   heroBanner: '/assets/lyon-den-library-banner.jpg',
+  gardenStream: '/assets/lyon-den-garden-stream-background.jpg',
+  gardenStreamMobile: '/assets/lyon-den-garden-stream-background-mobile.jpg',
   quietComic: '/assets/some-chapters-end-quietly-comic.jpg',
   longGoodbye: '/assets/long-goodbye-before-the-illness.jpg',
   community: '/assets/dear-book-readers-community.jpg',
@@ -2341,12 +2343,14 @@ function SiteFooter() {
 
 function ScenicBackground() {
   return (
-    <div className="scenic-background" aria-hidden="true">
-      <div className="scenic-plane scenic-plane-far" />
-      <div className="scenic-plane scenic-plane-water" />
-      <div className="scenic-plane scenic-plane-flora" />
-      <div className="scenic-plane scenic-plane-foreground" />
-      <div className="scenic-light" />
+    <div className="garden-stream-background" aria-hidden="true">
+      <picture>
+        <source srcSet={homepageArt.gardenStreamMobile} media="(max-width: 680px)" />
+        <img src={homepageArt.gardenStream} alt="" decoding="async" />
+      </picture>
+      <div className="garden-stream-atmosphere" />
+      <div className="garden-stream-waterlight" />
+      <div className="garden-stream-flowerlight" />
     </div>
   )
 }
