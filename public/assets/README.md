@@ -17,6 +17,8 @@ The site references these production image files:
 - `/images/free-coloring-page-gift-preview.jpg` - polished social/hero preview for the free coloring page landing page
 - `/downloads/the-lyon-den-live-your-story-coloring-page.pdf` - downloadable printable PDF
 - `/downloads/the-lyon-den-live-your-story-coloring-page.png` - downloadable print-quality PNG
+- `free-coloring-page-open-door-new-chapter.png` - black-and-white printable coloring page for "While the Door Is Open"
+- `free-coloring-page-open-door-advertisement.png` - vibrant promotional artwork for the "While the Door Is Open" coloring page
 - `lifelessons.png` - Life Lessons Gallery image
 - `lessonsthatlast.png` - Teaching & Speaking image
 - `cta.png` - final call-to-action image before the footer
@@ -38,6 +40,8 @@ Referenced paths:
 - `/images/free-coloring-page-gift-preview.jpg`
 - `/downloads/the-lyon-den-live-your-story-coloring-page.pdf`
 - `/downloads/the-lyon-den-live-your-story-coloring-page.png`
+- `/assets/free-coloring-page-open-door-new-chapter.png`
+- `/assets/free-coloring-page-open-door-advertisement.png`
 - `/assets/lifelessons.png`
 - `/assets/lessonsthatlast.png`
 - `/assets/cta.png`

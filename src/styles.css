@@ -2995,6 +2995,52 @@ a:focus-visible {
   .print-article-footer p {
     margin: 0 0 0.04in;
   }
+
+  body.print-coloring-page {
+    background: #ffffff !important;
+  }
+
+  body.print-coloring-page .site-header,
+  body.print-coloring-page .coloring-hero,
+  body.print-coloring-page .coloring-gift,
+  body.print-coloring-page .coloring-download-copy,
+  body.print-coloring-page .coloring-quote,
+  body.print-coloring-page .coloring-archive,
+  body.print-coloring-page .coloring-related,
+  body.print-coloring-page .coloring-social,
+  body.print-coloring-page .coloring-newsletter,
+  body.print-coloring-page .coloring-closing,
+  body.print-coloring-page .footer {
+    display: none !important;
+  }
+
+  body.print-coloring-page .coloring-page,
+  body.print-coloring-page .coloring-download,
+  body.print-coloring-page .coloring-print-preview {
+    display: block !important;
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  body.print-coloring-page .coloring-print-preview::after {
+    display: none !important;
+  }
+
+  body.print-coloring-page .coloring-print-preview img {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    max-height: 10in !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+    background: #ffffff !important;
+    page-break-inside: avoid;
+  }
 }
 
 @media (min-width: 681px) {
@@ -4104,14 +4150,17 @@ p {
 
 .coloring-hero-frame img,
 .coloring-print-preview img {
+  display: block;
   width: 100%;
+  height: auto;
   object-fit: contain;
   object-position: center;
   background: var(--warm-cream);
 }
 
 .coloring-hero-frame img {
-  aspect-ratio: 1;
+  aspect-ratio: 2 / 3;
+  max-height: min(78vh, 58rem);
 }
 
 .coloring-gift,
@@ -4191,6 +4240,110 @@ p {
   margin: 0.25rem 0 0;
   color: var(--warm-walnut);
   line-height: 1.6;
+}
+
+.coloring-related-article {
+  margin-top: 1rem;
+}
+
+.coloring-quote,
+.coloring-archive,
+.coloring-related {
+  padding-block: clamp(3.5rem, 10vw, 7rem);
+}
+
+.coloring-quote {
+  display: grid;
+  justify-items: center;
+  border-block: 1px solid rgba(214, 163, 59, 0.18);
+  text-align: center;
+}
+
+.coloring-quote blockquote {
+  max-width: 15ch;
+  margin: 0;
+  color: var(--creek-deep);
+  font-family: var(--serif);
+  font-size: clamp(2.45rem, 10vw, 5.5rem);
+  font-style: italic;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.coloring-archive-grid {
+  display: grid;
+  gap: clamp(1rem, 4vw, 1.5rem);
+}
+
+.coloring-archive-card {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid rgba(169, 139, 84, 0.24);
+  padding: clamp(0.8rem, 3vw, 1rem);
+  background:
+    linear-gradient(145deg, rgba(255, 248, 234, 0.96), rgba(243, 231, 207, 0.72));
+  box-shadow: 0 20px 58px rgba(30, 37, 38, 0.08);
+}
+
+.coloring-archive-card figure {
+  margin: 0;
+  background: var(--warm-cream);
+}
+
+.coloring-archive-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+  object-position: center;
+}
+
+.coloring-archive-card h3 {
+  margin-bottom: 0.45rem;
+  color: var(--ink);
+  font-size: clamp(1.65rem, 6vw, 2.3rem);
+}
+
+.coloring-archive-card p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.coloring-related {
+  display: grid;
+  gap: clamp(1.25rem, 4vw, 2rem);
+  border-top: 1px solid rgba(214, 163, 59, 0.18);
+}
+
+.coloring-related h2 {
+  color: var(--ink);
+  font-size: clamp(2rem, 7vw, 3.6rem);
+}
+
+.coloring-related p {
+  max-width: 42rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.coloring-related-links {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.coloring-related-links a {
+  border-bottom: 1px solid rgba(169, 139, 84, 0.4);
+  padding-block: 0.35rem;
+  color: var(--creek-deep);
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 4vw, 1.35rem);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.coloring-related-links a:hover,
+.coloring-related-links a:focus-visible {
+  color: var(--warm-walnut);
 }
 
 .coloring-social {
@@ -4829,6 +4982,21 @@ p {
 
   .coloring-benefits {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .coloring-archive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .coloring-archive-card {
+    grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .coloring-related {
+    grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 0.65fr);
+    align-items: start;
   }
 
   .editorial-hero-layout {

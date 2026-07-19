@@ -52,6 +52,71 @@ const coloringPageAssets = {
   pdf: '/downloads/the-lyon-den-live-your-story-coloring-page.pdf',
   png: '/downloads/the-lyon-den-live-your-story-coloring-page.png',
 }
+const coloringPages = [
+  {
+    title: 'While the Door Is Open',
+    pageTitle: 'Free Wildflower Coloring Page: Choose Your Next Chapter',
+    slug: 'while-the-door-is-open',
+    path: '/free-coloring-page/while-the-door-is-open',
+    eyebrow: 'A Free Gift from The Lyon Den',
+    subtitle:
+      'Download a free printable wildflower coloring page inspired by courage, new beginnings, and the beauty of choosing your next chapter.',
+    description: 'Choose courage, open the door, and color your next chapter.',
+    intro:
+      'Sometimes the next chapter begins before we feel completely ready. This week’s free Lyon Den coloring page is a quiet reminder that courage does not always arrive as certainty. Sometimes it looks like opening the door, trusting the path, and taking the next thoughtful step.',
+    reflection:
+      'Print it, color it, journal beside it, or share it with someone who may need a little encouragement. The page is meant to be simple, spacious, and hopeful: a small creative pause for anyone standing at the edge of a new beginning.',
+    quote: 'While the door is open, choose the risk that leads to your next chapter.',
+    promoImage: '/assets/free-coloring-page-open-door-advertisement.png',
+    printableImage: '/assets/free-coloring-page-open-door-new-chapter.png',
+    downloadHref: '/assets/free-coloring-page-open-door-new-chapter.png',
+    downloadName: 'the-lyon-den-while-the-door-is-open-coloring-page.png',
+    seoTitle: 'Free Wildflower Coloring Page for New Beginnings | The Lyon Den',
+    metaDescription:
+      'Download a free printable wildflower coloring page inspired by courage, open doors, thoughtful risks, and choosing your next chapter.',
+    ogTitle: 'Free Wildflower Coloring Page: Choose Your Next Chapter',
+    ogDescription:
+      'A free printable coloring page from The Lyon Den inspired by courage, wildflowers, open doors, and new beginnings.',
+    keywords:
+      'free wildflower coloring page, free adult coloring page, printable coloring page, cottagecore coloring page, mindful coloring printable, new beginnings coloring page, inspirational coloring page, bookish coloring page, wildflower printable art, creative self-care printable, free coloring page for adults, courage coloring page, open door coloring page',
+    promoAlt:
+      'Vibrant advertisement for a free Lyon Den coloring page showing a half-colored wildflower doorway illustration surrounded by colored pencils, flowers, tea, and a download call to action.',
+    printableAlt:
+      'Detailed black-and-white printable coloring page featuring an open garden doorway, wildflowers, butterflies, a sunrise path, books, tea, and a message about choosing the risk that leads to your next chapter.',
+  },
+  {
+    title: 'Live Your Story',
+    pageTitle: 'Free Printable Literary Coloring Page',
+    slug: 'live-your-story',
+    path: '/free-coloring-page/live-your-story',
+    eyebrow: 'A Little Gift From The Lyon Den',
+    subtitle:
+      'Download a complimentary literary coloring page filled with books, wildflowers, lantern light, and a gentle reminder to live your story.',
+    description: 'A quiet printable page for books, flowers, tea, and slower moments.',
+    intro:
+      'Put on a favorite song, pour a cup of tea, and spend a few peaceful minutes adding your own colors to the story.',
+    reflection:
+      'This first Lyon Den printable was created as a simple invitation to pause, reflect, and leave a little room for wonder.',
+    quote: 'May you always leave a little room for wonder.',
+    promoImage: coloringPageAssets.hero,
+    printableImage: coloringPageAssets.preview,
+    downloadHref: coloringPageAssets.png,
+    downloadName: 'the-lyon-den-live-your-story-coloring-page.png',
+    pdfHref: coloringPageAssets.pdf,
+    seoTitle: 'Free Printable Literary Coloring Page | The Lyon Den',
+    metaDescription:
+      'Download a free printable Lyon Den coloring page featuring books, wildflowers, lantern light, and the reminder to live your story.',
+    ogTitle: 'Free Printable Literary Coloring Page | The Lyon Den',
+    ogDescription:
+      'A complimentary printable Lyon Den coloring page with books, wildflowers, lantern light, and a gentle reminder to live your story.',
+    keywords:
+      'free printable coloring page, adult coloring page, literary coloring page, book lover printable, wildflower coloring page, mindful coloring activity, The Lyon Den',
+    promoAlt:
+      'A polished Lyon Den gift preview showing a free coloring page with books, wildflowers, lantern light, and colored pencils.',
+    printableAlt:
+      'Black-and-white printable Lyon Den coloring page with books, flowers, a teacup, a lantern, journals, and the words Live Your Story.',
+  },
+]
 const homepageArt = {
   heroBanner: '/assets/lyon-den-library-banner.jpg',
   gardenStream: '/assets/lyon-den-garden-stream-background.jpg',
@@ -2865,8 +2930,12 @@ function AppRoute({ normalizedPath }) {
     return <RetiredCreatorPage />
   }
 
-  if (normalizedPath === '/free-coloring-page') {
-    return <FreeColoringPage />
+  if (
+    normalizedPath === '/free-coloring-page' ||
+    normalizedPath === '/free-coloring-page/while-the-door-is-open' ||
+    normalizedPath === '/free-coloring-page/live-your-story'
+  ) {
+    return <FreeColoringPage normalizedPath={normalizedPath} />
   }
 
   const selectedPost = getPostByPath(normalizedPath)
@@ -2916,29 +2985,38 @@ function AppRoute({ normalizedPath }) {
   return <HomePage />
 }
 
-function FreeColoringPage() {
+function FreeColoringPage({ normalizedPath }) {
+  const featuredPage =
+    normalizedPath === '/free-coloring-page'
+      ? coloringPages[0]
+      : coloringPages.find((page) => page.path === normalizedPath) || coloringPages[0]
   const facebookPlatform = coloringSocialPlatforms.find((platform) => platform.label === 'Facebook')
   const pinterestPlatform = coloringSocialPlatforms.find((platform) => platform.label === 'Pinterest')
-  const keywords =
-    'free printable coloring page, adult coloring page, literary coloring page, book lover printable, wildflower coloring page, mindful coloring activity, The Lyon Den'
+  const pricePost = getPostByPath('/journal/the-price-of-staying-knowing-your-worth')
+  const latestJournal = blogPosts[0]
+  const relatedLinks = [
+    pricePost && { label: 'Read The Price of Staying', href: pricePost.path },
+    latestJournal && latestJournal.path !== pricePost?.path && { label: 'Latest Journal', href: latestJournal.path },
+    { label: 'Wildflowers & Wisdom', href: '/collections/wildflowers-wisdom' },
+    { label: 'About Marguerite', href: '/about' },
+    { label: 'Return Home', href: '/' },
+  ].filter(Boolean)
 
   usePageMeta({
-    title: 'Free Printable Literary Coloring Page | The Lyon Den',
-    description:
-      'Download a free printable Lyon Den coloring page featuring books, wildflowers, lantern light, and the reminder to live your story.',
-    image: coloringPageAssets.hero,
-    canonicalPath: '/free-coloring-page',
-    keywords,
+    title: featuredPage.seoTitle,
+    description: featuredPage.metaDescription,
+    image: featuredPage.promoImage,
+    canonicalPath: featuredPage.path,
+    keywords: featuredPage.keywords,
   })
 
   useStructuredData('coloring-page-structured-data', {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-    name: 'Color a Quiet Moment',
-    headline: 'Free Printable Literary Coloring Page',
-    description:
-      'A complimentary printable Lyon Den coloring page with books, wildflowers, lantern light, and a gentle reminder to live your story.',
-    image: coloringPageAssets.hero,
+    name: featuredPage.pageTitle,
+    headline: featuredPage.pageTitle,
+    description: featuredPage.metaDescription,
+    image: featuredPage.promoImage,
     author: {
       '@type': 'Organization',
       name: 'The Lyon Den',
@@ -2950,13 +3028,36 @@ function FreeColoringPage() {
       url: 'https://truthlovemoney.com/',
     },
     isAccessibleForFree: true,
-    encodingFormat: ['application/pdf', 'image/png'],
-    url: typeof window !== 'undefined' ? `${window.location.origin}/free-coloring-page` : '/free-coloring-page',
+    encodingFormat: ['image/png'],
+    keywords: featuredPage.keywords,
+    url: typeof window !== 'undefined' ? `${window.location.origin}${featuredPage.path}` : featuredPage.path,
   })
 
   useEffect(() => {
-    trackColoringPageEvent('coloring_page_view', { page: 'free-coloring-page' })
-  }, [])
+    const cleanupMeta = [
+      setMetaContent('meta[property="og:title"]', { property: 'og:title' }, featuredPage.ogTitle),
+      setMetaContent('meta[property="og:description"]', { property: 'og:description' }, featuredPage.ogDescription),
+      setMetaContent('meta[name="twitter:title"]', { name: 'twitter:title' }, featuredPage.ogTitle),
+      setMetaContent('meta[name="twitter:description"]', { name: 'twitter:description' }, featuredPage.ogDescription),
+      setMetaContent('meta[name="pinterest:description"]', { name: 'pinterest:description' }, featuredPage.ogDescription),
+    ]
+
+    return () => cleanupMeta.forEach((cleanup) => cleanup())
+  }, [featuredPage])
+
+  useEffect(() => {
+    trackColoringPageEvent('coloring_page_view', { page: featuredPage.slug })
+  }, [featuredPage.slug])
+
+  const handlePrintColoringPage = () => {
+    trackColoringPageEvent('coloring_page_print', { page: featuredPage.slug })
+    document.body.classList.add('print-coloring-page')
+
+    const cleanup = () => document.body.classList.remove('print-coloring-page')
+    window.addEventListener('afterprint', cleanup, { once: true })
+    window.print()
+    window.setTimeout(cleanup, 1200)
+  }
 
   return (
     <main className="site-shell blog-shell coloring-page">
@@ -2964,31 +3065,43 @@ function FreeColoringPage() {
 
       <section className="coloring-hero section-shell" aria-labelledby="coloring-hero-title">
         <div className="coloring-hero-copy">
-          <p className="eyebrow">A Little Gift From The Lyon Den</p>
-          <h1 id="coloring-hero-title">Color a Quiet Moment</h1>
-          <p>
-            Download a complimentary literary coloring page filled with books, wildflowers,
-            lantern light, and a gentle reminder to live your story.
-          </p>
+          <p className="eyebrow">{featuredPage.eyebrow}</p>
+          <h1 id="coloring-hero-title">{featuredPage.title}</h1>
+          <p>{featuredPage.subtitle}</p>
           <div className="inline-actions coloring-actions">
             <a
               className="button button-primary"
-              href={coloringPageAssets.pdf}
-              download
-              onClick={() => trackColoringPageEvent('coloring_page_download_pdf', { location: 'hero' })}
+              href={featuredPage.downloadHref}
+              download={featuredPage.downloadName}
+              onClick={() => trackColoringPageEvent('coloring_page_download', { page: featuredPage.slug, location: 'hero' })}
             >
               Download the Free Coloring Page
             </a>
-            <a className="button button-secondary" href="#coloring-preview">
-              Preview the Page
-            </a>
+            <button className="button button-secondary" type="button" onClick={handlePrintColoringPage}>
+              Print Your Copy
+            </button>
           </div>
           <p className="coloring-reassurance">Free to download. No email required.</p>
+          {pricePost && (
+            <a
+              className="text-link coloring-related-article"
+              href={pricePost.path}
+              onClick={() =>
+                trackColoringPageEvent('related_article_click', {
+                  page: featuredPage.slug,
+                  article: pricePost.slug,
+                  location: 'hero',
+                })
+              }
+            >
+              Read The Price of Staying
+            </a>
+          )}
         </div>
         <figure className="coloring-hero-frame">
           <img
-            src={coloringPageAssets.hero}
-            alt="A polished Lyon Den gift preview showing a free coloring page with books, wildflowers, lantern light, and colored pencils."
+            src={featuredPage.promoImage}
+            alt={featuredPage.promoAlt}
             fetchPriority="high"
             decoding="async"
           />
@@ -2997,18 +3110,15 @@ function FreeColoringPage() {
 
       <section className="coloring-gift section-shell" aria-labelledby="coloring-gift-title">
         <div className="section-heading centered">
-          <p className="eyebrow">A Meaningful Pause</p>
-          <h2 id="coloring-gift-title">A Page Made for Slower Moments</h2>
-          <p>
-            Put on a favorite song, pour a cup of tea, and spend a few peaceful
-            minutes adding your own colors to the story.
-          </p>
+          <p className="eyebrow">Courage and New Beginnings</p>
+          <h2 id="coloring-gift-title">A Gentle Reminder for the Next Chapter</h2>
+          <p>{featuredPage.intro}</p>
         </div>
         <div className="coloring-benefits" aria-label="Coloring page details">
           {[
             ['Print at Home', 'Designed for standard US Letter paper.'],
             ['Made for All Ages', 'Detailed enough for adults and welcoming for younger artists.'],
-            ['A Meaningful Pause', 'A simple creative activity for reflection, rest, or time together.'],
+            ['A Meaningful Pause', 'A simple creative self-care printable for reflection, rest, or time together.'],
           ].map(([title, text], index) => (
             <article className="coloring-benefit" key={title}>
               <span aria-hidden="true">0{index + 1}</span>
@@ -3024,26 +3134,22 @@ function FreeColoringPage() {
         id="coloring-preview"
         aria-labelledby="coloring-download-title"
       >
-        <figure className="coloring-print-preview">
+        <figure className="coloring-print-preview print-target">
           <img
-            src={coloringPageAssets.preview}
-            alt="Black-and-white printable Lyon Den coloring page with books, flowers, a teacup, a lantern, journals, and the words Live Your Story."
+            src={featuredPage.printableImage}
+            alt={featuredPage.printableAlt}
             loading="lazy"
             decoding="async"
           />
         </figure>
         <div className="coloring-download-copy">
           <p className="eyebrow">Instant Download</p>
-          <h2 id="coloring-download-title">Your Free Lyon Den Coloring Page</h2>
-          <p>
-            A printer-friendly black-and-white page made for standard US Letter paper.
-            Download the PDF for the simplest printing experience, or save the PNG for
-            flexible use.
-          </p>
+          <h2 id="coloring-download-title">Your Free Wildflower Coloring Page</h2>
+          <p>{featuredPage.reflection}</p>
           <dl className="coloring-file-details">
             <div>
               <dt>Format</dt>
-              <dd>US Letter, black-and-white, printer friendly</dd>
+              <dd>High-resolution PNG, black-and-white, printer friendly</dd>
             </div>
             <div>
               <dt>Printing suggestion</dt>
@@ -3053,21 +3159,106 @@ function FreeColoringPage() {
           <div className="inline-actions coloring-actions">
             <a
               className="button button-primary"
-              href={coloringPageAssets.pdf}
-              download
-              onClick={() => trackColoringPageEvent('coloring_page_download_pdf', { location: 'download-section' })}
+              href={featuredPage.downloadHref}
+              download={featuredPage.downloadName}
+              onClick={() =>
+                trackColoringPageEvent('coloring_page_download', {
+                  page: featuredPage.slug,
+                  location: 'download-section',
+                })
+              }
             >
-              Download PDF
+              Download the Free Coloring Page
             </a>
-            <a
-              className="button button-secondary"
-              href={coloringPageAssets.png}
-              download
-              onClick={() => trackColoringPageEvent('coloring_page_download_png', { location: 'download-section' })}
-            >
-              Download PNG
-            </a>
+            <button className="button button-secondary" type="button" onClick={handlePrintColoringPage}>
+              Print Your Copy
+            </button>
           </div>
+        </div>
+      </section>
+
+      <section className="coloring-quote section-shell" aria-labelledby="coloring-quote-title">
+        <p className="eyebrow" id="coloring-quote-title">A Line to Carry With You</p>
+        <blockquote>“{featuredPage.quote}”</blockquote>
+      </section>
+
+      <section className="coloring-archive section-shell" aria-labelledby="coloring-archive-title">
+        <div className="section-heading centered">
+          <p className="eyebrow">Free Coloring Pages</p>
+          <h2 id="coloring-archive-title">A Small Collection of Printable Gifts</h2>
+          <p>
+            Keep the newest page, revisit the first Lyon Den printable, or share a quiet
+            creative pause with someone who may need it.
+          </p>
+        </div>
+        <div className="coloring-archive-grid">
+          {coloringPages.map((page) => (
+            <article className="coloring-archive-card" key={page.slug}>
+              <figure>
+                <img src={page.promoImage} alt={page.promoAlt} loading="lazy" decoding="async" />
+              </figure>
+              <div>
+                <p className="eyebrow">{page.eyebrow}</p>
+                <h3>{page.title}</h3>
+                <p>{page.description}</p>
+                <div className="inline-actions coloring-actions">
+                  <a
+                    className="button button-primary"
+                    href={page.downloadHref}
+                    download={page.downloadName}
+                    onClick={() =>
+                      trackColoringPageEvent('coloring_page_download', {
+                        page: page.slug,
+                        location: 'archive',
+                      })
+                    }
+                  >
+                    Download
+                  </a>
+                  <a
+                    className="button button-secondary"
+                    href={page.path}
+                    onClick={() =>
+                      trackColoringPageEvent('promotional_cta_click', {
+                        page: page.slug,
+                        location: 'archive',
+                      })
+                    }
+                  >
+                    View Page
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="coloring-related section-shell" aria-labelledby="coloring-related-title">
+        <div>
+          <p className="eyebrow">Related Reading</p>
+          <h2 id="coloring-related-title">Stories for the Doorway</h2>
+          <p>
+            The new coloring page pairs naturally with Lyon Den reflections on courage,
+            thoughtful risk, wildflowers, and beginning again.
+          </p>
+        </div>
+        <div className="coloring-related-links">
+          {relatedLinks.map((link) => (
+            <a
+              href={link.href}
+              key={link.href}
+              onClick={() =>
+                trackColoringPageEvent(link.href === pricePost?.path ? 'related_article_click' : 'promotional_cta_click', {
+                  page: featuredPage.slug,
+                  href: link.href,
+                  location: 'related-reading',
+                })
+              }
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </section>
 
@@ -3150,7 +3341,7 @@ function FreeColoringPage() {
       </section>
 
       <section className="coloring-closing section-shell" aria-labelledby="coloring-closing-title">
-        <p id="coloring-closing-title">“May you always leave a little room for wonder.”</p>
+        <p id="coloring-closing-title">“{featuredPage.quote}”</p>
         <span>— Marguerite</span>
         <div>
           <strong>The Lyon Den</strong>
@@ -3396,20 +3587,29 @@ function HomePage() {
       </section>
 
       <section className="section-shell editorial-river-section" id="free-gift" aria-labelledby="free-gift-title">
-        <a className="free-gift-feature parchment-panel editorial-page" href="/free-coloring-page">
+        <a
+          className="free-gift-feature parchment-panel editorial-page"
+          href={coloringPages[0].path}
+          onClick={() =>
+            trackColoringPageEvent('promotional_cta_click', {
+              page: coloringPages[0].slug,
+              location: 'homepage-free-gift',
+            })
+          }
+        >
           <div className="gift-preview-stack">
             <ImageFrame>
               <img
-                src={coloringPageAssets.hero}
-                alt="Free Lyon Den coloring page gift preview with books, wildflowers, lantern light, and colored pencils."
+                src={coloringPages[0].promoImage}
+                alt={coloringPages[0].promoAlt}
                 loading="lazy"
                 decoding="async"
               />
             </ImageFrame>
             <ImageFrame className="gift-preview-printable">
               <img
-                src={coloringPageAssets.preview}
-                alt="Black-and-white printable Lyon Den coloring page with books, flowers, a teacup, a lantern, journals, and the words Live Your Story."
+                src={coloringPages[0].printableImage}
+                alt={coloringPages[0].printableAlt}
                 loading="lazy"
                 decoding="async"
               />
@@ -3417,12 +3617,9 @@ function HomePage() {
           </div>
           <div className="feature-spread-copy">
             <SectionLabel number="06" eyebrow="A Little Gift From The Lyon Den" />
-            <h2 id="free-gift-title">Color a Quiet Moment</h2>
-            <p>
-              Download a complimentary literary coloring page filled with books,
-              wildflowers, lantern light, and a gentle reminder to live your story.
-            </p>
-            <span className="button button-primary">Download the Free Coloring Page</span>
+            <h2 id="free-gift-title">A New Free Coloring Page</h2>
+            <p>Choose courage, open the door, and color your next chapter.</p>
+            <span className="button button-primary">Download the New Page</span>
             <small>No email required.</small>
           </div>
         </a>
