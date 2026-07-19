@@ -246,6 +246,16 @@ const coverLibrary = {
     motif: 'memory • staying • quiet love',
     alt: 'Editorial card for Before the Forgetting with an hourglass seal',
   },
+  'price-of-staying': {
+    titleLines: ['THE PRICE', 'OF STAYING'],
+    subtitle: 'Knowing your worth before certainty arrives.',
+    theme: 'legacy',
+    category: 'Life Lessons',
+    icon: 'lioness',
+    variant: 'wisdom',
+    motif: 'career courage • thoughtful risk • independence',
+    alt: 'Editorial card for The Price of Staying with a Lyon Den lioness seal',
+  },
 }
 
 const collectionDefinitions = [
@@ -347,6 +357,186 @@ function articleBlocks(blocks) {
 }
 
 const blogPosts = [
+  {
+    title: 'The Price of Staying: How Knowing Your Worth Can Change Your Career and Your Future',
+    subtitle: 'A Lyon Den reflection on thoughtful risk, career courage, and choosing a new direction before certainty arrives.',
+    author: 'Marguerite Lyon',
+    category: 'Life Lessons',
+    featured: true,
+    date: 'July 18, 2026',
+    isoDate: '2026-07-18',
+    readingTime: '11 minutes',
+    path: '/journal/the-price-of-staying-knowing-your-worth',
+    redirectPaths: ['/blog/the-price-of-staying-knowing-your-worth'],
+    slug: 'the-price-of-staying-knowing-your-worth',
+    canonicalPath: '/journal/the-price-of-staying-knowing-your-worth',
+    seoTitle: 'The Price of Staying: Knowing Your Worth at Work | The Lyon Den',
+    metaDescription:
+      'Passed over after earning her master’s degree, Marguerite Lyon chose to leave, rebuild, and create lasting career growth and financial security.',
+    ogDescription:
+      'A Lyon Den story about knowing your worth in your career, thoughtful risk taking, and why staying can sometimes become the greater risk.',
+    twitterCard: 'summary_large_image',
+    primaryKeyword: 'knowing your worth in your career',
+    secondaryKeywords: [
+      'how to know when to leave a job',
+      'taking a career risk',
+      'career change after earning a master’s degree',
+      'leaving a toxic workplace',
+      'being passed over for a promotion',
+      'career growth for women',
+      'how to advocate for yourself at work',
+      'starting over in your career',
+      'thoughtful risk taking',
+      'career decision making',
+      'when staying becomes the greater risk',
+      'how to build financial security',
+      'women and wealth building',
+      'financial independence for women',
+      'professional growth after rejection',
+      'how to trust yourself in a career decision',
+      'career setbacks and success',
+      'turning rejection into opportunity',
+      'how to recover after a career setback',
+      'building wealth through wise decisions',
+      'never too late to start over',
+      'how to make a difficult life decision',
+      'how to weigh risks and rewards',
+      'career courage',
+      'knowing when to walk away',
+      'choosing yourself',
+      'long-term financial security',
+      'personal growth through adversity',
+      'Kansas career story',
+      'Overland Park career inspiration',
+      'Osawatomie Kansas life story',
+    ],
+    tags: [
+      'career growth',
+      'knowing your worth',
+      'women and wealth',
+      'personal growth',
+      'thoughtful risk',
+      'new beginnings',
+      'financial independence',
+      'career courage',
+    ],
+    collectionSlugs: ['legacy-lessons', 'field-notes', 'conversations', 'teaching-wisdom'],
+    ogImage: '/assets/watermark-logo.png',
+    suggestedFeaturedImage: 'the-price-of-staying-marguerite-lyon.jpg',
+    featuredImageNeeded: '/assets/the-price-of-staying-marguerite-lyon.jpg',
+    featuredImageAlt:
+      'Marguerite Lyon in a black leather jacket beside a red convertible at golden hour, representing career courage, knowing your worth, and choosing a new direction.',
+    pinterestDescription:
+      'The Price of Staying: a Lyon Den reflection on knowing your worth in your career, thoughtful risk taking, career courage, and long-term financial independence.',
+    facebookCaption:
+      'Sometimes the greater risk is staying where your worth has already been decided for you. A new Lyon Den story on career courage, thoughtful risk, and rebuilding after rejection.',
+    instagramCaption:
+      'Knowing your worth is not always loud. Sometimes it looks like researching your options, listening to trusted advice, and choosing a new direction before certainty arrives.',
+    socialExcerpt:
+      'A courageous choice does not always produce immediate comfort. Sometimes it simply opens the door to the life that could not reach you where you were.',
+    pullQuote: 'Sometimes the greater risk is staying where your worth has already been decided for you.',
+    customCover: '',
+    coverId: 'price-of-staying',
+    excerpt:
+      'Passed over after earning her master’s degree, Marguerite chose a difficult new direction that eventually opened doors to career growth, independence, and long-term security.',
+    note:
+      'This Lyon Den reflection is based on Marguerite’s Harvest Session about thoughtful risk, career courage, and knowing when staying has become the greater risk.',
+    internalLinks: [
+      { label: 'Explore The Lyon Den', href: '/' },
+      { label: 'Meet Marguerite', href: '/about' },
+      { label: 'Read The Long Goodbye', href: '/journal/before-the-forgetting' },
+      { label: 'Browse Wildflowers & Wisdom', href: '/collections/wildflowers-wisdom' },
+      { label: 'Download the Free Coloring Page', href: '/free-coloring-page' },
+    ],
+    faqs: [
+      {
+        question: 'How do you know when it is time to leave a job?',
+        answer:
+          'It may be time to leave when you have honestly assessed your options and can see that your growth, value, or future is being consistently limited. A thoughtful decision considers both what leaving may cost and what staying may cost.',
+      },
+      {
+        question: 'What should you do after being passed over for a promotion?',
+        answer:
+          'Pause long enough to understand what happened, ask informed questions where appropriate, review your options, and seek advice from people with relevant experience. Being passed over does not always mean you should leave, but it can reveal whether your current environment can still support your growth.',
+      },
+      {
+        question: 'How can you tell if a career risk is thoughtful or reckless?',
+        answer:
+          'A thoughtful risk includes research, realistic options, a review of responsibilities and consequences, trusted advice, and a reasonable first step. A reckless risk ignores information, avoids consequences, or acts only from panic.',
+      },
+      {
+        question: 'Is it ever too late to change careers?',
+        answer:
+          'It is not too late to begin again. People can carry experience, judgment, relationships, and resilience into a new chapter. The new direction may take planning, patience, and humility, but there is always hope.',
+      },
+      {
+        question: 'How can a career decision affect long-term financial security?',
+        answer:
+          'A career decision can affect future income, opportunity, confidence, and independence, but no single choice guarantees wealth. Long-term financial security usually grows through a series of wise decisions, continued learning, and thoughtful stewardship over time.',
+      },
+    ],
+    content: articleBlocks([
+      'Sometimes the clearest sign that a chapter is over is discovering that the place you worked so hard to grow within has already decided how far it will allow you to go.',
+      'Marguerite had recently earned her master’s degree. She had done the work, invested the time, and carried the hope that preparation should matter. Naturally, she expected to be considered for a better position.',
+      'But the position went to the principal’s girlfriend.',
+      'There are disappointments that sting for a day, and there are disappointments that reveal the shape of a room. This was not merely a missed opportunity. It told Marguerite something about the limits of that workplace, and about how little her earned growth was being allowed to count.',
+      'They expected her to accept the decision quietly. She did not.',
+      { type: 'heading', text: 'She Did the Work and Was Still Passed Over' },
+      'Being passed over can be confusing because it carries two kinds of pain. The first is personal: the ache of not being chosen. The second is practical: the question of what the decision means for your future.',
+      'Marguerite had not been sitting still. She had already chosen growth before the workplace chose whether to recognize it. When the better role went elsewhere for reasons that had nothing to do with her preparation, she had to ask a hard question: was this a temporary disappointment, or was it evidence that her future there had already been limited?',
+      'That is one of the first lessons in knowing your worth in your career. Worth is not arrogance. It is the sober recognition that your work, preparation, integrity, and future matter. When a workplace repeatedly refuses to see that, staying can begin to cost more than leaving.',
+      { type: 'quote', text: 'Sometimes the greater risk is staying where your worth has already been decided for you.' },
+      { type: 'heading', text: 'When Staying Became the Greater Risk' },
+      'Leaving was not simple. Courage rarely arrives with clean paperwork and a guaranteed next chapter. When Marguerite decided to leave, the employer tried to charge her $2,000 for breaking her contract. That kind of pressure can make a person question herself, even when she knows the larger situation is wrong.',
+      'Marguerite refused to accept the charge or allow the situation to intimidate her into staying. That refusal matters. It was self-advocacy. It was the moment she would not let someone else’s authority become the final word on her future.',
+      'The principal was fired the following year for taking money. That detail does not need embellishment. It simply reminds us that the atmosphere around a decision sometimes tells its own story. Marguerite did not need to remain in a place where fairness had already become questionable and her own path had been narrowed.',
+      'Knowing when to walk away is not the same as walking away from responsibility. It can be a decision to take responsibility for your future before someone else defines it too small.',
+      { type: 'heading', text: 'The Difficult Middle No One Puts in the Success Story' },
+      'After Marguerite left, comfort did not arrive immediately. She initially accepted another job that paid less. That is the part of career courage people often skip when they tell a polished success story. We like to move quickly from brave decision to beautiful outcome. Real life often includes a difficult middle.',
+      'During that transition, Marguerite bought a red convertible. Later, it was repossessed. The car is memorable not because it explains the whole story, but because it carries the feeling of that season: pressure, uncertainty, hope, and the humbling reality that a right decision can still lead through hard days.',
+      'A career setback does not automatically mean the decision was wrong. A lower-paying job, a repossessed car, a period of doubt, or a temporary loss can all exist between two better chapters. Sometimes the old place was familiar, not safe. Sometimes it was comfortable only because it had already taught you to ask for less.',
+      'The red convertible did not become the destination. It became a symbol of the passage between the life Marguerite left and the opportunities that had not yet arrived.',
+      { type: 'quote', text: 'The brave decision did not make life instantly easy. It made a different life possible.' },
+      { type: 'heading', text: 'The First Big Door Opened' },
+      'Marguerite kept searching. Eventually, she secured her first major higher-paying position. That opportunity mattered, not because it solved everything at once, but because it opened a door that would not have opened in the same way if she had remained where she was being overlooked.',
+      'It is tempting to make a story like this sound simple: she left, she struggled, then success arrived. But that would flatten the lesson. The higher-paying position was the beginning of a longer journey of career growth, wise financial decisions, independence, and long-term security.',
+      'One door created access to other doors. One decision changed what became available. That is often how professional growth after rejection works. Rejection may close one obvious path, but it can also move a person toward a future that requires more courage and offers more room.',
+      'The important thing is not that every risk produces a dramatic reward. It does not. The important thing is that staying in the wrong room can prevent the right opportunities from ever finding you.',
+      { type: 'heading', text: 'One Decision Did Not Build the Life, A Series of Decisions Did' },
+      'Marguerite’s later stability and financial security should not be reduced to one dramatic leap. That would be unfair to the years of work, learning, judgment, and continued decision making that followed. A courageous choice created access. Continued thoughtful choices built on that access.',
+      'That is an important distinction for anyone thinking about women and wealth building or financial independence for women. A single career decision can change the direction of a life, but long-term financial security is usually built through a series of wise decisions. It grows through learning, discipline, opportunity, stewardship, and the willingness to keep adjusting as life changes.',
+      'This is not a guarantee that every person who leaves a bad workplace will build wealth. Life is more complicated than slogans. Responsibilities differ. Health differs. Family circumstances differ. Economic realities differ. But Marguerite’s story does show that being overlooked does not have to become the final shape of your professional life.',
+      'Sometimes choosing yourself is not selfish. It is strategic. It is stewardship. It is the refusal to let someone else’s poor judgment become the ceiling over your future.',
+      { type: 'heading', text: 'How to Tell Whether a Risk Is Thoughtful or Reckless' },
+      'Marguerite draws a clear line between thoughtful risk and reckless risk. A thoughtful risk is not simply a leap because you are angry. It involves research, reviewing available options, and talking to a trusted circle. Sometimes people are forced into difficult choices, but how they respond still matters.',
+      'A practical framework begins with research. What is actually happening? What options exist? What would each option require? What responsibilities must be protected in the meantime?',
+      'Then write the pros and cons. This may sound simple, but simple tools are often useful because they make fear visible. A list can show whether you are responding to one painful moment or to a pattern. It can also show what staying will cost, not only what leaving might cost.',
+      'Seek advice from a trusted circle, but give extra weight to people with genuine expertise, knowledge, or relevant experience. Not every opinion deserves the same authority. Outside advice is most valuable when it is both caring and informed.',
+      'Separate intuition from panic. Intuition can be quiet and steady. Panic is often urgent and noisy. Finally, create a reasonable first-step plan. You may not be able to map the entire road. You can still decide what the next faithful step should be.',
+      { type: 'quote', text: 'A thoughtful risk begins with research, trusted advice, and an honest understanding of what both leaving and staying may cost.' },
+      { type: 'heading', text: 'The Hidden Cost of Waiting for the Right Time' },
+      'Marguerite believes that waiting for a perfectly right time can become a fallacy. Unless someone can predict the future, certainty is rarely available in advance.',
+      'Preparation matters. Research matters. Conversations matter. Responsibilities matter. But preparation can quietly become avoidance if the only acceptable condition is certainty. Patience gathers information. Fear keeps moving the finish line.',
+      'Intuition may guide us, but action is still required. A person can feel that a season is over and still have to make the phone call, submit the application, have the conversation, revise the plan, or walk out of the room.',
+      { type: 'quote', text: 'Preparation matters. But eventually, courage has to make the decision.' },
+      { type: 'heading', text: 'It Is Never Too Late to Begin Again' },
+      'One of Marguerite’s clearest Harvest Session answers was simple: it is never too late to begin. There is always hope.',
+      'That hope is not naive. Beginning again can be humbling. It can mean taking a job that pays less for a time, rebuilding confidence, or explaining yourself to people who do not understand why you would leave something familiar.',
+      'But beginning again does not erase the past. It uses it. A person brings judgment, skill, resilience, perspective, relationships, and memory into the next chapter. The answer is not that starting over is effortless. It is that your life may still contain more possibility than the current chapter is allowing you to see.',
+      { type: 'quote', text: 'It is never too late. There is always hope.' },
+      { type: 'heading', text: 'Questions to Ask Before You Stay' },
+      'Career decision making is deeply individual. What was right for Marguerite in that season may not be right for every reader in every circumstance. Each person has to assess their own responsibilities, options, risks, and consequences honestly.',
+      'Before staying, ask yourself: Am I still growing here? Is this a temporary disappointment or a permanent limitation? Am I being valued fairly? Have I researched my alternatives? What will leaving cost? What will staying cost?',
+      'Ask also: Am I waiting for wisdom, or am I waiting for permission? Whose advice is actually informed? What might become possible if I move? These questions do not make the decision for you. They make the decision harder to hide from.',
+      { type: 'heading', text: 'The Life That Could Not Reach Her Until She Moved' },
+      'Marguerite’s story began with a master’s degree, a hoped-for position, and a painful realization that the place she had prepared herself to grow within was not willing to make room for her. It passed through an attempted $2,000 charge, a lower-paying job, a red convertible that was later repossessed, and the uncertainty of rebuilding.',
+      'Then another door opened. Not the whole life at once. Not instant comfort. A door.',
+      'That door became part of a much longer journey of career growth, wise financial decisions, wealth building, independence, and long-term security. None of that path would have opened in the same way had she remained where she was being overlooked.',
+      'This is the Lyon Den lesson: every story has something to teach us. Sometimes a story teaches us about patience. Sometimes it teaches us about love. Sometimes it teaches us that staying can look safe while quietly costing us the future.',
+      'The brave decision did not make life instantly easy. It made a different life possible.',
+      'What opportunity, boundary, or beginning have you researched long enough, and what might staying cost you now?',
+    ]),
+  },
   {
     title: 'Before the Forgetting',
     series: 'The Long Goodbye',
@@ -3016,11 +3206,12 @@ function RetiredCreatorPage() {
 function HomePage() {
   const chapters = useLatestChapters()
   const beforePost = getPostByPath('/journal/before-the-forgetting') || blogPosts[0]
+  const pricePost = getPostByPath('/journal/the-price-of-staying-knowing-your-worth')
   const betweenPost = getPostByPath('/blog/between-winter-and-spring')
   const fillPost = getPostByPath('/blog/fill-your-days-with-stories-that-make-your-heart-wiser')
   const booksPost = getPostByPath('/blog/books-that-never-really-leave-us')
   const latestChapter = chapters[0] || curatedChapters[0]
-  const journalPost = betweenPost || fillPost || blogPosts[0]
+  const journalPost = pricePost || betweenPost || fillPost || blogPosts[0]
   const booksFeature = booksPost || getCollectionEntries('books-that-changed-me')[0]
   const wildflowerFeature = fillPost || getCollectionEntries('wildflowers-wisdom')[0]
 
@@ -3774,9 +3965,62 @@ function BlogPostPage({ post }) {
   const postContent = getPostContent(post)
   const postCollections = getPostCollections(post)
   const relatedPosts = getRelatedPosts(post)
+  const cleanDescription = post.metaDescription || post.excerpt || post.subtitle
+  const cleanOgDescription = post.ogDescription || cleanDescription
+  const cleanTitle = post.seoTitle || `${post.title} | The Lyon Den Journal`
+  const canonicalPath = post.canonicalPath || post.path
+  const siteOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://www.truthlovemoney.com'
+  const canonicalHref = `${siteOrigin}${canonicalPath}`
+  const postImage = getPostOgImage(post)
+  const postImageUrl = postImage.startsWith('http') ? postImage : `${siteOrigin}${postImage}`
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: cleanDescription,
+    image: postImageUrl,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'The Lyon Den',
+      url: siteOrigin,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteOrigin}/assets/watermark-logo.png`,
+      },
+    },
+    datePublished: post.isoDate || post.publishedAt || post.date,
+    dateModified: post.modifiedDate || post.isoDate || post.publishedAt || post.date,
+    articleSection: post.category,
+    keywords: getPostTags(post).join(', '),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalHref,
+    },
+  }
+  const faqSchema = post.faqs?.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: post.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      }
+    : null
   const handlePrint = () => {
     window.print()
   }
+
+  useStructuredData(`article-structured-data-${getPostSlug(post)}`, articleSchema)
+  useStructuredData(`faq-structured-data-${getPostSlug(post)}`, faqSchema)
 
   useEffect(() => {
     const previousTitle = document.title
@@ -3784,16 +4028,15 @@ function BlogPostPage({ post }) {
       document.querySelector('meta[name="description"]') ||
       document.head.appendChild(Object.assign(document.createElement('meta'), { name: 'description' }))
     const previousDescription = description.getAttribute('content')
-    const cleanDescription = post.metaDescription || post.excerpt || post.subtitle
-    const cleanOgDescription = post.ogDescription || cleanDescription
-    const cleanTitle = post.seoTitle || `${post.title} | The Lyon Den Journal`
-    const canonicalPath = post.canonicalPath || post.path
-    const canonicalHref = `${window.location.origin}${canonicalPath}`
     const cleanupMeta = [
       setMetaContent('meta[property="og:title"]', { property: 'og:title' }, cleanTitle),
       setMetaContent('meta[property="og:description"]', { property: 'og:description' }, cleanOgDescription),
       setMetaContent('meta[property="og:type"]', { property: 'og:type' }, 'article'),
-      setMetaContent('meta[property="og:image"]', { property: 'og:image' }, getPostOgImage(post)),
+      setMetaContent('meta[property="og:image"]', { property: 'og:image' }, postImageUrl),
+      setMetaContent('meta[name="twitter:title"]', { name: 'twitter:title' }, cleanTitle),
+      setMetaContent('meta[name="twitter:description"]', { name: 'twitter:description' }, cleanOgDescription),
+      setMetaContent('meta[name="twitter:image"]', { name: 'twitter:image' }, postImageUrl),
+      setMetaContent('meta[name="twitter:card"]', { name: 'twitter:card' }, post.twitterCard || 'summary_large_image'),
       setMetaContent('meta[name="keywords"]', { name: 'keywords' }, getPostTags(post).join(', ')),
       setCanonicalHref(canonicalHref),
     ]
@@ -3810,7 +4053,7 @@ function BlogPostPage({ post }) {
         description.setAttribute('content', previousDescription)
       }
     }
-  }, [post])
+  }, [canonicalHref, cleanDescription, cleanOgDescription, cleanTitle, post, postImageUrl])
 
   return (
     <main className="site-shell blog-shell">
@@ -3892,6 +4135,29 @@ function BlogPostPage({ post }) {
             return <p key={key}>{block.text}</p>
           })}
         </div>
+
+        {post.faqs?.length > 0 && (
+          <section className="article-faq" aria-labelledby="article-faq-title">
+            <h2 id="article-faq-title">Questions Readers Often Ask</h2>
+            {post.faqs.map((faq) => (
+              <details key={faq.question}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </section>
+        )}
+
+        {post.internalLinks?.length > 0 && (
+          <aside className="article-internal-links" aria-labelledby="article-internal-links-title">
+            <p className="eyebrow" id="article-internal-links-title">Continue Exploring</p>
+            <div>
+              {post.internalLinks.map((link) => (
+                <a href={link.href} key={link.href}>{link.label}</a>
+              ))}
+            </div>
+          </aside>
+        )}
 
         <div className="blog-bottom-print">
           <button

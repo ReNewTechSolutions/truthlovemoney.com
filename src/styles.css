@@ -6212,6 +6212,66 @@ p {
   font-style: italic;
 }
 
+.article-faq,
+.article-internal-links {
+  width: min(100%, 760px);
+  margin: clamp(2.5rem, 7vw, 4.5rem) auto 0;
+  border-top: 1px solid rgba(169, 139, 84, 0.34);
+  padding-top: clamp(1.5rem, 4vw, 2rem);
+}
+
+.article-faq h2 {
+  color: var(--creek-deep);
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+
+.article-faq details {
+  border-bottom: 1px solid rgba(169, 139, 84, 0.22);
+  padding: 1rem 0;
+}
+
+.article-faq summary {
+  cursor: pointer;
+  color: var(--creek-deep);
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 3vw, 1.35rem);
+  font-weight: 700;
+}
+
+.article-faq summary:focus-visible {
+  outline: 3px solid rgba(211, 168, 63, 0.38);
+  outline-offset: 0.35rem;
+}
+
+.article-faq p {
+  margin-bottom: 0;
+}
+
+.article-internal-links {
+  border: 1px solid rgba(169, 139, 84, 0.26);
+  padding: clamp(1rem, 4vw, 1.5rem);
+  background: rgba(251, 247, 238, 0.66);
+}
+
+.article-internal-links > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.article-internal-links a {
+  border-bottom: 1px solid rgba(169, 139, 84, 0.45);
+  color: var(--creek-deep);
+  font-family: var(--serif);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.article-internal-links a:hover,
+.article-internal-links a:focus-visible {
+  color: var(--warm-walnut);
+}
+
 @keyframes creekShimmer {
   from {
     background-position: 0 0, 0 0;
