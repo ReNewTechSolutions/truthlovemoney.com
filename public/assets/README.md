@@ -2,7 +2,10 @@
 
 The site references these production image files:
 
-- `watermark-logo.png` - site logo and footer brand mark
+- `watermark-logo.png` - square site logo and footer brand mark
+- `favicon-32.png` - browser tab icon
+- `apple-touch-icon.png` - iOS home-screen icon
+- `lyon-den-social-share.png` - Open Graph and Twitter share image
 - `hero.png` - cinematic homepage hero image
 - `portrait.png` - realistic host portrait for About and preview sections
 - `banner.png` - supporting brand/channel banner image
@@ -26,6 +29,9 @@ The site references these production image files:
 Referenced paths:
 
 - `/assets/watermark-logo.png`
+- `/assets/favicon-32.png`
+- `/assets/apple-touch-icon.png`
+- `/assets/lyon-den-social-share.png`
 - `/assets/hero.png`
 - `/assets/portrait.png`
 - `/assets/banner.png`

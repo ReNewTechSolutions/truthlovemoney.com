@@ -486,7 +486,7 @@ const blogPosts = [
       'career courage',
     ],
     collectionSlugs: ['legacy-lessons', 'field-notes', 'conversations', 'teaching-wisdom'],
-    ogImage: '/assets/watermark-logo.png',
+    ogImage: '/assets/lyon-den-social-share.png',
     suggestedFeaturedImage: 'the-price-of-staying-marguerite-lyon.jpg',
     featuredImageNeeded: '/assets/the-price-of-staying-marguerite-lyon.jpg',
     featuredImageAlt:
@@ -1074,7 +1074,7 @@ const blogPosts = [
       'lifelong learning',
     ],
     collectionSlugs: ['legacy-lessons', 'teaching-wisdom', 'books-that-changed-me', 'conversations'],
-    ogImage: '/assets/watermark-logo.png',
+    ogImage: '/assets/lyon-den-social-share.png',
     suggestedFeaturedImage: 'what-my-mother-already-knew.png',
     socialExcerpt:
       'Some people never write books. They simply become the lesson. A Lyon Den reflection on Stephen Covey, mother wisdom, character, and influence.',
@@ -1206,7 +1206,7 @@ const blogPosts = [
       'legacy lessons',
     ],
     collectionSlugs: ['teaching-wisdom', 'legacy-lessons', 'conversations'],
-    ogImage: '/assets/watermark-logo.png',
+    ogImage: '/assets/lyon-den-social-share.png',
     suggestedFeaturedImage: 'a-teacher-never-retires.png',
     socialExcerpt:
       'A Lyon Den reflection on teaching as a way of living, listening before judging, and the quiet reach of influence.',
@@ -1342,7 +1342,7 @@ const blogPosts = [
       'literary memories',
     ],
     collectionSlugs: ['poetry', 'teaching-wisdom', 'summer-memories', 'illustrated-pages'],
-    ogImage: '/assets/watermark-logo.png',
+    ogImage: '/assets/lyon-den-social-share.png',
     suggestedFeaturedImage: 'the-notebook-that-changed-everything.png',
     socialExcerpt:
       'A Lyon Den reflection on a seventh-grade poetry notebook, Watermelon Pickle, and the poems that helped students find their own voices.',
@@ -2011,7 +2011,7 @@ function getPostSlug(post) {
 }
 
 function getPostOgImage(post) {
-  return post.ogImage || '/assets/watermark-logo.png'
+  return post.ogImage || '/assets/lyon-den-social-share.png'
 }
 
 function getArchiveEntries() {
@@ -2683,12 +2683,13 @@ function useStructuredData(id, data) {
 function usePageMeta({
   title,
   description,
-  image = '/assets/watermark-logo.png',
+  image = '/assets/lyon-den-social-share.png',
   type = 'website',
   canonicalPath,
   keywords,
 }) {
   useEffect(() => {
+    const siteOrigin = 'https://www.truthlovemoney.com'
     const previousTitle = document.title
     const descriptionMeta =
       document.querySelector('meta[name="description"]') ||
@@ -2698,19 +2699,20 @@ function usePageMeta({
     const cleanDescription =
       description ||
       'Enter The Lyon Den, a living archive where Marguerite Lyon’s memories, reflections, books, and lessons become cinematic episodes, written stories, and lasting legacy.'
+    const imageUrl = image.startsWith('http') ? image : `${siteOrigin}${image}`
     const cleanupMeta = [
       setMetaContent('meta[property="og:title"]', { property: 'og:title' }, cleanTitle),
       setMetaContent('meta[property="og:description"]', { property: 'og:description' }, cleanDescription),
       setMetaContent('meta[property="og:type"]', { property: 'og:type' }, type),
-      setMetaContent('meta[property="og:image"]', { property: 'og:image' }, image),
+      setMetaContent('meta[property="og:image"]', { property: 'og:image' }, imageUrl),
       setMetaContent('meta[name="twitter:title"]', { name: 'twitter:title' }, cleanTitle),
       setMetaContent('meta[name="twitter:description"]', { name: 'twitter:description' }, cleanDescription),
-      setMetaContent('meta[name="twitter:image"]', { name: 'twitter:image' }, image),
+      setMetaContent('meta[name="twitter:image"]', { name: 'twitter:image' }, imageUrl),
       setMetaContent('meta[name="twitter:card"]', { name: 'twitter:card' }, 'summary_large_image'),
     ]
     const cleanupCanonical =
-      canonicalPath && typeof window !== 'undefined'
-        ? setCanonicalHref(`${window.location.origin}${canonicalPath}`)
+      typeof window !== 'undefined'
+        ? setCanonicalHref(`${siteOrigin}${canonicalPath || window.location.pathname}`)
         : undefined
     const cleanupKeywords = keywords
       ? setMetaContent('meta[name="keywords"]', { name: 'keywords' }, keywords)
@@ -3359,7 +3361,7 @@ function RetiredCreatorPage() {
     title: 'The Lyon Den | Continue the Story',
     description:
       'The Lyon Den public site now focuses on Journal articles, literary collections, episodes, and social storytelling.',
-    image: '/assets/watermark-logo.png',
+    image: '/assets/lyon-den-social-share.png',
   })
 
   return (
@@ -3410,7 +3412,7 @@ function HomePage() {
     title: 'The Lyon Den | Stories, Memory, Literature & Legacy',
     description:
       'Enter The Lyon Den, a living archive where Marguerite Lyon’s memories, reflections, books, and lessons become cinematic episodes, written stories, and lasting legacy.',
-    image: homepageArt.heroBanner,
+    image: '/assets/lyon-den-social-share.png',
   })
 
   return (
@@ -3772,7 +3774,7 @@ function JournalPage() {
     title: 'The Lyon Den Journal | Written Stories, Poetry & Legacy Lessons',
     description:
       'Read The Lyon Den Journal: literary reflections, teaching memories, poetry, books, family lessons, and story-shaped wisdom.',
-    image: '/assets/watermark-logo.png',
+    image: '/assets/lyon-den-social-share.png',
   })
 
   return (
@@ -3899,7 +3901,7 @@ function CollectionPage({ collection }) {
   usePageMeta({
     title: `${collection.title} | The Lyon Den Archive`,
     description: collection.description,
-    image: '/assets/watermark-logo.png',
+    image: '/assets/lyon-den-social-share.png',
   })
 
   return (
@@ -4166,7 +4168,7 @@ function BlogPostPage({ post }) {
   const cleanOgDescription = post.ogDescription || cleanDescription
   const cleanTitle = post.seoTitle || `${post.title} | The Lyon Den Journal`
   const canonicalPath = post.canonicalPath || post.path
-  const siteOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://www.truthlovemoney.com'
+  const siteOrigin = 'https://www.truthlovemoney.com'
   const canonicalHref = `${siteOrigin}${canonicalPath}`
   const postImage = getPostOgImage(post)
   const postImageUrl = postImage.startsWith('http') ? postImage : `${siteOrigin}${postImage}`
@@ -4454,7 +4456,7 @@ function PoetryPage() {
     title: 'Poems That Stayed With Me | The Lyon Den Poetry',
     description:
       'A copyright-safe poetry reflection from The Lyon Den about poems, memory, teaching literature, and the ordinary moments that stay with us.',
-    image: '/assets/watermark-logo.png',
+    image: '/assets/lyon-den-social-share.png',
   })
 
   return (

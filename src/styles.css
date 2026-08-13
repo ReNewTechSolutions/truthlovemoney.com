@@ -123,16 +123,19 @@ textarea {
 .brand-logo,
 .footer-logo {
   flex: 0 0 auto;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  object-fit: contain;
+  border: 1px solid rgba(232, 197, 77, 0.66);
+  border-radius: 50%;
+  background: #120f0e;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 248, 234, 0.12),
+    0 8px 24px rgba(30, 37, 38, 0.18);
+  object-fit: cover;
   object-position: center;
   mix-blend-mode: normal;
 }
 
 .brand-logo {
-  width: clamp(3.8rem, 12vw, 5rem);
+  width: 3.3rem;
   height: 3.3rem;
   padding: 0;
 }
@@ -2719,8 +2722,8 @@ a:focus-visible {
 }
 
 .footer-logo {
-  width: min(13rem, 70vw);
-  height: 5.2rem;
+  width: min(7rem, 38vw);
+  height: min(7rem, 38vw);
   padding: 0;
 }
 
@@ -3483,7 +3486,7 @@ p {
 }
 
 .brand-logo {
-  width: clamp(4.4rem, 14vw, 6rem);
+  width: 3.85rem;
   height: 3.85rem;
 }
 
