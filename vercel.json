@@ -1,8 +1,18 @@
 {
-  "rewrites": [
+  "buildCommand": "npm run build",
+  "devCommand": "vite --port $PORT",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
+  "redirects": [
     {
-      "source": "/((?!assets/|favicon.ico|robots.txt).*)",
-      "destination": "/index.html"
+      "source": "/blog",
+      "destination": "/stories",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/stories/:slug",
+      "permanent": true
     }
   ]
 }

@@ -1,9 +1,11 @@
 node_modules/
 dist/
+.prerender/
 .DS_Store
 .env
 .env.local
 *.log
-supabase/.temp/
 content/episodes/**/heygen-request.prepared.json
 content/episodes/**/heygen-result.json
+.vercel
+.env*.local

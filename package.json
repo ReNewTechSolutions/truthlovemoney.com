@@ -5,16 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build:client && npm run build:server && node scripts/prerender.mjs",
+    "build:client": "vite build",
+    "build:server": "vite build --ssr src/entry-server.jsx --outDir .prerender",
+    "lint": "eslint src",
+    "test": "node --test",
     "generate:episode1": "node scripts/generate-episode1-heygen.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@supabase/supabase-js": "latest",
+    "@vercel/analytics": "^2.0.1",
     "@vitejs/plugin-react": "latest",
     "dotenv": "^17.4.2",
     "react": "latest",
     "react-dom": "latest",
-    "vite": "latest"
+    "vite": "8.2.1"
+  },
+  "devDependencies": {
+    "eslint": "latest"
   }
 }
