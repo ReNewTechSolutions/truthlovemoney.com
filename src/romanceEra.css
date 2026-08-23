@@ -530,10 +530,13 @@
 
 .romance-result-card {
   position: relative;
-  width: min(100%, 32rem);
+  width: min(100%, 22.5rem);
+  aspect-ratio: 4 / 5;
   justify-self: center;
   margin: 0;
+  overflow: hidden;
   border: 1px solid rgba(224, 191, 130, 0.48);
+  border-radius: 0;
   padding: 0.45rem;
   background: #0b0d0e;
   box-shadow: 0 2rem 4.5rem rgba(0, 0, 0, 0.45);
@@ -551,7 +554,9 @@
 
 .romance-result-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: var(--romance-result-focal-position, center);
 }
 
 .romance-result-reading {
@@ -751,6 +756,10 @@
 
   .romance-question {
     padding-block: 3.5rem 5rem;
+  }
+
+  .romance-result-card {
+    width: min(100%, 24rem);
   }
 
   .romance-choices {
