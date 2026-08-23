@@ -11,6 +11,19 @@ export const socialLinks = [
   },
 ]
 
+export const quizNavigationItems = [
+  {
+    label: 'Feminine Archetype Quiz',
+    description: 'Discover whether you’re the Sage, Muse, Lover, Wanderer, or Queen.',
+    href: '/archetypes',
+  },
+  {
+    label: 'Romance Era Quiz',
+    description: 'Discover whether your heart belongs to the 1940s, 1960s, 1970s, 1980s, or a timeless romance.',
+    href: '/romance-era',
+  },
+]
+
 const staticPages = {
   '/': {
     title: 'The Lyon Den | Stories by Marguerite Lyon',

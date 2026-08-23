@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import ArchetypeQuiz from './ArchetypeQuiz'
 import RomanceEraQuiz from './RomanceEraQuiz'
@@ -12,6 +12,7 @@ import {
 import {
   getSeoForPath,
   getStructuredData,
+  quizNavigationItems,
   siteUrl,
   socialLinks,
   youtubeUrl,
@@ -84,14 +85,57 @@ function Brand({ light = false }) {
 
 function SiteHeader() {
   const [open, setOpen] = useState(false)
+  const [quizOpen, setQuizOpen] = useState(false)
+  const menuButtonRef = useRef(null)
+  const quizButtonRef = useRef(null)
+  const quizNavigationRef = useRef(null)
+
+  const closeNavigation = () => {
+    setOpen(false)
+    setQuizOpen(false)
+  }
+
+  const toggleMenu = () => {
+    if (open) setQuizOpen(false)
+    setOpen((value) => !value)
+  }
+
+  const openQuizAndFocusFirstLink = () => {
+    setQuizOpen(true)
+    window.requestAnimationFrame(() => {
+      quizNavigationRef.current?.querySelector('a')?.focus()
+    })
+  }
 
   useEffect(() => {
     const handleKey = (event) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key !== 'Escape') return
+
+      if (quizOpen) {
+        setQuizOpen(false)
+        quizButtonRef.current?.focus()
+        return
+      }
+
+      if (open) {
+        setOpen(false)
+        menuButtonRef.current?.focus()
+      }
     }
+
+    const handlePointerDown = (event) => {
+      if (quizOpen && !quizNavigationRef.current?.contains(event.target)) {
+        setQuizOpen(false)
+      }
+    }
+
     document.addEventListener('keydown', handleKey)
-    return () => document.removeEventListener('keydown', handleKey)
-  }, [])
+    document.addEventListener('pointerdown', handlePointerDown)
+    return () => {
+      document.removeEventListener('keydown', handleKey)
+      document.removeEventListener('pointerdown', handlePointerDown)
+    }
+  }, [open, quizOpen])
 
   return (
     <header className="site-header">
@@ -100,20 +144,47 @@ function SiteHeader() {
       </a>
       <button
         className="menu-toggle"
+        ref={menuButtonRef}
         type="button"
         aria-expanded={open}
         aria-controls="primary-navigation"
-        onClick={() => setOpen((value) => !value)}
+        onClick={toggleMenu}
       >
         <span>{open ? 'Close' : 'Menu'}</span>
         <i aria-hidden="true" />
       </button>
       <nav className={`primary-nav ${open ? 'is-open' : ''}`} id="primary-navigation" aria-label="Primary navigation">
-        <a href="/stories" onClick={() => setOpen(false)}>Stories</a>
-        <a href="/archetypes" onClick={() => setOpen(false)}>Quiz</a>
-        <a href="/about" onClick={() => setOpen(false)}>About</a>
-        <a href="/#follow" onClick={() => setOpen(false)}>Follow</a>
-        <a className="nav-watch" href={youtubeUrl} target="_blank" rel="noreferrer">
+        <a href="/stories" onClick={closeNavigation}>Stories</a>
+        <div className="nav-quiz" ref={quizNavigationRef}>
+          <button
+            aria-controls="quiz-navigation-links"
+            aria-expanded={quizOpen}
+            aria-haspopup="true"
+            className="nav-quiz-toggle"
+            onClick={() => setQuizOpen((value) => !value)}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowDown') {
+                event.preventDefault()
+                openQuizAndFocusFirstLink()
+              }
+            }}
+            ref={quizButtonRef}
+            type="button"
+          >
+            Quiz <span className="nav-quiz-caret" aria-hidden="true">⌄</span>
+          </button>
+          <div className="nav-quiz-list" hidden={!quizOpen} id="quiz-navigation-links">
+            {quizNavigationItems.map((item) => (
+              <a className="nav-quiz-link" href={item.href} key={item.href} onClick={closeNavigation}>
+                <strong>{item.label}</strong>
+                <span>{item.description}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+        <a href="/about" onClick={closeNavigation}>About</a>
+        <a href="/#follow" onClick={closeNavigation}>Follow</a>
+        <a className="nav-watch" href={youtubeUrl} target="_blank" rel="noreferrer" onClick={closeNavigation}>
           Watch <span aria-hidden="true">↗</span>
         </a>
       </nav>
