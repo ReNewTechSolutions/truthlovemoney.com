@@ -537,7 +537,7 @@
   overflow: hidden;
   border: 1px solid rgba(224, 191, 130, 0.48);
   border-radius: 0;
-  padding: 0.45rem;
+  padding: 0;
   background: #0b0d0e;
   box-shadow: 0 2rem 4.5rem rgba(0, 0, 0, 0.45);
   animation: romance-card-reveal 850ms 180ms ease both;
@@ -555,7 +555,7 @@
 .romance-result-card img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: var(--romance-result-focal-position, center);
 }
 
@@ -705,10 +705,11 @@
   color: var(--romance-gold-pale);
 }
 
-.romance-result--free-spirited { --romance-gold-pale: #bdc67b; --romance-gold: #87984e; }
-.romance-result--cinematic { --romance-gold-pale: #d09b55; --romance-gold: #9f6e32; }
-.romance-result--grand { --romance-gold-pale: #e7a86e; --romance-gold: #b85e63; }
-.romance-result--timeless { --romance-gold-pale: #c1acd0; --romance-gold: #8f789e; }
+.romance-result--devoted { --romance-result-focal-position: 50% 50%; }
+.romance-result--free-spirited { --romance-gold-pale: #bdc67b; --romance-gold: #87984e; --romance-result-focal-position: 50% 50%; }
+.romance-result--cinematic { --romance-gold-pale: #d09b55; --romance-gold: #9f6e32; --romance-result-focal-position: 50% 42%; }
+.romance-result--grand { --romance-gold-pale: #e7a86e; --romance-gold: #b85e63; --romance-result-focal-position: 50% 50%; }
+.romance-result--timeless { --romance-gold-pale: #c1acd0; --romance-gold: #8f789e; --romance-result-focal-position: 50% 50%; }
 
 @keyframes romance-copy-in {
   from { opacity: 0; transform: translateY(0.75rem); }
